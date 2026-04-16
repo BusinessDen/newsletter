@@ -1,0 +1,82 @@
+name: Scrape Newsletter Data
+
+on:
+  schedule:
+    # 4 AM MT — DST-aware dual cron
+    # MDT (Mar-Nov): 4 AM = 10:00 UTC
+    # MST (Nov-Mar): 4 AM = 11:00 UTC
+    - cron: "0 10 * * *"
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+    inputs:
+      backfill_days:
+        description: "Days of history to fetch (default 7, use 9999 for full history)"
+        required: false
+        default: "7"
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: DST hour guard
+        id: tz
+        run: |
+          MT_HOUR=$(TZ=America/Denver date +%H)
+          echo "mt_hour=$MT_HOUR" >> "$GITHUB_OUTPUT"
+          if [[ "$MT_HOUR" != "04" && "${{ github.event_name }}" == "schedule" ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Skipping: MT hour is $MT_HOUR, not 04"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        if: steps.tz.outputs.skip != 'true'
+        uses: actions/checkout@v4
+
+      # Deploy-first: pull existing data from gh-pages
+      - name: Pull existing data
+        if: steps.tz.outputs.skip != 'true'
+        run: |
+          git fetch origin gh-pages --depth=1 || true
+          git checkout origin/gh-pages -- newsletter-data.json 2>/dev/null || echo "No existing data file"
+          git checkout origin/gh-pages -- author-lookup.json 2>/dev/null || echo "No author lookup file"
+          ls -la newsletter-data.json author-lookup.json 2>/dev/null || echo "Starting fresh"
+
+      - name: Set up Python
+        if: steps.tz.outputs.skip != 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        if: steps.tz.outputs.skip != 'true'
+        run: pip install requests
+
+      - name: Run scraper
+        if: steps.tz.outputs.skip != 'true'
+        env:
+          HUBSPOT_TOKEN: ${{ secrets.HUBSPOT_TOKEN }}
+          BACKFILL_DAYS: ${{ github.event.inputs.backfill_days || '7' }}
+        run: python scrape.py
+
+      # Stage deploy directory
+      - name: Stage deploy files
+        if: steps.tz.outputs.skip != 'true'
+        run: |
+          mkdir -p _site
+          touch _site/.nojekyll
+          cp index.html _site/
+          cp newsletter-data.json _site/
+          cp author-lookup.json _site/ 2>/dev/null || true
+
+      # Deploy-after: push updated data + dashboard to gh-pages
+      - name: Deploy to GitHub Pages
+        if: steps.tz.outputs.skip != 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
+          keep_files: false

@@ -10,7 +10,7 @@ Required env vars:
     HUBSPOT_TOKEN — HubSpot Private App access token or Personal Access Key
 
 Optional env vars:
-    BACKFILL_DAYS — How many days of history to fetch (default: 7, use 90 for initial run)
+    BACKFILL_DAYS — How many days of history to fetch (default: 7, use 9999 for full history)
 
 Output: newsletter-data.json
 """
@@ -39,7 +39,6 @@ HEADERS = {
 }
 BASE = "https://api.hubapi.com"
 BACKFILL_DAYS = int(os.environ.get("BACKFILL_DAYS", "7"))
-MAX_HISTORY_DAYS = 180  # prune sends older than this
 DATA_FILE = Path("newsletter-data.json")
 BD_CAMPAIGN_NAME = "BD Newsfeed"
 BD_DOMAIN = "businessden.com"
@@ -398,10 +397,6 @@ def main():
     sends_by_date = {s["date"]: s for s in existing.get("sends", [])}
     for s in new_sends:
         sends_by_date[s["date"]] = s
-
-    # Prune old data
-    cutoff = (now - timedelta(days=MAX_HISTORY_DAYS)).strftime("%Y-%m-%d")
-    sends_by_date = {d: s for d, s in sends_by_date.items() if d >= cutoff}
 
     # Sort by date descending
     all_sends = sorted(sends_by_date.values(), key=lambda x: x["date"], reverse=True)
