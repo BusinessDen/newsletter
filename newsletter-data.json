@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated": "2026-04-16T20:21:23.312456+00:00",
+    "generated": "2026-04-16T20:26:37.446560+00:00",
     "total_sends": 5,
     "date_range": {
       "start": "2026-04-10",
@@ -95,7 +95,7 @@
       "sent": 18560,
       "delivered": 17467,
       "opens": 3298,
-      "clicks": 1752,
+      "clicks": 1750,
       "bounces": 24,
       "hard_bounces": 5,
       "soft_bounces": 19,
@@ -106,8 +106,8 @@
       "suppressed": 380,
       "pending": 1069,
       "open_rate": 18.88,
-      "click_rate": 10.03,
-      "click_through_rate": 53.12,
+      "click_rate": 10.02,
+      "click_through_rate": 53.06,
       "bounce_rate": 0.13,
       "unsubscribe_rate": 0.02,
       "device_opens": {
@@ -116,7 +116,7 @@
         "unknown": 231
       },
       "device_clicks": {
-        "computer": 1814,
+        "computer": 1813,
         "mobile": 1405,
         "unknown": 0
       },
