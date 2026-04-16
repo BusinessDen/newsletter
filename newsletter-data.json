@@ -1,0 +1,401 @@
+{
+  "metadata": {
+    "generated": "2026-04-16T20:21:23.312456+00:00",
+    "total_sends": 5,
+    "date_range": {
+      "start": "2026-04-10",
+      "end": "2026-04-16"
+    }
+  },
+  "sends": [
+    {
+      "date": "2026-04-16",
+      "email_id": "211112279370",
+      "name": "BD 4.16.26",
+      "recipients": 19801,
+      "sent": 18578,
+      "delivered": 17535,
+      "opens": 2976,
+      "clicks": 1497,
+      "bounces": 23,
+      "hard_bounces": 2,
+      "soft_bounces": 21,
+      "unsubscribes": 13,
+      "spam_reports": 4,
+      "contacts_lost": 19,
+      "dropped": 842,
+      "suppressed": 381,
+      "pending": 1020,
+      "open_rate": 16.97,
+      "click_rate": 8.54,
+      "click_through_rate": 50.3,
+      "bounce_rate": 0.12,
+      "unsubscribe_rate": 0.07,
+      "device_opens": {
+        "computer": 3309,
+        "mobile": 2131,
+        "unknown": 144
+      },
+      "device_clicks": {
+        "computer": 1557,
+        "mobile": 1278,
+        "unknown": 0
+      },
+      "article_clicks": 2613,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/16/golden-construction-firm-says-its-president-spent-stolen-millions-on-silver",
+          "title": "Golden Construction Firm Says Its President Spent Stolen Millions On Silver",
+          "clicks": 817,
+          "click_pct": 27.45
+        },
+        {
+          "url": "https://businessden.com/2026/04/16/restaurant-v-restaurant-56-restaurants-say-citys-tipped-wage-shouldnt-drop",
+          "title": "Restaurant V Restaurant 56 Restaurants Say Citys Tipped Wage Shouldnt Drop",
+          "clicks": 704,
+          "click_pct": 23.66
+        },
+        {
+          "url": "https://businessden.com/2026/04/16/building-maintenance-firm-closing-laying-off-143-people",
+          "title": "Building Maintenance Firm Closing Laying Off 143 People",
+          "clicks": 324,
+          "click_pct": 10.89
+        },
+        {
+          "url": "https://businessden.com/2026/04/16/da-pushes-back-against-council-proposal-to-change-municipal-sentencing",
+          "title": "Da Pushes Back Against Council Proposal To Change Municipal Sentencing",
+          "clicks": 308,
+          "click_pct": 10.35
+        },
+        {
+          "url": "https://businessden.com/2026/04/16/the-docket-real-estate-lawsuit-roundup-for-4-16-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 4 16 26",
+          "clicks": 215,
+          "click_pct": 7.22
+        },
+        {
+          "url": "https://businessden.com/2026/04/15/peyton-manning-backed-group-eyeing-30m-restaurant-event-concept-in-littleton",
+          "title": "Peyton Manning Backed Group Eyeing 30M Restaurant Event Concept In Littleton",
+          "clicks": 160,
+          "click_pct": 5.38
+        },
+        {
+          "url": "https://businessden.com/2026/04/15/demolition-begins-at-leetsdale-apartment-building-torched-by-fire",
+          "title": "Demolition Begins At Leetsdale Apartment Building Torched By Fire",
+          "clicks": 85,
+          "click_pct": 2.86
+        }
+      ]
+    },
+    {
+      "date": "2026-04-15",
+      "email_id": "211064698238",
+      "name": "BD 4.15.26",
+      "recipients": 19789,
+      "sent": 18560,
+      "delivered": 17467,
+      "opens": 3298,
+      "clicks": 1752,
+      "bounces": 24,
+      "hard_bounces": 5,
+      "soft_bounces": 19,
+      "unsubscribes": 4,
+      "spam_reports": 0,
+      "contacts_lost": 9,
+      "dropped": 849,
+      "suppressed": 380,
+      "pending": 1069,
+      "open_rate": 18.88,
+      "click_rate": 10.03,
+      "click_through_rate": 53.12,
+      "bounce_rate": 0.13,
+      "unsubscribe_rate": 0.02,
+      "device_opens": {
+        "computer": 3886,
+        "mobile": 2277,
+        "unknown": 231
+      },
+      "device_clicks": {
+        "computer": 1814,
+        "mobile": 1405,
+        "unknown": 0
+      },
+      "article_clicks": 2869,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/15/peyton-manning-backed-group-eyeing-30m-restaurant-event-concept-in-littleton",
+          "title": "Peyton Manning Backed Group Eyeing 30M Restaurant Event Concept In Littleton",
+          "clicks": 1276,
+          "click_pct": 38.69
+        },
+        {
+          "url": "https://businessden.com/2026/04/15/buyer-backs-out-of-plan-to-acquire-cbz-apartments-in-aurora",
+          "title": "Buyer Backs Out Of Plan To Acquire Cbz Apartments In Aurora",
+          "clicks": 469,
+          "click_pct": 14.22
+        },
+        {
+          "url": "https://businessden.com/2026/04/15/lumen-sells-broomfield-office-campus-for-15m",
+          "title": "Lumen Sells Broomfield Office Campus For 15M",
+          "clicks": 402,
+          "click_pct": 12.19
+        },
+        {
+          "url": "https://businessden.com/2026/04/15/demolition-begins-at-leetsdale-apartment-building-torched-by-fire",
+          "title": "Demolition Begins At Leetsdale Apartment Building Torched By Fire",
+          "clicks": 238,
+          "click_pct": 7.22
+        },
+        {
+          "url": "https://businessden.com/2026/04/14/developers-fear-broomfield-is-trying-to-kill-long-planned-downtown-project",
+          "title": "Developers Fear Broomfield Is Trying To Kill Long Planned Downtown Project",
+          "clicks": 195,
+          "click_pct": 5.91
+        },
+        {
+          "url": "https://businessden.com/2026/04/14/downtown-mens-fashion-retailer-to-close-after-decades-in-business",
+          "title": "Downtown Mens Fashion Retailer To Close After Decades In Business",
+          "clicks": 193,
+          "click_pct": 5.85
+        },
+        {
+          "url": "https://businessden.com/2026/04/14/denver-looks-to-buy-redevelop-state-office-building-site-in-cap-hill",
+          "title": "Denver Looks To Buy Redevelop State Office Building Site In Cap Hill",
+          "clicks": 96,
+          "click_pct": 2.91
+        }
+      ]
+    },
+    {
+      "date": "2026-04-14",
+      "email_id": "210989795598",
+      "name": "BD 4.14.26",
+      "recipients": 19786,
+      "sent": 18543,
+      "delivered": 17889,
+      "opens": 3327,
+      "clicks": 1840,
+      "bounces": 654,
+      "hard_bounces": 4,
+      "soft_bounces": 650,
+      "unsubscribes": 7,
+      "spam_reports": 0,
+      "contacts_lost": 11,
+      "dropped": 864,
+      "suppressed": 379,
+      "pending": 0,
+      "open_rate": 18.6,
+      "click_rate": 10.29,
+      "click_through_rate": 55.3,
+      "bounce_rate": 3.53,
+      "unsubscribe_rate": 0.04,
+      "device_opens": {
+        "computer": 4214,
+        "mobile": 2327,
+        "unknown": 263
+      },
+      "device_clicks": {
+        "computer": 2033,
+        "mobile": 1507,
+        "unknown": 0
+      },
+      "article_clicks": 3004,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/14/developers-fear-broomfield-is-trying-to-kill-long-planned-downtown-project",
+          "title": "Developers Fear Broomfield Is Trying To Kill Long Planned Downtown Project",
+          "clicks": 1117,
+          "click_pct": 33.57
+        },
+        {
+          "url": "https://businessden.com/2026/04/14/downtown-mens-fashion-retailer-to-close-after-decades-in-business",
+          "title": "Downtown Mens Fashion Retailer To Close After Decades In Business",
+          "clicks": 693,
+          "click_pct": 20.83
+        },
+        {
+          "url": "https://businessden.com/2026/04/14/lodos-nativ-hotel-nightclub-shut-down-by-city",
+          "title": "Lodos Nativ Hotel Nightclub Shut Down By City",
+          "clicks": 380,
+          "click_pct": 11.42
+        },
+        {
+          "url": "https://businessden.com/2026/04/14/denver-looks-to-buy-redevelop-state-office-building-site-in-cap-hill",
+          "title": "Denver Looks To Buy Redevelop State Office Building Site In Cap Hill",
+          "clicks": 318,
+          "click_pct": 9.56
+        },
+        {
+          "url": "https://businessden.com/2026/04/13/fix-and-flipper-charged-with-defrauding-real-estate-pros-out-of-1-4m",
+          "title": "Fix And Flipper Charged With Defrauding Real Estate Pros Out Of 1 4M",
+          "clicks": 227,
+          "click_pct": 6.82
+        },
+        {
+          "url": "https://businessden.com/2026/04/13/shopping-center-owner-looks-to-demolish-former-chez-artiste-theater",
+          "title": "Shopping Center Owner Looks To Demolish Former Chez Artiste Theater",
+          "clicks": 179,
+          "click_pct": 5.38
+        },
+        {
+          "url": "https://businessden.com/2026/04/13/former-hospital-coming-down-as-wheat-ridge-considers-city-hall-land-swap",
+          "title": "Former Hospital Coming Down As Wheat Ridge Considers City Hall Land Swap",
+          "clicks": 90,
+          "click_pct": 2.71
+        }
+      ]
+    },
+    {
+      "date": "2026-04-13",
+      "email_id": "210833050385",
+      "name": "BD 4.13.26",
+      "recipients": 19795,
+      "sent": 18558,
+      "delivered": 18519,
+      "opens": 5285,
+      "clicks": 1696,
+      "bounces": 39,
+      "hard_bounces": 3,
+      "soft_bounces": 36,
+      "unsubscribes": 14,
+      "spam_reports": 0,
+      "contacts_lost": 17,
+      "dropped": 862,
+      "suppressed": 375,
+      "pending": 0,
+      "open_rate": 28.54,
+      "click_rate": 9.16,
+      "click_through_rate": 32.09,
+      "bounce_rate": 0.21,
+      "unsubscribe_rate": 0.08,
+      "device_opens": {
+        "computer": 4183,
+        "mobile": 2058,
+        "unknown": 3284
+      },
+      "device_clicks": {
+        "computer": 1698,
+        "mobile": 1356,
+        "unknown": 0
+      },
+      "article_clicks": 2968,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/13/fix-and-flipper-charged-with-defrauding-real-estate-pros-out-of-1-4m",
+          "title": "Fix And Flipper Charged With Defrauding Real Estate Pros Out Of 1 4M",
+          "clicks": 1133,
+          "click_pct": 21.44
+        },
+        {
+          "url": "https://businessden.com/2026/04/13/shopping-center-owner-looks-to-demolish-former-chez-artiste-theater",
+          "title": "Shopping Center Owner Looks To Demolish Former Chez Artiste Theater",
+          "clicks": 621,
+          "click_pct": 11.75
+        },
+        {
+          "url": "https://businessden.com/2026/04/13/former-hospital-coming-down-as-wheat-ridge-considers-city-hall-land-swap",
+          "title": "Former Hospital Coming Down As Wheat Ridge Considers City Hall Land Swap",
+          "clicks": 527,
+          "click_pct": 9.97
+        },
+        {
+          "url": "https://businessden.com/2026/04/10/denver-corporate-center-cress-capital-terracap-deal",
+          "title": "Denver Corporate Center Cress Capital Terracap Deal",
+          "clicks": 363,
+          "click_pct": 6.87
+        },
+        {
+          "url": "https://businessden.com/2026/04/13/new-brewery-opening-in-former-mockery-space-in-rino",
+          "title": "New Brewery Opening In Former Mockery Space In Rino",
+          "clicks": 219,
+          "click_pct": 4.14
+        },
+        {
+          "url": "https://businessden.com/2026/04/10/receiver-will-run-insolvent-dispensaries-after-sales-fall-by-half",
+          "title": "Receiver Will Run Insolvent Dispensaries After Sales Fall By Half",
+          "clicks": 105,
+          "click_pct": 1.99
+        }
+      ]
+    },
+    {
+      "date": "2026-04-10",
+      "email_id": "210773637180",
+      "name": "BD 4.10.26",
+      "recipients": 19787,
+      "sent": 18559,
+      "delivered": 18499,
+      "opens": 3753,
+      "clicks": 2019,
+      "bounces": 60,
+      "hard_bounces": 4,
+      "soft_bounces": 56,
+      "unsubscribes": 20,
+      "spam_reports": 0,
+      "contacts_lost": 24,
+      "dropped": 857,
+      "suppressed": 371,
+      "pending": 0,
+      "open_rate": 20.29,
+      "click_rate": 10.91,
+      "click_through_rate": 53.8,
+      "bounce_rate": 0.32,
+      "unsubscribe_rate": 0.11,
+      "device_opens": {
+        "computer": 4564,
+        "mobile": 2469,
+        "unknown": 227
+      },
+      "device_clicks": {
+        "computer": 2695,
+        "mobile": 1525,
+        "unknown": 0
+      },
+      "article_clicks": 4082,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/10/9-8m-mansion-on-cherry-hills-country-club-tops-march-home-sales",
+          "title": "9 8M Mansion On Cherry Hills Country Club Tops March Home Sales",
+          "clicks": 1139,
+          "click_pct": 30.35
+        },
+        {
+          "url": "https://businessden.com/2026/04/10/denver-corporate-center-cress-capital-terracap-deal",
+          "title": "Denver Corporate Center Cress Capital Terracap Deal",
+          "clicks": 863,
+          "click_pct": 22.99
+        },
+        {
+          "url": "https://businessden.com/2026/04/10/front-range-five-capturing-the-lions-share-of-colorados-population-gains",
+          "title": "Front Range Five Capturing The Lions Share Of Colorados Population Gains",
+          "clicks": 680,
+          "click_pct": 18.12
+        },
+        {
+          "url": "https://businessden.com/2026/04/10/the-pipeline-commercial-real-estate-deals-for-4-10-26",
+          "title": "The Pipeline Commercial Real Estate Deals For 4 10 26",
+          "clicks": 460,
+          "click_pct": 12.26
+        },
+        {
+          "url": "https://businessden.com/2026/04/10/receiver-will-run-insolvent-dispensaries-after-sales-fall-by-half",
+          "title": "Receiver Will Run Insolvent Dispensaries After Sales Fall By Half",
+          "clicks": 360,
+          "click_pct": 9.59
+        },
+        {
+          "url": "https://businessden.com/2026/04/09/the-docket-real-estate-lawsuit-roundup-for-4-9-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 4 9 26",
+          "clicks": 354,
+          "click_pct": 9.43
+        },
+        {
+          "url": "https://businessden.com/2026/04/09/pickleball-concept-coming-to-infinite-monkey-theorem-space-in-rino",
+          "title": "Pickleball Concept Coming To Infinite Monkey Theorem Space In Rino",
+          "clicks": 226,
+          "click_pct": 6.02
+        }
+      ]
+    }
+  ]
+}
