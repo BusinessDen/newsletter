@@ -1,0 +1,21 @@
+# Output (downloaded via GitHub Actions artifacts, not committed)
+raw_output/
+_site/
+
+# Data file lives on gh-pages, not main
+newsletter-data.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Secrets
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
