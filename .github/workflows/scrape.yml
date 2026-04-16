@@ -65,6 +65,7 @@ jobs:
         if: steps.tz.outputs.skip != 'true'
         run: |
           mkdir -p _site
+          touch _site/.nojekyll
           cp index.html _site/
           cp newsletter-data.json _site/
 
