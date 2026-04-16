@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "generated": "2026-04-16T20:30:41.338325+00:00",
-    "total_sends": 5,
+    "generated": "2026-04-16T20:36:36.305493+00:00",
+    "total_sends": 62,
     "date_range": {
-      "start": "2026-04-10",
+      "start": "2026-01-20",
       "end": "2026-04-16"
     }
   },
@@ -41,7 +41,7 @@
         "mobile": 1279,
         "unknown": 0
       },
-      "article_clicks": 2614,
+      "article_clicks": 2615,
       "articles": [
         {
           "url": "https://businessden.com/2026/04/16/golden-construction-firm-says-its-president-spent-stolen-millions-on-silver",
@@ -76,8 +76,8 @@
         {
           "url": "https://businessden.com/2026/04/15/peyton-manning-backed-group-eyeing-30m-restaurant-event-concept-in-littleton",
           "title": "Peyton Manning Backed Group Eyeing 30M Restaurant Event Concept In Littleton",
-          "clicks": 160,
-          "click_pct": 5.37
+          "clicks": 161,
+          "click_pct": 5.41
         },
         {
           "url": "https://businessden.com/2026/04/15/demolition-begins-at-leetsdale-apartment-building-torched-by-fire",
@@ -92,28 +92,28 @@
       "email_id": "211064698238",
       "name": "BD 4.15.26",
       "recipients": 19789,
-      "sent": 18560,
+      "sent": 18559,
       "delivered": 17467,
-      "opens": 3298,
+      "opens": 3299,
       "clicks": 1752,
       "bounces": 24,
       "hard_bounces": 5,
       "soft_bounces": 19,
-      "unsubscribes": 4,
+      "unsubscribes": 5,
       "spam_reports": 0,
-      "contacts_lost": 9,
-      "dropped": 849,
+      "contacts_lost": 10,
+      "dropped": 850,
       "suppressed": 380,
-      "pending": 1069,
-      "open_rate": 18.88,
+      "pending": 1068,
+      "open_rate": 18.89,
       "click_rate": 10.03,
-      "click_through_rate": 53.12,
+      "click_through_rate": 53.11,
       "bounce_rate": 0.13,
-      "unsubscribe_rate": 0.02,
+      "unsubscribe_rate": 0.03,
       "device_opens": {
-        "computer": 3886,
+        "computer": 3888,
         "mobile": 2277,
-        "unknown": 231
+        "unknown": 232
       },
       "device_clicks": {
         "computer": 1814,
@@ -126,7 +126,7 @@
           "url": "https://businessden.com/2026/04/15/peyton-manning-backed-group-eyeing-30m-restaurant-event-concept-in-littleton",
           "title": "Peyton Manning Backed Group Eyeing 30M Restaurant Event Concept In Littleton",
           "clicks": 1276,
-          "click_pct": 38.69
+          "click_pct": 38.68
         },
         {
           "url": "https://businessden.com/2026/04/15/buyer-backs-out-of-plan-to-acquire-cbz-apartments-in-aurora",
@@ -144,7 +144,7 @@
           "url": "https://businessden.com/2026/04/15/demolition-begins-at-leetsdale-apartment-building-torched-by-fire",
           "title": "Demolition Begins At Leetsdale Apartment Building Torched By Fire",
           "clicks": 238,
-          "click_pct": 7.22
+          "click_pct": 7.21
         },
         {
           "url": "https://businessden.com/2026/04/14/developers-fear-broomfield-is-trying-to-kill-long-planned-downtown-project",
@@ -190,7 +190,7 @@
       "bounce_rate": 3.53,
       "unsubscribe_rate": 0.04,
       "device_opens": {
-        "computer": 4219,
+        "computer": 4220,
         "mobile": 2327,
         "unknown": 263
       },
@@ -394,6 +394,4275 @@
           "title": "Pickleball Concept Coming To Infinite Monkey Theorem Space In Rino",
           "clicks": 226,
           "click_pct": 6.02
+        }
+      ]
+    },
+    {
+      "date": "2026-04-09",
+      "email_id": "210711601501",
+      "name": "BD 4.9.26",
+      "recipients": 19777,
+      "sent": 18552,
+      "delivered": 17603,
+      "opens": 3249,
+      "clicks": 1571,
+      "bounces": 949,
+      "hard_bounces": 2,
+      "soft_bounces": 947,
+      "unsubscribes": 13,
+      "spam_reports": 1,
+      "contacts_lost": 16,
+      "dropped": 857,
+      "suppressed": 368,
+      "pending": 0,
+      "open_rate": 18.46,
+      "click_rate": 8.93,
+      "click_through_rate": 48.35,
+      "bounce_rate": 5.12,
+      "unsubscribe_rate": 0.07,
+      "device_opens": {
+        "computer": 3899,
+        "mobile": 1985,
+        "unknown": 303
+      },
+      "device_clicks": {
+        "computer": 2119,
+        "mobile": 1109,
+        "unknown": 0
+      },
+      "article_clicks": 3421,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/09/pickleball-concept-coming-to-infinite-monkey-theorem-space-in-rino",
+          "title": "Pickleball Concept Coming To Infinite Monkey Theorem Space In Rino",
+          "clicks": 755,
+          "click_pct": 23.24
+        },
+        {
+          "url": "https://businessden.com/2026/04/09/nude-foods-opts-not-to-ink-deal-reached-on-shark-tank",
+          "title": "Nude Foods Opts Not To Ink Deal Reached On Shark Tank",
+          "clicks": 647,
+          "click_pct": 19.91
+        },
+        {
+          "url": "https://businessden.com/2026/04/09/receiver-selling-flywheels-south-denver-self-storage-for-7m",
+          "title": "Receiver Selling Flywheels South Denver Self Storage For 7M",
+          "clicks": 632,
+          "click_pct": 19.45
+        },
+        {
+          "url": "https://businessden.com/2026/04/09/fort-annexation-morrison-revesco-city-street",
+          "title": "Fort Annexation Morrison Revesco City Street",
+          "clicks": 608,
+          "click_pct": 18.71
+        },
+        {
+          "url": "https://businessden.com/2026/04/09/the-docket-real-estate-lawsuit-roundup-for-4-9-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 4 9 26",
+          "clicks": 439,
+          "click_pct": 13.51
+        },
+        {
+          "url": "https://businessden.com/2026/04/08/holdout-leprino-heiress-sues-company-again-after-rejecting-lowball-buyout",
+          "title": "Holdout Leprino Heiress Sues Company Again After Rejecting Lowball Buyout",
+          "clicks": 258,
+          "click_pct": 7.94
+        },
+        {
+          "url": "https://businessden.com/2026/04/08/could-hemp-derived-thc-drinks-help-colorados-struggling-breweries-and-restaurants",
+          "title": "Could Hemp Derived Thc Drinks Help Colorados Struggling Breweries And Restaurants",
+          "clicks": 82,
+          "click_pct": 2.52
+        }
+      ]
+    },
+    {
+      "date": "2026-04-08",
+      "email_id": "210646476837",
+      "name": "BD 4.8.26",
+      "recipients": 19763,
+      "sent": 18543,
+      "delivered": 17465,
+      "opens": 3170,
+      "clicks": 1373,
+      "bounces": 1078,
+      "hard_bounces": 1,
+      "soft_bounces": 1077,
+      "unsubscribes": 10,
+      "spam_reports": 0,
+      "contacts_lost": 11,
+      "dropped": 855,
+      "suppressed": 365,
+      "pending": 0,
+      "open_rate": 18.15,
+      "click_rate": 7.86,
+      "click_through_rate": 43.31,
+      "bounce_rate": 5.81,
+      "unsubscribe_rate": 0.06,
+      "device_opens": {
+        "computer": 3824,
+        "mobile": 2003,
+        "unknown": 361
+      },
+      "device_clicks": {
+        "computer": 1530,
+        "mobile": 1089,
+        "unknown": 0
+      },
+      "article_clicks": 2134,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/08/holdout-leprino-heiress-sues-company-again-after-rejecting-lowball-buyout",
+          "title": "Holdout Leprino Heiress Sues Company Again After Rejecting Lowball Buyout",
+          "clicks": 740,
+          "click_pct": 23.34
+        },
+        {
+          "url": "https://businessden.com/2026/04/08/demolition-underway-at-american-motel-along-i-70-in-wheat-ridge",
+          "title": "Demolition Underway At American Motel Along I 70 In Wheat Ridge",
+          "clicks": 426,
+          "click_pct": 13.44
+        },
+        {
+          "url": "https://businessden.com/2026/04/08/former-denver-beverage-ceo-settles-with-sec-for-175k",
+          "title": "Former Denver Beverage Ceo Settles With Sec For 175K",
+          "clicks": 341,
+          "click_pct": 10.76
+        },
+        {
+          "url": "https://businessden.com/2026/04/08/could-hemp-derived-thc-drinks-help-colorados-struggling-breweries-and-restaurants",
+          "title": "Could Hemp Derived Thc Drinks Help Colorados Struggling Breweries And Restaurants",
+          "clicks": 259,
+          "click_pct": 8.17
+        },
+        {
+          "url": "https://businessden.com/2026/04/07/chfa-to-sell-lodo-office-building-move-to-downtown-tower",
+          "title": "Chfa To Sell Lodo Office Building Move To Downtown Tower",
+          "clicks": 152,
+          "click_pct": 4.79
+        },
+        {
+          "url": "https://businessden.com/2026/04/07/upton-residences-lawsuit-downtown-denver-window-8g-solutions-amacon",
+          "title": "Upton Residences Lawsuit Downtown Denver Window 8G Solutions Amacon",
+          "clicks": 121,
+          "click_pct": 3.82
+        },
+        {
+          "url": "https://businessden.com/2026/04/07/denver-office-building-reopens-after-garage-collapse-but-not-all-return",
+          "title": "Denver Office Building Reopens After Garage Collapse But Not All Return",
+          "clicks": 95,
+          "click_pct": 3.0
+        }
+      ]
+    },
+    {
+      "date": "2026-04-07",
+      "email_id": "210591149949",
+      "name": "BD 4.7.26",
+      "recipients": 19760,
+      "sent": 18546,
+      "delivered": 17641,
+      "opens": 4965,
+      "clicks": 1331,
+      "bounces": 905,
+      "hard_bounces": 8,
+      "soft_bounces": 897,
+      "unsubscribes": 16,
+      "spam_reports": 0,
+      "contacts_lost": 24,
+      "dropped": 853,
+      "suppressed": 361,
+      "pending": 0,
+      "open_rate": 28.14,
+      "click_rate": 7.54,
+      "click_through_rate": 26.81,
+      "bounce_rate": 4.88,
+      "unsubscribe_rate": 0.09,
+      "device_opens": {
+        "computer": 3760,
+        "mobile": 1762,
+        "unknown": 3067
+      },
+      "device_clicks": {
+        "computer": 1407,
+        "mobile": 961,
+        "unknown": 0
+      },
+      "article_clicks": 2175,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/07/upton-residences-lawsuit-downtown-denver-window-8g-solutions-amacon",
+          "title": "Upton Residences Lawsuit Downtown Denver Window 8G Solutions Amacon",
+          "clicks": 883,
+          "click_pct": 17.78
+        },
+        {
+          "url": "https://businessden.com/2026/04/07/chfa-to-sell-lodo-office-building-move-to-downtown-tower",
+          "title": "Chfa To Sell Lodo Office Building Move To Downtown Tower",
+          "clicks": 501,
+          "click_pct": 10.09
+        },
+        {
+          "url": "https://businessden.com/2026/04/06/construction-firm-owner-sues-bank-after-scammer-empties-accounts",
+          "title": "Construction Firm Owner Sues Bank After Scammer Empties Accounts",
+          "clicks": 320,
+          "click_pct": 6.45
+        },
+        {
+          "url": "https://businessden.com/2026/04/07/denver-office-building-reopens-after-garage-collapse-but-not-all-return",
+          "title": "Denver Office Building Reopens After Garage Collapse But Not All Return",
+          "clicks": 286,
+          "click_pct": 5.76
+        },
+        {
+          "url": "https://businessden.com/2026/04/06/former-denver-mayor-hancock-buys-five-points-building",
+          "title": "Former Denver Mayor Hancock Buys Five Points Building",
+          "clicks": 185,
+          "click_pct": 3.73
+        }
+      ]
+    },
+    {
+      "date": "2026-04-06",
+      "email_id": "210468342617",
+      "name": "BD 4.6.26",
+      "recipients": 19762,
+      "sent": 18551,
+      "delivered": 18513,
+      "opens": 5345,
+      "clicks": 2032,
+      "bounces": 38,
+      "hard_bounces": 7,
+      "soft_bounces": 31,
+      "unsubscribes": 15,
+      "spam_reports": 1,
+      "contacts_lost": 23,
+      "dropped": 853,
+      "suppressed": 358,
+      "pending": 0,
+      "open_rate": 28.87,
+      "click_rate": 10.98,
+      "click_through_rate": 38.02,
+      "bounce_rate": 0.2,
+      "unsubscribe_rate": 0.08,
+      "device_opens": {
+        "computer": 4440,
+        "mobile": 2215,
+        "unknown": 3007
+      },
+      "device_clicks": {
+        "computer": 2455,
+        "mobile": 1745,
+        "unknown": 0
+      },
+      "article_clicks": 3350,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/06/former-denver-mayor-hancock-buys-five-points-building",
+          "title": "Former Denver Mayor Hancock Buys Five Points Building",
+          "clicks": 1169,
+          "click_pct": 21.87
+        },
+        {
+          "url": "https://businessden.com/2026/04/06/construction-firm-owner-sues-bank-after-scammer-empties-accounts",
+          "title": "Construction Firm Owner Sues Bank After Scammer Empties Accounts",
+          "clicks": 622,
+          "click_pct": 11.64
+        },
+        {
+          "url": "https://businessden.com/2026/04/06/park-hill-hotel-sells-for-9m-ahead-of-apartment-conversion",
+          "title": "Park Hill Hotel Sells For 9M Ahead Of Apartment Conversion",
+          "clicks": 594,
+          "click_pct": 11.11
+        },
+        {
+          "url": "https://businessden.com/2026/04/06/former-sonder-landlords-hire-manager-to-keep-operating-hotels",
+          "title": "Former Sonder Landlords Hire Manager To Keep Operating Hotels",
+          "clicks": 562,
+          "click_pct": 10.51
+        },
+        {
+          "url": "https://businessden.com/2026/04/03/he-refused-to-walk-away-now-hes-selling-a-belcaro-mansion-for-8-5m",
+          "title": "He Refused To Walk Away Now Hes Selling A Belcaro Mansion For 8 5M",
+          "clicks": 311,
+          "click_pct": 5.82
+        },
+        {
+          "url": "https://businessden.com/2026/04/03/despite-brutal-conditions-opensnow-posts-banner-season",
+          "title": "Despite Brutal Conditions Opensnow Posts Banner Season",
+          "clicks": 92,
+          "click_pct": 1.72
+        }
+      ]
+    },
+    {
+      "date": "2026-04-03",
+      "email_id": "210411520331",
+      "name": "BD 4.3.26",
+      "recipients": 19738,
+      "sent": 18537,
+      "delivered": 18498,
+      "opens": 5100,
+      "clicks": 1847,
+      "bounces": 39,
+      "hard_bounces": 2,
+      "soft_bounces": 37,
+      "unsubscribes": 17,
+      "spam_reports": 1,
+      "contacts_lost": 20,
+      "dropped": 852,
+      "suppressed": 349,
+      "pending": 0,
+      "open_rate": 27.57,
+      "click_rate": 9.98,
+      "click_through_rate": 36.22,
+      "bounce_rate": 0.21,
+      "unsubscribe_rate": 0.09,
+      "device_opens": {
+        "computer": 3679,
+        "mobile": 2427,
+        "unknown": 2691
+      },
+      "device_clicks": {
+        "computer": 1739,
+        "mobile": 1501,
+        "unknown": 0
+      },
+      "article_clicks": 3202,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/03/he-refused-to-walk-away-now-hes-selling-a-belcaro-mansion-for-8-5m",
+          "title": "He Refused To Walk Away Now Hes Selling A Belcaro Mansion For 8 5M",
+          "clicks": 1449,
+          "click_pct": 28.41
+        },
+        {
+          "url": "https://businessden.com/2026/04/03/douglas-county-paves-way-for-huge-sports-complex-by-approving-financing-measures",
+          "title": "Douglas County Paves Way For Huge Sports Complex By Approving Financing Measures",
+          "clicks": 434,
+          "click_pct": 8.51
+        },
+        {
+          "url": "https://businessden.com/2026/04/03/despite-brutal-conditions-opensnow-posts-banner-season",
+          "title": "Despite Brutal Conditions Opensnow Posts Banner Season",
+          "clicks": 427,
+          "click_pct": 8.37
+        },
+        {
+          "url": "https://businessden.com/2026/04/03/bonanno-bringing-japanese-italian-fusion-to-larimer-square",
+          "title": "Bonanno Bringing Japanese Italian Fusion To Larimer Square",
+          "clicks": 403,
+          "click_pct": 7.9
+        },
+        {
+          "url": "https://businessden.com/2026/04/03/the-pipeline-commercial-real-estate-deals-for-4-3-26",
+          "title": "The Pipeline Commercial Real Estate Deals For 4 3 26",
+          "clicks": 293,
+          "click_pct": 5.75
+        },
+        {
+          "url": "https://businessden.com/2026/04/02/judge-baffling-dps-decisions-opened-the-door-for-mass-shooting-at-east-high",
+          "title": "Judge Baffling Dps Decisions Opened The Door For Mass Shooting At East High",
+          "clicks": 196,
+          "click_pct": 3.84
+        }
+      ]
+    },
+    {
+      "date": "2026-04-02",
+      "email_id": "210353002614",
+      "name": "BD 4.2.26",
+      "recipients": 19739,
+      "sent": 18544,
+      "delivered": 17653,
+      "opens": 4611,
+      "clicks": 1501,
+      "bounces": 891,
+      "hard_bounces": 5,
+      "soft_bounces": 886,
+      "unsubscribes": 17,
+      "spam_reports": 1,
+      "contacts_lost": 23,
+      "dropped": 850,
+      "suppressed": 345,
+      "pending": 0,
+      "open_rate": 26.12,
+      "click_rate": 8.5,
+      "click_through_rate": 32.55,
+      "bounce_rate": 4.8,
+      "unsubscribe_rate": 0.1,
+      "device_opens": {
+        "computer": 3746,
+        "mobile": 1950,
+        "unknown": 2641
+      },
+      "device_clicks": {
+        "computer": 1735,
+        "mobile": 1190,
+        "unknown": 0
+      },
+      "article_clicks": 2756,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/02/judge-baffling-dps-decisions-opened-the-door-for-mass-shooting-at-east-high",
+          "title": "Judge Baffling Dps Decisions Opened The Door For Mass Shooting At East High",
+          "clicks": 897,
+          "click_pct": 19.45
+        },
+        {
+          "url": "https://businessden.com/2026/04/02/law-firm-adds-more-space-at-block-162-tower",
+          "title": "Law Firm Adds More Space At Block 162 Tower",
+          "clicks": 627,
+          "click_pct": 13.6
+        },
+        {
+          "url": "https://businessden.com/2026/04/02/littleton-church-buys-shuttered-movie-theater-for-3m",
+          "title": "Littleton Church Buys Shuttered Movie Theater For 3M",
+          "clicks": 466,
+          "click_pct": 10.11
+        },
+        {
+          "url": "https://businessden.com/2026/04/02/blake-street-tavern-successor-signs-lease-long-after-planned-opening",
+          "title": "Blake Street Tavern Successor Signs Lease Long After Planned Opening",
+          "clicks": 433,
+          "click_pct": 9.39
+        },
+        {
+          "url": "https://businessden.com/2026/04/01/parking-garage-collapse-rankles-office-buildings-already-disgruntled-tenants",
+          "title": "Parking Garage Collapse Rankles Office Buildings Already Disgruntled Tenants",
+          "clicks": 183,
+          "click_pct": 3.97
+        },
+        {
+          "url": "https://businessden.com/2026/04/01/ex-residents-ask-judge-to-stop-cbzs-sale-of-vacant-aurora-apartments",
+          "title": "Ex Residents Ask Judge To Stop Cbzs Sale Of Vacant Aurora Apartments",
+          "clicks": 150,
+          "click_pct": 3.25
+        }
+      ]
+    },
+    {
+      "date": "2026-04-01",
+      "email_id": "210289525300",
+      "name": "BD 4.1.26",
+      "recipients": 19731,
+      "sent": 18540,
+      "delivered": 17442,
+      "opens": 5136,
+      "clicks": 1746,
+      "bounces": 1098,
+      "hard_bounces": 3,
+      "soft_bounces": 1095,
+      "unsubscribes": 19,
+      "spam_reports": 3,
+      "contacts_lost": 25,
+      "dropped": 850,
+      "suppressed": 341,
+      "pending": 0,
+      "open_rate": 29.45,
+      "click_rate": 10.01,
+      "click_through_rate": 33.99,
+      "bounce_rate": 5.92,
+      "unsubscribe_rate": 0.11,
+      "device_opens": {
+        "computer": 3707,
+        "mobile": 2093,
+        "unknown": 3491
+      },
+      "device_clicks": {
+        "computer": 1972,
+        "mobile": 1484,
+        "unknown": 0
+      },
+      "article_clicks": 3160,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/04/01/parking-garage-collapse-rankles-office-buildings-already-disgruntled-tenants",
+          "title": "Parking Garage Collapse Rankles Office Buildings Already Disgruntled Tenants",
+          "clicks": 1309,
+          "click_pct": 25.49
+        },
+        {
+          "url": "https://businessden.com/2026/04/01/owner-of-south-suburban-office-complex-defaults-on-133m-loan",
+          "title": "Owner Of South Suburban Office Complex Defaults On 133M Loan",
+          "clicks": 645,
+          "click_pct": 12.56
+        },
+        {
+          "url": "https://businessden.com/2026/04/01/sports-bar-coming-to-rino-after-building-renovation",
+          "title": "Sports Bar Coming To Rino After Building Renovation",
+          "clicks": 618,
+          "click_pct": 12.03
+        },
+        {
+          "url": "https://businessden.com/2026/04/01/ex-residents-ask-judge-to-stop-cbzs-sale-of-vacant-aurora-apartments",
+          "title": "Ex Residents Ask Judge To Stop Cbzs Sale Of Vacant Aurora Apartments",
+          "clicks": 355,
+          "click_pct": 6.91
+        },
+        {
+          "url": "https://businessden.com/2026/03/31/wash-park-grille-replacement-to-debut-at-end-of-april",
+          "title": "Wash Park Grille Replacement To Debut At End Of April",
+          "clicks": 233,
+          "click_pct": 4.54
+        }
+      ]
+    },
+    {
+      "date": "2026-03-31",
+      "email_id": "210224001052",
+      "name": "BD 3.31.26",
+      "recipients": 19727,
+      "sent": 18542,
+      "delivered": 17642,
+      "opens": 5249,
+      "clicks": 1722,
+      "bounces": 900,
+      "hard_bounces": 3,
+      "soft_bounces": 897,
+      "unsubscribes": 18,
+      "spam_reports": 0,
+      "contacts_lost": 21,
+      "dropped": 847,
+      "suppressed": 338,
+      "pending": 0,
+      "open_rate": 29.75,
+      "click_rate": 9.76,
+      "click_through_rate": 32.81,
+      "bounce_rate": 4.85,
+      "unsubscribe_rate": 0.1,
+      "device_opens": {
+        "computer": 3679,
+        "mobile": 1992,
+        "unknown": 3879
+      },
+      "device_clicks": {
+        "computer": 1743,
+        "mobile": 1274,
+        "unknown": 0
+      },
+      "article_clicks": 3020,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/31/wash-park-grille-replacement-to-debut-at-end-of-april",
+          "title": "Wash Park Grille Replacement To Debut At End Of April",
+          "clicks": 1334,
+          "click_pct": 25.41
+        },
+        {
+          "url": "https://businessden.com/2026/03/31/jared-leonard-ajs-and-campfire-restaurateur-pleads-guilty-to-2-3m-fraud",
+          "title": "Jared Leonard Ajs And Campfire Restaurateur Pleads Guilty To 2 3M Fraud",
+          "clicks": 736,
+          "click_pct": 14.02
+        },
+        {
+          "url": "https://businessden.com/2026/03/31/city-adds-focus-building-near-union-station-to-neglected-buildings-list",
+          "title": "City Adds Focus Building Near Union Station To Neglected Buildings List",
+          "clicks": 488,
+          "click_pct": 9.3
+        },
+        {
+          "url": "https://businessden.com/2026/03/31/st-joseph-medical-pavilion-1818-ogden-sale",
+          "title": "St Joseph Medical Pavilion 1818 Ogden Sale",
+          "clicks": 223,
+          "click_pct": 4.25
+        },
+        {
+          "url": "https://businessden.com/2026/03/30/landlord-sues-riot-house-for-seven-figures-says-it-abandoned-lodo-building",
+          "title": "Landlord Sues Riot House For Seven Figures Says It Abandoned Lodo Building",
+          "clicks": 148,
+          "click_pct": 2.82
+        },
+        {
+          "url": "https://businessden.com/2026/03/30/behind-the-deal-utah-firm-buys-longmont-autonomous-mower-startup",
+          "title": "Behind The Deal Utah Firm Buys Longmont Autonomous Mower Startup",
+          "clicks": 91,
+          "click_pct": 1.73
+        }
+      ]
+    },
+    {
+      "date": "2026-03-30",
+      "email_id": "210061332402",
+      "name": "BD 3.30.26",
+      "recipients": 19729,
+      "sent": 18551,
+      "delivered": 18510,
+      "opens": 5297,
+      "clicks": 1722,
+      "bounces": 41,
+      "hard_bounces": 3,
+      "soft_bounces": 38,
+      "unsubscribes": 26,
+      "spam_reports": 0,
+      "contacts_lost": 29,
+      "dropped": 844,
+      "suppressed": 334,
+      "pending": 0,
+      "open_rate": 28.62,
+      "click_rate": 9.3,
+      "click_through_rate": 32.51,
+      "bounce_rate": 0.22,
+      "unsubscribe_rate": 0.14,
+      "device_opens": {
+        "computer": 3958,
+        "mobile": 2159,
+        "unknown": 3298
+      },
+      "device_clicks": {
+        "computer": 1864,
+        "mobile": 1467,
+        "unknown": 0
+      },
+      "article_clicks": 2894,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/30/six-months-after-buy-owner-lists-centennial-office-buildings-for-sale",
+          "title": "Six Months After Buy Owner Lists Centennial Office Buildings For Sale",
+          "clicks": 917,
+          "click_pct": 17.31
+        },
+        {
+          "url": "https://businessden.com/2026/03/30/landlord-sues-riot-house-for-seven-figures-says-it-abandoned-lodo-building",
+          "title": "Landlord Sues Riot House For Seven Figures Says It Abandoned Lodo Building",
+          "clicks": 787,
+          "click_pct": 14.86
+        },
+        {
+          "url": "https://businessden.com/2026/03/30/bank-finds-buyer-for-foreclosed-office-building-off-leetsdale",
+          "title": "Bank Finds Buyer For Foreclosed Office Building Off Leetsdale",
+          "clicks": 590,
+          "click_pct": 11.14
+        },
+        {
+          "url": "https://businessden.com/2026/03/30/behind-the-deal-utah-firm-buys-longmont-autonomous-mower-startup",
+          "title": "Behind The Deal Utah Firm Buys Longmont Autonomous Mower Startup",
+          "clicks": 418,
+          "click_pct": 7.89
+        },
+        {
+          "url": "https://businessden.com/2026/03/27/cripple-creek-to-backfill-wilderness-exchange-space-on-platte",
+          "title": "Cripple Creek To Backfill Wilderness Exchange Space On Platte",
+          "clicks": 182,
+          "click_pct": 3.44
+        }
+      ]
+    },
+    {
+      "date": "2026-03-27",
+      "email_id": "210008259890",
+      "name": "BD 3.27.26",
+      "recipients": 19702,
+      "sent": 18528,
+      "delivered": 18488,
+      "opens": 5025,
+      "clicks": 1715,
+      "bounces": 40,
+      "hard_bounces": 4,
+      "soft_bounces": 36,
+      "unsubscribes": 21,
+      "spam_reports": 3,
+      "contacts_lost": 28,
+      "dropped": 842,
+      "suppressed": 332,
+      "pending": 0,
+      "open_rate": 27.18,
+      "click_rate": 9.28,
+      "click_through_rate": 34.13,
+      "bounce_rate": 0.22,
+      "unsubscribe_rate": 0.11,
+      "device_opens": {
+        "computer": 3528,
+        "mobile": 2190,
+        "unknown": 3001
+      },
+      "device_clicks": {
+        "computer": 1815,
+        "mobile": 1414,
+        "unknown": 0
+      },
+      "article_clicks": 3168,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/27/american-classic-with-a-twist-chef-rebuilds-englewood-outpost",
+          "title": "American Classic With A Twist Chef Rebuilds Englewood Outpost",
+          "clicks": 705,
+          "click_pct": 14.03
+        },
+        {
+          "url": "https://businessden.com/2026/03/27/cripple-creek-to-backfill-wilderness-exchange-space-on-platte",
+          "title": "Cripple Creek To Backfill Wilderness Exchange Space On Platte",
+          "clicks": 694,
+          "click_pct": 13.81
+        },
+        {
+          "url": "https://businessden.com/2026/03/27/breckenridges-750-per-bedroom-fee-on-short-term-rentals-is-legal-court-rules",
+          "title": "Breckenridges 750 Per Bedroom Fee On Short Term Rentals Is Legal Court Rules",
+          "clicks": 623,
+          "click_pct": 12.4
+        },
+        {
+          "url": "https://businessden.com/2026/03/27/the-pipeline-commercial-real-estate-deals-for-3-27-26",
+          "title": "The Pipeline Commercial Real Estate Deals For 3 27 26",
+          "clicks": 380,
+          "click_pct": 7.56
+        },
+        {
+          "url": "https://businessden.com/2026/03/27/developer-pulls-controversial-castle-pines-annexation-request-for-crowsnest-project-as-city-examines-growth",
+          "title": "Developer Pulls Controversial Castle Pines Annexation Request For Crowsnest Project As City Examines Growth",
+          "clicks": 377,
+          "click_pct": 7.5
+        },
+        {
+          "url": "https://businessden.com/2026/03/26/ddda-awards-luzzatto-63m-for-downtown-conversion-project",
+          "title": "Ddda Awards Luzzatto 63M For Downtown Conversion Project",
+          "clicks": 219,
+          "click_pct": 4.36
+        },
+        {
+          "url": "https://businessden.com/2026/03/26/scout-and-state-say-local-vw-dealers-are-trying-to-suppress-competition",
+          "title": "Scout And State Say Local Vw Dealers Are Trying To Suppress Competition",
+          "clicks": 170,
+          "click_pct": 3.38
+        }
+      ]
+    },
+    {
+      "date": "2026-03-26",
+      "email_id": "209945147557",
+      "name": "BD 3.26.26",
+      "recipients": 19691,
+      "sent": 18519,
+      "delivered": 17676,
+      "opens": 3343,
+      "clicks": 1411,
+      "bounces": 843,
+      "hard_bounces": 3,
+      "soft_bounces": 840,
+      "unsubscribes": 21,
+      "spam_reports": 0,
+      "contacts_lost": 24,
+      "dropped": 843,
+      "suppressed": 329,
+      "pending": 0,
+      "open_rate": 18.91,
+      "click_rate": 7.98,
+      "click_through_rate": 42.21,
+      "bounce_rate": 4.55,
+      "unsubscribe_rate": 0.12,
+      "device_opens": {
+        "computer": 3802,
+        "mobile": 2149,
+        "unknown": 477
+      },
+      "device_clicks": {
+        "computer": 1364,
+        "mobile": 1059,
+        "unknown": 0
+      },
+      "article_clicks": 2712,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/26/ddda-awards-luzzatto-63m-for-downtown-conversion-project",
+          "title": "Ddda Awards Luzzatto 63M For Downtown Conversion Project",
+          "clicks": 660,
+          "click_pct": 19.74
+        },
+        {
+          "url": "https://businessden.com/2026/03/26/the-math-just-doesnt-work-little-india-to-close-in-west-highland",
+          "title": "The Math Just Doesnt Work Little India To Close In West Highland",
+          "clicks": 624,
+          "click_pct": 18.67
+        },
+        {
+          "url": "https://businessden.com/2026/03/26/the-docket-real-estate-lawsuit-roundup-for-3-26-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 3 26 26",
+          "clicks": 375,
+          "click_pct": 11.22
+        },
+        {
+          "url": "https://businessden.com/2026/03/26/sneaker-seller-squeaking-into-rino",
+          "title": "Sneaker Seller Squeaking Into Rino",
+          "clicks": 331,
+          "click_pct": 9.9
+        },
+        {
+          "url": "https://businessden.com/2026/03/26/scout-and-state-say-local-vw-dealers-are-trying-to-suppress-competition",
+          "title": "Scout And State Say Local Vw Dealers Are Trying To Suppress Competition",
+          "clicks": 280,
+          "click_pct": 8.38
+        },
+        {
+          "url": "https://businessden.com/2026/03/25/brookfield-republic-plaza-loan-default-special-servicing",
+          "title": "Brookfield Republic Plaza Loan Default Special Servicing",
+          "clicks": 267,
+          "click_pct": 7.99
+        },
+        {
+          "url": "https://businessden.com/2026/03/25/wilderness-exchange-black-diamond-store-within-a-store-closing-sunday",
+          "title": "Wilderness Exchange Black Diamond Store Within A Store Closing Sunday",
+          "clicks": 175,
+          "click_pct": 5.23
+        }
+      ]
+    },
+    {
+      "date": "2026-03-25",
+      "email_id": "209871560705",
+      "name": "BD 3.25.26",
+      "recipients": 19671,
+      "sent": 18505,
+      "delivered": 17650,
+      "opens": 4910,
+      "clicks": 1491,
+      "bounces": 855,
+      "hard_bounces": 0,
+      "soft_bounces": 855,
+      "unsubscribes": 18,
+      "spam_reports": 1,
+      "contacts_lost": 19,
+      "dropped": 839,
+      "suppressed": 327,
+      "pending": 0,
+      "open_rate": 27.82,
+      "click_rate": 8.45,
+      "click_through_rate": 30.37,
+      "bounce_rate": 4.62,
+      "unsubscribe_rate": 0.1,
+      "device_opens": {
+        "computer": 3535,
+        "mobile": 1916,
+        "unknown": 3122
+      },
+      "device_clicks": {
+        "computer": 1600,
+        "mobile": 1181,
+        "unknown": 0
+      },
+      "article_clicks": 2951,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/25/wilderness-exchange-black-diamond-store-within-a-store-closing-sunday",
+          "title": "Wilderness Exchange Black Diamond Store Within A Store Closing Sunday",
+          "clicks": 792,
+          "click_pct": 16.13
+        },
+        {
+          "url": "https://businessden.com/2026/03/25/brookfield-republic-plaza-loan-default-special-servicing",
+          "title": "Brookfield Republic Plaza Loan Default Special Servicing",
+          "clicks": 769,
+          "click_pct": 15.66
+        },
+        {
+          "url": "https://businessden.com/2026/03/25/vacant-rino-brewery-space-nabs-a-new-tenant",
+          "title": "Vacant Rino Brewery Space Nabs A New Tenant",
+          "clicks": 629,
+          "click_pct": 12.81
+        },
+        {
+          "url": "https://businessden.com/2026/03/25/judge-halts-nascent-aspen-jet-charter-due-to-trade-secret-concerns",
+          "title": "Judge Halts Nascent Aspen Jet Charter Due To Trade Secret Concerns",
+          "clicks": 320,
+          "click_pct": 6.52
+        },
+        {
+          "url": "https://businessden.com/2026/03/24/zeppelin-wells-fargo-settle-litigation-over-rino-office-building-on-eve-of-trial",
+          "title": "Zeppelin Wells Fargo Settle Litigation Over Rino Office Building On Eve Of Trial",
+          "clicks": 234,
+          "click_pct": 4.77
+        },
+        {
+          "url": "https://businessden.com/2026/03/24/call-your-mother-opening-fifth-denver-location-near-union-station",
+          "title": "Call Your Mother Opening Fifth Denver Location Near Union Station",
+          "clicks": 159,
+          "click_pct": 3.24
+        },
+        {
+          "url": "https://businessden.com/2026/03/23/denver-angels-founder-says-partners-siphoned-eight-figures-in-theft-scheme",
+          "title": "Denver Angels Founder Says Partners Siphoned Eight Figures In Theft Scheme",
+          "clicks": 48,
+          "click_pct": 0.98
+        }
+      ]
+    },
+    {
+      "date": "2026-03-24",
+      "email_id": "209796700985",
+      "name": "BD 3.24.26",
+      "recipients": 19665,
+      "sent": 18501,
+      "delivered": 17794,
+      "opens": 5005,
+      "clicks": 1685,
+      "bounces": 707,
+      "hard_bounces": 5,
+      "soft_bounces": 702,
+      "unsubscribes": 24,
+      "spam_reports": 1,
+      "contacts_lost": 30,
+      "dropped": 840,
+      "suppressed": 324,
+      "pending": 0,
+      "open_rate": 28.13,
+      "click_rate": 9.47,
+      "click_through_rate": 33.67,
+      "bounce_rate": 3.82,
+      "unsubscribe_rate": 0.14,
+      "device_opens": {
+        "computer": 3778,
+        "mobile": 2031,
+        "unknown": 3061
+      },
+      "device_clicks": {
+        "computer": 1718,
+        "mobile": 1469,
+        "unknown": 0
+      },
+      "article_clicks": 2946,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/24/zeppelin-wells-fargo-settle-litigation-over-rino-office-building-on-eve-of-trial",
+          "title": "Zeppelin Wells Fargo Settle Litigation Over Rino Office Building On Eve Of Trial",
+          "clicks": 648,
+          "click_pct": 12.95
+        },
+        {
+          "url": "https://businessden.com/2026/03/24/call-your-mother-opening-fifth-denver-location-near-union-station",
+          "title": "Call Your Mother Opening Fifth Denver Location Near Union Station",
+          "clicks": 612,
+          "click_pct": 12.23
+        },
+        {
+          "url": "https://businessden.com/2026/03/24/broadway-park-grows-in-size-with-2m-purchase",
+          "title": "Broadway Park Grows In Size With 2M Purchase",
+          "clicks": 587,
+          "click_pct": 11.73
+        },
+        {
+          "url": "https://businessden.com/2026/03/24/cannabis-investor-says-her-1-6m-was-stolen-spent-on-pickleball-company",
+          "title": "Cannabis Investor Says Her 1 6M Was Stolen Spent On Pickleball Company",
+          "clicks": 510,
+          "click_pct": 10.19
+        },
+        {
+          "url": "https://businessden.com/2026/03/23/denver-angels-founder-says-partners-siphoned-eight-figures-in-theft-scheme",
+          "title": "Denver Angels Founder Says Partners Siphoned Eight Figures In Theft Scheme",
+          "clicks": 477,
+          "click_pct": 9.53
+        },
+        {
+          "url": "https://businessden.com/2026/03/23/denver-rock-drill-owner-byron-weiss-dies-at-86",
+          "title": "Denver Rock Drill Owner Byron Weiss Dies At 86",
+          "clicks": 71,
+          "click_pct": 1.42
+        },
+        {
+          "url": "http://businessden.com/2026/03/23/denver-rock-drill-owner-byron-weiss-dies-at-86",
+          "title": "Denver Rock Drill Owner Byron Weiss Dies At 86",
+          "clicks": 41,
+          "click_pct": 0.82
+        }
+      ]
+    },
+    {
+      "date": "2026-03-23",
+      "email_id": "209662971693",
+      "name": "BD 3.23.26",
+      "recipients": 19647,
+      "sent": 18492,
+      "delivered": 18455,
+      "opens": 5046,
+      "clicks": 1606,
+      "bounces": 37,
+      "hard_bounces": 3,
+      "soft_bounces": 34,
+      "unsubscribes": 22,
+      "spam_reports": 1,
+      "contacts_lost": 26,
+      "dropped": 839,
+      "suppressed": 316,
+      "pending": 0,
+      "open_rate": 27.34,
+      "click_rate": 8.7,
+      "click_through_rate": 31.83,
+      "bounce_rate": 0.2,
+      "unsubscribe_rate": 0.12,
+      "device_opens": {
+        "computer": 3808,
+        "mobile": 2011,
+        "unknown": 3006
+      },
+      "device_clicks": {
+        "computer": 1633,
+        "mobile": 1267,
+        "unknown": 0
+      },
+      "article_clicks": 2827,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/23/denver-angels-founder-says-partners-siphoned-eight-figures-in-theft-scheme",
+          "title": "Denver Angels Founder Says Partners Siphoned Eight Figures In Theft Scheme",
+          "clicks": 1124,
+          "click_pct": 22.28
+        },
+        {
+          "url": "http://businessden.com/2026/03/23/denver-rock-drill-owner-byron-weiss-dies-at-86",
+          "title": "Denver Rock Drill Owner Byron Weiss Dies At 86",
+          "clicks": 545,
+          "click_pct": 10.8
+        },
+        {
+          "url": "https://businessden.com/2026/03/23/former-bachus-schanker-attorney-launches-florida-firms-denver-office",
+          "title": "Former Bachus Schanker Attorney Launches Florida Firms Denver Office",
+          "clicks": 363,
+          "click_pct": 7.19
+        },
+        {
+          "url": "https://businessden.com/2026/03/23/denver-rock-drill-owner-byron-weiss-dies-at-86",
+          "title": "Denver Rock Drill Owner Byron Weiss Dies At 86",
+          "clicks": 267,
+          "click_pct": 5.29
+        },
+        {
+          "url": "https://businessden.com/2026/03/23/colorado-thc-drink-makers-balance-state-optimism-federal-concern",
+          "title": "Colorado Thc Drink Makers Balance State Optimism Federal Concern",
+          "clicks": 184,
+          "click_pct": 3.65
+        },
+        {
+          "url": "https://businessden.com/2026/03/20/judge-says-he-will-consider-receiver-for-small-uptown-office-if-it-isnt-sold",
+          "title": "Judge Says He Will Consider Receiver For Small Uptown Office If It Isnt Sold",
+          "clicks": 149,
+          "click_pct": 2.95
+        },
+        {
+          "url": "https://businessden.com/2026/03/20/nonprofit-putting-final-touches-on-new-hq-with-help-from-local-developers",
+          "title": "Nonprofit Putting Final Touches On New Hq With Help From Local Developers",
+          "clicks": 139,
+          "click_pct": 2.75
+        },
+        {
+          "url": "http://businessden.com/2026/03/23/colorado-thc-drink-makers-balance-state-optimism-federal-concern",
+          "title": "Colorado Thc Drink Makers Balance State Optimism Federal Concern",
+          "clicks": 56,
+          "click_pct": 1.11
+        }
+      ]
+    },
+    {
+      "date": "2026-03-20",
+      "email_id": "209593801895",
+      "name": "BD 3.20.26",
+      "recipients": 19616,
+      "sent": 18470,
+      "delivered": 18434,
+      "opens": 3667,
+      "clicks": 1890,
+      "bounces": 36,
+      "hard_bounces": 2,
+      "soft_bounces": 34,
+      "unsubscribes": 23,
+      "spam_reports": 1,
+      "contacts_lost": 26,
+      "dropped": 834,
+      "suppressed": 312,
+      "pending": 0,
+      "open_rate": 19.89,
+      "click_rate": 10.25,
+      "click_through_rate": 51.54,
+      "bounce_rate": 0.2,
+      "unsubscribe_rate": 0.12,
+      "device_opens": {
+        "computer": 4197,
+        "mobile": 2484,
+        "unknown": 408
+      },
+      "device_clicks": {
+        "computer": 1938,
+        "mobile": 1541,
+        "unknown": 0
+      },
+      "article_clicks": 4808,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/20/doctor-selling-cheesman-park-penthouse-says-view-will-leave-buyer-sleepless",
+          "title": "Doctor Selling Cheesman Park Penthouse Says View Will Leave Buyer Sleepless",
+          "clicks": 1571,
+          "click_pct": 42.84
+        },
+        {
+          "url": "https://businessden.com/2026/03/20/all-in-hotel-restaurant-opening-on-colfax",
+          "title": "All In Hotel Restaurant Opening On Colfax",
+          "clicks": 811,
+          "click_pct": 22.12
+        },
+        {
+          "url": "https://businessden.com/2026/03/20/judge-says-he-will-consider-receiver-for-small-uptown-office-if-it-isnt-sold",
+          "title": "Judge Says He Will Consider Receiver For Small Uptown Office If It Isnt Sold",
+          "clicks": 656,
+          "click_pct": 17.89
+        },
+        {
+          "url": "https://businessden.com/2026/03/20/the-pipeline-commercial-real-estate-deals-for-3-20-26",
+          "title": "The Pipeline Commercial Real Estate Deals For 3 20 26",
+          "clicks": 584,
+          "click_pct": 15.93
+        },
+        {
+          "url": "https://businessden.com/2026/03/20/nonprofit-putting-final-touches-on-new-hq-with-help-from-local-developers",
+          "title": "Nonprofit Putting Final Touches On New Hq With Help From Local Developers",
+          "clicks": 512,
+          "click_pct": 13.96
+        },
+        {
+          "url": "https://businessden.com/2026/03/19/cherry-hills-members-golf-investment-firm-shifts-to-private-equity-model",
+          "title": "Cherry Hills Members Golf Investment Firm Shifts To Private Equity Model",
+          "clicks": 475,
+          "click_pct": 12.95
+        },
+        {
+          "url": "https://businessden.com/2026/03/19/first-downtown-businesses-getting-ddda-money-after-convoluted-process",
+          "title": "First Downtown Businesses Getting Ddda Money After Convoluted Process",
+          "clicks": 199,
+          "click_pct": 5.43
+        }
+      ]
+    },
+    {
+      "date": "2026-03-19",
+      "email_id": "209533723811",
+      "name": "BD 3.19.26",
+      "recipients": 19596,
+      "sent": 18457,
+      "delivered": 17629,
+      "opens": 3289,
+      "clicks": 1533,
+      "bounces": 828,
+      "hard_bounces": 3,
+      "soft_bounces": 825,
+      "unsubscribes": 17,
+      "spam_reports": 0,
+      "contacts_lost": 20,
+      "dropped": 831,
+      "suppressed": 308,
+      "pending": 0,
+      "open_rate": 18.66,
+      "click_rate": 8.7,
+      "click_through_rate": 46.61,
+      "bounce_rate": 4.49,
+      "unsubscribe_rate": 0.1,
+      "device_opens": {
+        "computer": 3869,
+        "mobile": 2153,
+        "unknown": 235
+      },
+      "device_clicks": {
+        "computer": 1700,
+        "mobile": 1310,
+        "unknown": 0
+      },
+      "article_clicks": 4707,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/19/cherry-hills-members-golf-investment-firm-shifts-to-private-equity-model",
+          "title": "Cherry Hills Members Golf Investment Firm Shifts To Private Equity Model",
+          "clicks": 1144,
+          "click_pct": 34.78
+        },
+        {
+          "url": "https://businessden.com/2026/03/19/syndeo-institute-cable-center-university-denver-deal-possible-move",
+          "title": "Syndeo Institute Cable Center University Denver Deal Possible Move",
+          "clicks": 876,
+          "click_pct": 26.63
+        },
+        {
+          "url": "https://businessden.com/2026/03/19/first-downtown-businesses-getting-ddda-money-after-convoluted-process",
+          "title": "First Downtown Businesses Getting Ddda Money After Convoluted Process",
+          "clicks": 788,
+          "click_pct": 23.96
+        },
+        {
+          "url": "https://businessden.com/2026/03/19/highland-jeweler-bankrupt-after-merchant-cash-advances-spiraled",
+          "title": "Highland Jeweler Bankrupt After Merchant Cash Advances Spiraled",
+          "clicks": 728,
+          "click_pct": 22.13
+        },
+        {
+          "url": "https://businessden.com/2026/03/19/the-docket-real-estate-lawsuit-roundup-for-3-19-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 3 19 26",
+          "clicks": 551,
+          "click_pct": 16.75
+        },
+        {
+          "url": "https://businessden.com/2026/03/18/denver-could-extend-key-deadline-for-languishing-apartment-projects",
+          "title": "Denver Could Extend Key Deadline For Languishing Apartment Projects",
+          "clicks": 399,
+          "click_pct": 12.13
+        },
+        {
+          "url": "https://businessden.com/2026/03/18/city-seeks-receiver-for-under-contract-cathedral-high-campus-in-uptown",
+          "title": "City Seeks Receiver For Under Contract Cathedral High Campus In Uptown",
+          "clicks": 221,
+          "click_pct": 6.72
+        }
+      ]
+    },
+    {
+      "date": "2026-03-18",
+      "email_id": "209462607483",
+      "name": "BD 3.18.26",
+      "recipients": 19577,
+      "sent": 18459,
+      "delivered": 17496,
+      "opens": 3295,
+      "clicks": 1510,
+      "bounces": 963,
+      "hard_bounces": 2,
+      "soft_bounces": 961,
+      "unsubscribes": 14,
+      "spam_reports": 1,
+      "contacts_lost": 17,
+      "dropped": 818,
+      "suppressed": 300,
+      "pending": 0,
+      "open_rate": 18.83,
+      "click_rate": 8.63,
+      "click_through_rate": 45.83,
+      "bounce_rate": 5.22,
+      "unsubscribe_rate": 0.08,
+      "device_opens": {
+        "computer": 3995,
+        "mobile": 2231,
+        "unknown": 495
+      },
+      "device_clicks": {
+        "computer": 1718,
+        "mobile": 1220,
+        "unknown": 0
+      },
+      "article_clicks": 2817,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/18/city-seeks-receiver-for-under-contract-cathedral-high-campus-in-uptown",
+          "title": "City Seeks Receiver For Under Contract Cathedral High Campus In Uptown",
+          "clicks": 648,
+          "click_pct": 19.67
+        },
+        {
+          "url": "https://businessden.com/2026/03/18/apartment-developer-breaks-ground-on-full-city-block-in-rino",
+          "title": "Apartment Developer Breaks Ground On Full City Block In Rino",
+          "clicks": 560,
+          "click_pct": 17.0
+        },
+        {
+          "url": "https://businessden.com/2026/03/18/denver-could-extend-key-deadline-for-languishing-apartment-projects",
+          "title": "Denver Could Extend Key Deadline For Languishing Apartment Projects",
+          "clicks": 538,
+          "click_pct": 16.33
+        },
+        {
+          "url": "https://businessden.com/2026/03/18/cu-benson-hotel-anschutz-fitzsimons-owner",
+          "title": "Cu Benson Hotel Anschutz Fitzsimons Owner",
+          "clicks": 404,
+          "click_pct": 12.26
+        },
+        {
+          "url": "https://businessden.com/2026/03/17/these-are-the-contractors-with-the-most-denver-work-in-2025",
+          "title": "These Are The Contractors With The Most Denver Work In 2025",
+          "clicks": 337,
+          "click_pct": 10.23
+        },
+        {
+          "url": "https://businessden.com/2026/03/17/states-only-kosher-grocer-being-sold-amid-foreclosure-threat",
+          "title": "States Only Kosher Grocer Being Sold Amid Foreclosure Threat",
+          "clicks": 240,
+          "click_pct": 7.28
+        },
+        {
+          "url": "https://businessden.com/2026/03/17/daytime-homeless-shelter-cuts-after-hours-security-without-telling-neighbors",
+          "title": "Daytime Homeless Shelter Cuts After Hours Security Without Telling Neighbors",
+          "clicks": 90,
+          "click_pct": 2.73
+        }
+      ]
+    },
+    {
+      "date": "2026-03-17",
+      "email_id": "209389224226",
+      "name": "BD 3.17.26",
+      "recipients": 19564,
+      "sent": 18452,
+      "delivered": 17505,
+      "opens": 5002,
+      "clicks": 1634,
+      "bounces": 947,
+      "hard_bounces": 4,
+      "soft_bounces": 943,
+      "unsubscribes": 16,
+      "spam_reports": 2,
+      "contacts_lost": 22,
+      "dropped": 819,
+      "suppressed": 293,
+      "pending": 0,
+      "open_rate": 28.57,
+      "click_rate": 9.33,
+      "click_through_rate": 32.67,
+      "bounce_rate": 5.13,
+      "unsubscribe_rate": 0.09,
+      "device_opens": {
+        "computer": 3556,
+        "mobile": 1896,
+        "unknown": 3080
+      },
+      "device_clicks": {
+        "computer": 1696,
+        "mobile": 1266,
+        "unknown": 0
+      },
+      "article_clicks": 2865,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/17/daytime-homeless-shelter-cuts-after-hours-security-without-telling-neighbors",
+          "title": "Daytime Homeless Shelter Cuts After Hours Security Without Telling Neighbors",
+          "clicks": 759,
+          "click_pct": 15.17
+        },
+        {
+          "url": "https://businessden.com/2026/03/17/states-only-kosher-grocer-being-sold-amid-foreclosure-threat",
+          "title": "States Only Kosher Grocer Being Sold Amid Foreclosure Threat",
+          "clicks": 721,
+          "click_pct": 14.41
+        },
+        {
+          "url": "https://businessden.com/2026/03/17/these-are-the-contractors-with-the-most-denver-work-in-2025",
+          "title": "These Are The Contractors With The Most Denver Work In 2025",
+          "clicks": 706,
+          "click_pct": 14.11
+        },
+        {
+          "url": "https://businessden.com/2026/03/17/1509-blake-denver-campos-epc-sale",
+          "title": "1509 Blake Denver Campos Epc Sale",
+          "clicks": 563,
+          "click_pct": 11.26
+        },
+        {
+          "url": "https://businessden.com/2026/03/16/denver-summit-rob-cohen-stadium-womens-soccer",
+          "title": "Denver Summit Rob Cohen Stadium Womens Soccer",
+          "clicks": 116,
+          "click_pct": 2.32
+        }
+      ]
+    },
+    {
+      "date": "2026-03-16",
+      "email_id": "209242226738",
+      "name": "BD 3.16.26",
+      "recipients": 19550,
+      "sent": 18443,
+      "delivered": 18405,
+      "opens": 5225,
+      "clicks": 1768,
+      "bounces": 38,
+      "hard_bounces": 4,
+      "soft_bounces": 34,
+      "unsubscribes": 16,
+      "spam_reports": 1,
+      "contacts_lost": 21,
+      "dropped": 817,
+      "suppressed": 290,
+      "pending": 0,
+      "open_rate": 28.39,
+      "click_rate": 9.61,
+      "click_through_rate": 33.84,
+      "bounce_rate": 0.21,
+      "unsubscribe_rate": 0.09,
+      "device_opens": {
+        "computer": 4055,
+        "mobile": 2013,
+        "unknown": 3406
+      },
+      "device_clicks": {
+        "computer": 1808,
+        "mobile": 1390,
+        "unknown": 0
+      },
+      "article_clicks": 3068,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/16/private-school-says-it-suffered-significant-damage-from-bookkeeper",
+          "title": "Private School Says It Suffered Significant Damage From Bookkeeper",
+          "clicks": 886,
+          "click_pct": 16.96
+        },
+        {
+          "url": "https://businessden.com/2026/03/16/denver-summit-rob-cohen-stadium-womens-soccer",
+          "title": "Denver Summit Rob Cohen Stadium Womens Soccer",
+          "clicks": 679,
+          "click_pct": 13.0
+        },
+        {
+          "url": "https://businessden.com/2026/03/16/cookie-shop-opening-at-former-bakery-space-in-cherry-creek",
+          "title": "Cookie Shop Opening At Former Bakery Space In Cherry Creek",
+          "clicks": 590,
+          "click_pct": 11.29
+        },
+        {
+          "url": "https://businessden.com/2026/03/16/south-broadway-gym-expanding-to-highlands",
+          "title": "South Broadway Gym Expanding To Highlands",
+          "clicks": 421,
+          "click_pct": 8.06
+        },
+        {
+          "url": "https://businessden.com/2026/03/13/architect-lists-7th-ave-new-build-that-replaced-1950s-eyesore",
+          "title": "Architect Lists 7Th Ave New Build That Replaced 1950S Eyesore",
+          "clicks": 294,
+          "click_pct": 5.63
+        },
+        {
+          "url": "https://businessden.com/2026/03/13/grocery-startup-nude-foods-bags-250k-on-shark-tank",
+          "title": "Grocery Startup Nude Foods Bags 250K On Shark Tank",
+          "clicks": 198,
+          "click_pct": 3.79
+        }
+      ]
+    },
+    {
+      "date": "2026-03-13",
+      "email_id": "209183071547",
+      "name": "BD 3.13.26",
+      "recipients": 19525,
+      "sent": 18423,
+      "delivered": 18391,
+      "opens": 5428,
+      "clicks": 2039,
+      "bounces": 32,
+      "hard_bounces": 2,
+      "soft_bounces": 30,
+      "unsubscribes": 11,
+      "spam_reports": 0,
+      "contacts_lost": 13,
+      "dropped": 816,
+      "suppressed": 286,
+      "pending": 0,
+      "open_rate": 29.51,
+      "click_rate": 11.09,
+      "click_through_rate": 37.56,
+      "bounce_rate": 0.17,
+      "unsubscribe_rate": 0.06,
+      "device_opens": {
+        "computer": 4032,
+        "mobile": 2340,
+        "unknown": 3209
+      },
+      "device_clicks": {
+        "computer": 2267,
+        "mobile": 1657,
+        "unknown": 0
+      },
+      "article_clicks": 4764,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/13/architect-lists-7th-ave-new-build-that-replaced-1950s-eyesore",
+          "title": "Architect Lists 7Th Ave New Build That Replaced 1950S Eyesore",
+          "clicks": 1462,
+          "click_pct": 26.93
+        },
+        {
+          "url": "https://businessden.com/2026/03/13/grocery-startup-nude-foods-bags-250k-on-shark-tank",
+          "title": "Grocery Startup Nude Foods Bags 250K On Shark Tank",
+          "clicks": 1301,
+          "click_pct": 23.97
+        },
+        {
+          "url": "https://businessden.com/2026/03/13/developer-looks-to-sell-denver7-lot-at-speer-and-lincoln",
+          "title": "Developer Looks To Sell Denver7 Lot At Speer And Lincoln",
+          "clicks": 1191,
+          "click_pct": 21.94
+        },
+        {
+          "url": "https://businessden.com/2026/03/13/the-pipeline-commercial-real-estate-deals-for-3-13-26",
+          "title": "The Pipeline Commercial Real Estate Deals For 3 13 26",
+          "clicks": 424,
+          "click_pct": 7.81
+        },
+        {
+          "url": "https://businessden.com/2026/03/12/tim-aragon-talks-burnham-yard-denver-project",
+          "title": "Tim Aragon Talks Burnham Yard Denver Project",
+          "clicks": 203,
+          "click_pct": 3.74
+        },
+        {
+          "url": "https://businessden.com/2026/03/12/demolition-cherry-creek-west-shopping-center-project",
+          "title": "Demolition Cherry Creek West Shopping Center Project",
+          "clicks": 183,
+          "click_pct": 3.37
+        }
+      ]
+    },
+    {
+      "date": "2026-03-12",
+      "email_id": "209123700792",
+      "name": "BD 3.12.26",
+      "recipients": 19520,
+      "sent": 18422,
+      "delivered": 17500,
+      "opens": 5155,
+      "clicks": 1359,
+      "bounces": 922,
+      "hard_bounces": 3,
+      "soft_bounces": 919,
+      "unsubscribes": 13,
+      "spam_reports": 1,
+      "contacts_lost": 17,
+      "dropped": 815,
+      "suppressed": 283,
+      "pending": 0,
+      "open_rate": 29.46,
+      "click_rate": 7.77,
+      "click_through_rate": 26.36,
+      "bounce_rate": 5.0,
+      "unsubscribe_rate": 0.07,
+      "device_opens": {
+        "computer": 3848,
+        "mobile": 1864,
+        "unknown": 3314
+      },
+      "device_clicks": {
+        "computer": 1476,
+        "mobile": 941,
+        "unknown": 0
+      },
+      "article_clicks": 4951,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/12/tim-aragon-talks-burnham-yard-denver-project",
+          "title": "Tim Aragon Talks Burnham Yard Denver Project",
+          "clicks": 1498,
+          "click_pct": 29.06
+        },
+        {
+          "url": "https://businessden.com/2026/03/12/demolition-cherry-creek-west-shopping-center-project",
+          "title": "Demolition Cherry Creek West Shopping Center Project",
+          "clicks": 1198,
+          "click_pct": 23.24
+        },
+        {
+          "url": "https://businessden.com/2026/03/12/denver-bitcoin-pioneers-fall-out-amid-25m-crypto-clash",
+          "title": "Denver Bitcoin Pioneers Fall Out Amid 25M Crypto Clash",
+          "clicks": 884,
+          "click_pct": 17.15
+        },
+        {
+          "url": "https://businessden.com/2026/03/12/denver-data-commercial-construction-activity-up-in-2025-but-still-below-recent-peak",
+          "title": "Denver Data Commercial Construction Activity Up In 2025 But Still Below Recent Peak",
+          "clicks": 708,
+          "click_pct": 13.73
+        },
+        {
+          "url": "https://businessden.com/2026/03/12/the-docket-real-estate-lawsuit-roundup-for-3-12-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 3 12 26",
+          "clicks": 663,
+          "click_pct": 12.86
+        }
+      ]
+    },
+    {
+      "date": "2026-03-11",
+      "email_id": "209048904343",
+      "name": "BD 3.11.26",
+      "recipients": 19519,
+      "sent": 18428,
+      "delivered": 17406,
+      "opens": 4824,
+      "clicks": 1556,
+      "bounces": 1022,
+      "hard_bounces": 1,
+      "soft_bounces": 1021,
+      "unsubscribes": 20,
+      "spam_reports": 2,
+      "contacts_lost": 23,
+      "dropped": 812,
+      "suppressed": 279,
+      "pending": 0,
+      "open_rate": 27.71,
+      "click_rate": 8.94,
+      "click_through_rate": 32.26,
+      "bounce_rate": 5.55,
+      "unsubscribe_rate": 0.12,
+      "device_opens": {
+        "computer": 3763,
+        "mobile": 1971,
+        "unknown": 2916
+      },
+      "device_clicks": {
+        "computer": 1627,
+        "mobile": 1262,
+        "unknown": 0
+      },
+      "article_clicks": 3234,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/11/lodo-tasting-menu-restaurant-closes-event-space-to-follow",
+          "title": "Lodo Tasting Menu Restaurant Closes Event Space To Follow",
+          "clicks": 1014,
+          "click_pct": 21.02
+        },
+        {
+          "url": "https://businessden.com/2026/03/11/founder-of-steel-firm-says-her-siblings-are-scaring-away-suppliers",
+          "title": "Founder Of Steel Firm Says Her Siblings Are Scaring Away Suppliers",
+          "clicks": 708,
+          "click_pct": 14.68
+        },
+        {
+          "url": "https://businessden.com/2026/03/11/denver-posts-rent-bill-owed-to-city-tops-5m",
+          "title": "Denver Posts Rent Bill Owed To City Tops 5M",
+          "clicks": 520,
+          "click_pct": 10.78
+        },
+        {
+          "url": "https://businessden.com/2026/03/11/rino-burger-bar-closes-after-six-years",
+          "title": "Rino Burger Bar Closes After Six Years",
+          "clicks": 415,
+          "click_pct": 8.6
+        },
+        {
+          "url": "https://businessden.com/2026/03/10/rino-coworking-and-retail-spot-closing-up-ahead-of-downtown-debut",
+          "title": "Rino Coworking And Retail Spot Closing Up Ahead Of Downtown Debut",
+          "clicks": 292,
+          "click_pct": 6.05
+        },
+        {
+          "url": "https://businessden.com/2026/03/10/neighboring-nursing-homes-squabble-over-spiked-8-5m-sale",
+          "title": "Neighboring Nursing Homes Squabble Over Spiked 8 5M Sale",
+          "clicks": 173,
+          "click_pct": 3.59
+        },
+        {
+          "url": "https://businessden.com/2026/03/10/newman-launches-b2b-restaurant-gift-card-sharing-site-to-help-raise-all-boats",
+          "title": "Newman Launches B2B Restaurant Gift Card Sharing Site To Help Raise All Boats",
+          "clicks": 112,
+          "click_pct": 2.32
+        }
+      ]
+    },
+    {
+      "date": "2026-03-10",
+      "email_id": "208982725541",
+      "name": "BD 3.10.26",
+      "recipients": 19508,
+      "sent": 18424,
+      "delivered": 17407,
+      "opens": 4920,
+      "clicks": 1576,
+      "bounces": 1017,
+      "hard_bounces": 2,
+      "soft_bounces": 1015,
+      "unsubscribes": 12,
+      "spam_reports": 0,
+      "contacts_lost": 14,
+      "dropped": 811,
+      "suppressed": 273,
+      "pending": 0,
+      "open_rate": 28.26,
+      "click_rate": 9.05,
+      "click_through_rate": 32.03,
+      "bounce_rate": 5.52,
+      "unsubscribe_rate": 0.07,
+      "device_opens": {
+        "computer": 3787,
+        "mobile": 1858,
+        "unknown": 3486
+      },
+      "device_clicks": {
+        "computer": 1626,
+        "mobile": 1258,
+        "unknown": 0
+      },
+      "article_clicks": 2520,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/10/rino-coworking-and-retail-spot-closing-up-ahead-of-downtown-debut",
+          "title": "Rino Coworking And Retail Spot Closing Up Ahead Of Downtown Debut",
+          "clicks": 652,
+          "click_pct": 13.25
+        },
+        {
+          "url": "https://businessden.com/2026/03/10/newman-launches-b2b-restaurant-gift-card-sharing-site-to-help-raise-all-boats",
+          "title": "Newman Launches B2B Restaurant Gift Card Sharing Site To Help Raise All Boats",
+          "clicks": 535,
+          "click_pct": 10.87
+        },
+        {
+          "url": "https://businessden.com/2026/03/10/neighboring-nursing-homes-squabble-over-spiked-8-5m-sale",
+          "title": "Neighboring Nursing Homes Squabble Over Spiked 8 5M Sale",
+          "clicks": 427,
+          "click_pct": 8.68
+        },
+        {
+          "url": "https://businessden.com/2026/03/10/even-hotel-7380-clinton-foreclosure",
+          "title": "Even Hotel 7380 Clinton Foreclosure",
+          "clicks": 335,
+          "click_pct": 6.81
+        },
+        {
+          "url": "https://businessden.com/2026/03/09/homebuilder-loses-lawsuit-calling-denver-affordable-housing-fee-extortion",
+          "title": "Homebuilder Loses Lawsuit Calling Denver Affordable Housing Fee Extortion",
+          "clicks": 227,
+          "click_pct": 4.61
+        },
+        {
+          "url": "https://businessden.com/2026/03/09/downtown-denver-office-losses-top-a-billion-with-more-to-come",
+          "title": "Downtown Denver Office Losses Top A Billion With More To Come",
+          "clicks": 203,
+          "click_pct": 4.13
+        },
+        {
+          "url": "https://businessden.com/2026/03/09/lohi-beer-garden-adding-second-location-in-east-denver",
+          "title": "Lohi Beer Garden Adding Second Location In East Denver",
+          "clicks": 141,
+          "click_pct": 2.87
+        }
+      ]
+    },
+    {
+      "date": "2026-03-09",
+      "email_id": "208841764418",
+      "name": "BD 3.9.26",
+      "recipients": 19493,
+      "sent": 18416,
+      "delivered": 18378,
+      "opens": 5372,
+      "clicks": 1857,
+      "bounces": 38,
+      "hard_bounces": 5,
+      "soft_bounces": 33,
+      "unsubscribes": 11,
+      "spam_reports": 1,
+      "contacts_lost": 17,
+      "dropped": 810,
+      "suppressed": 267,
+      "pending": 0,
+      "open_rate": 29.23,
+      "click_rate": 10.1,
+      "click_through_rate": 34.57,
+      "bounce_rate": 0.21,
+      "unsubscribe_rate": 0.06,
+      "device_opens": {
+        "computer": 4417,
+        "mobile": 2100,
+        "unknown": 3486
+      },
+      "device_clicks": {
+        "computer": 2000,
+        "mobile": 1339,
+        "unknown": 0
+      },
+      "article_clicks": 3173,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/09/downtown-denver-office-losses-top-a-billion-with-more-to-come",
+          "title": "Downtown Denver Office Losses Top A Billion With More To Come",
+          "clicks": 1162,
+          "click_pct": 21.63
+        },
+        {
+          "url": "https://businessden.com/2026/03/09/homebuilder-loses-lawsuit-calling-denver-affordable-housing-fee-extortion",
+          "title": "Homebuilder Loses Lawsuit Calling Denver Affordable Housing Fee Extortion",
+          "clicks": 820,
+          "click_pct": 15.26
+        },
+        {
+          "url": "https://businessden.com/2026/03/09/lohi-beer-garden-adding-second-location-in-east-denver",
+          "title": "Lohi Beer Garden Adding Second Location In East Denver",
+          "clicks": 642,
+          "click_pct": 11.95
+        },
+        {
+          "url": "https://businessden.com/2026/03/06/farbers-sell-lohi-apartment-development-site-for-9-5m",
+          "title": "Farbers Sell Lohi Apartment Development Site For 9 5M",
+          "clicks": 350,
+          "click_pct": 6.52
+        },
+        {
+          "url": "https://businessden.com/2026/03/06/hopes-of-revitalization-for-a-derelict-thornton-shopping-center-we-need-to-have-a-gathering-space",
+          "title": "Hopes Of Revitalization For A Derelict Thornton Shopping Center We Need To Have A Gathering Space",
+          "clicks": 199,
+          "click_pct": 3.7
+        }
+      ]
+    },
+    {
+      "date": "2026-03-06",
+      "email_id": "208796408647",
+      "name": "BD 3.6.26",
+      "recipients": 19470,
+      "sent": 18399,
+      "delivered": 18329,
+      "opens": 5285,
+      "clicks": 1807,
+      "bounces": 70,
+      "hard_bounces": 3,
+      "soft_bounces": 67,
+      "unsubscribes": 8,
+      "spam_reports": 0,
+      "contacts_lost": 11,
+      "dropped": 811,
+      "suppressed": 260,
+      "pending": 0,
+      "open_rate": 28.83,
+      "click_rate": 9.86,
+      "click_through_rate": 34.19,
+      "bounce_rate": 0.38,
+      "unsubscribe_rate": 0.04,
+      "device_opens": {
+        "computer": 4221,
+        "mobile": 2201,
+        "unknown": 3222
+      },
+      "device_clicks": {
+        "computer": 1952,
+        "mobile": 1503,
+        "unknown": 0
+      },
+      "article_clicks": 3359,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/06/farbers-sell-lohi-apartment-development-site-for-9-5m",
+          "title": "Farbers Sell Lohi Apartment Development Site For 9 5M",
+          "clicks": 1115,
+          "click_pct": 21.1
+        },
+        {
+          "url": "https://businessden.com/2026/03/06/9m-country-club-sale-tops-february-home-transactions",
+          "title": "9M Country Club Sale Tops February Home Transactions",
+          "clicks": 943,
+          "click_pct": 17.84
+        },
+        {
+          "url": "https://businessden.com/2026/03/06/five-takeaways-from-denvers-restaurant-report",
+          "title": "Five Takeaways From Denvers Restaurant Report",
+          "clicks": 681,
+          "click_pct": 12.89
+        },
+        {
+          "url": "https://businessden.com/2026/03/06/hopes-of-revitalization-for-a-derelict-thornton-shopping-center-we-need-to-have-a-gathering-space",
+          "title": "Hopes Of Revitalization For A Derelict Thornton Shopping Center We Need To Have A Gathering Space",
+          "clicks": 339,
+          "click_pct": 6.41
+        },
+        {
+          "url": "https://businessden.com/2026/03/05/the-docket-real-estate-lawsuit-roundup-for-3-5-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 3 5 26",
+          "clicks": 281,
+          "click_pct": 5.32
+        }
+      ]
+    },
+    {
+      "date": "2026-03-05",
+      "email_id": "208729286285",
+      "name": "BD 3.5.26",
+      "recipients": 19465,
+      "sent": 18393,
+      "delivered": 17518,
+      "opens": 3441,
+      "clicks": 1511,
+      "bounces": 875,
+      "hard_bounces": 1,
+      "soft_bounces": 874,
+      "unsubscribes": 13,
+      "spam_reports": 1,
+      "contacts_lost": 15,
+      "dropped": 813,
+      "suppressed": 259,
+      "pending": 0,
+      "open_rate": 19.64,
+      "click_rate": 8.62,
+      "click_through_rate": 43.91,
+      "bounce_rate": 4.76,
+      "unsubscribe_rate": 0.07,
+      "device_opens": {
+        "computer": 3999,
+        "mobile": 2256,
+        "unknown": 314
+      },
+      "device_clicks": {
+        "computer": 1460,
+        "mobile": 1165,
+        "unknown": 0
+      },
+      "article_clicks": 2577,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/05/wash-park-ice-cream-shop-closes-after-a-year",
+          "title": "Wash Park Ice Cream Shop Closes After A Year",
+          "clicks": 606,
+          "click_pct": 17.61
+        },
+        {
+          "url": "https://businessden.com/2026/03/05/the-docket-real-estate-lawsuit-roundup-for-3-5-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 3 5 26",
+          "clicks": 418,
+          "click_pct": 12.15
+        },
+        {
+          "url": "https://businessden.com/2026/03/05/colorado-coalition-for-the-homeless-to-develop-dha-site-along-federal",
+          "title": "Colorado Coalition For The Homeless To Develop Dha Site Along Federal",
+          "clicks": 349,
+          "click_pct": 10.14
+        },
+        {
+          "url": "https://businessden.com/2026/03/05/construction-firm-owner-captive-in-his-own-company-asks-judge-to-close-it",
+          "title": "Construction Firm Owner Captive In His Own Company Asks Judge To Close It",
+          "clicks": 318,
+          "click_pct": 9.24
+        },
+        {
+          "url": "https://businessden.com/2026/03/05/duplexes-eyed-for-shops-at-northfield-site-where-apartments-were-proposed",
+          "title": "Duplexes Eyed For Shops At Northfield Site Where Apartments Were Proposed",
+          "clicks": 271,
+          "click_pct": 7.88
+        },
+        {
+          "url": "https://businessden.com/2026/03/04/modular-builder-demands-millions-from-developer-of-granby-project",
+          "title": "Modular Builder Demands Millions From Developer Of Granby Project",
+          "clicks": 254,
+          "click_pct": 7.38
+        },
+        {
+          "url": "https://businessden.com/2026/03/04/former-punch-bowl-social-exec-succeeds-padro-as-ceo-of-restaurant-group",
+          "title": "Former Punch Bowl Social Exec Succeeds Padro As Ceo Of Restaurant Group",
+          "clicks": 234,
+          "click_pct": 6.8
+        },
+        {
+          "url": "https://businessden.com/2026/03/04/ramos-law-buys-southeast-denver-office-for-3m",
+          "title": "Ramos Law Buys Southeast Denver Office For 3M",
+          "clicks": 127,
+          "click_pct": 3.69
+        }
+      ]
+    },
+    {
+      "date": "2026-03-04",
+      "email_id": "208665720248",
+      "name": "BD 3.4.26",
+      "recipients": 19456,
+      "sent": 18389,
+      "delivered": 17417,
+      "opens": 4898,
+      "clicks": 1503,
+      "bounces": 972,
+      "hard_bounces": 1,
+      "soft_bounces": 971,
+      "unsubscribes": 18,
+      "spam_reports": 3,
+      "contacts_lost": 22,
+      "dropped": 812,
+      "suppressed": 255,
+      "pending": 0,
+      "open_rate": 28.12,
+      "click_rate": 8.63,
+      "click_through_rate": 30.69,
+      "bounce_rate": 5.29,
+      "unsubscribe_rate": 0.1,
+      "device_opens": {
+        "computer": 3710,
+        "mobile": 1938,
+        "unknown": 3062
+      },
+      "device_clicks": {
+        "computer": 1498,
+        "mobile": 1174,
+        "unknown": 0
+      },
+      "article_clicks": 2820,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/04/ramos-law-buys-southeast-denver-office-for-3m",
+          "title": "Ramos Law Buys Southeast Denver Office For 3M",
+          "clicks": 696,
+          "click_pct": 14.21
+        },
+        {
+          "url": "https://businessden.com/2026/03/04/former-punch-bowl-social-exec-succeeds-padro-as-ceo-of-restaurant-group",
+          "title": "Former Punch Bowl Social Exec Succeeds Padro As Ceo Of Restaurant Group",
+          "clicks": 671,
+          "click_pct": 13.7
+        },
+        {
+          "url": "https://businessden.com/2026/03/04/modular-builder-demands-millions-from-developer-of-granby-project",
+          "title": "Modular Builder Demands Millions From Developer Of Granby Project",
+          "clicks": 566,
+          "click_pct": 11.56
+        },
+        {
+          "url": "https://businessden.com/2026/03/04/hotel-credit-union-next-to-central-park-homeless-shelter-find-a-buyer",
+          "title": "Hotel Credit Union Next To Central Park Homeless Shelter Find A Buyer",
+          "clicks": 410,
+          "click_pct": 8.37
+        },
+        {
+          "url": "https://businessden.com/2026/03/03/fentress-sells-broadway-buildings-to-magnetic-for-13m",
+          "title": "Fentress Sells Broadway Buildings To Magnetic For 13M",
+          "clicks": 202,
+          "click_pct": 4.12
+        },
+        {
+          "url": "https://businessden.com/2026/03/02/restaurant-industry-report-calls-for-dropping-denver-tipped-wage-to-state-minimum",
+          "title": "Restaurant Industry Report Calls For Dropping Denver Tipped Wage To State Minimum",
+          "clicks": 150,
+          "click_pct": 3.06
+        },
+        {
+          "url": "https://businessden.com/2026/03/03/former-avs-defenseman-launches-beer-brand-in-denver",
+          "title": "Former Avs Defenseman Launches Beer Brand In Denver",
+          "clicks": 125,
+          "click_pct": 2.55
+        }
+      ]
+    },
+    {
+      "date": "2026-03-03",
+      "email_id": "208587703098",
+      "name": "BD 3.3.26",
+      "recipients": 19440,
+      "sent": 18373,
+      "delivered": 17677,
+      "opens": 5215,
+      "clicks": 1783,
+      "bounces": 696,
+      "hard_bounces": 0,
+      "soft_bounces": 696,
+      "unsubscribes": 16,
+      "spam_reports": 1,
+      "contacts_lost": 17,
+      "dropped": 816,
+      "suppressed": 251,
+      "pending": 0,
+      "open_rate": 29.5,
+      "click_rate": 10.09,
+      "click_through_rate": 34.19,
+      "bounce_rate": 3.79,
+      "unsubscribe_rate": 0.09,
+      "device_opens": {
+        "computer": 4008,
+        "mobile": 2166,
+        "unknown": 3457
+      },
+      "device_clicks": {
+        "computer": 2051,
+        "mobile": 1588,
+        "unknown": 0
+      },
+      "article_clicks": 2912,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/03/fentress-sells-broadway-buildings-to-magnetic-for-13m",
+          "title": "Fentress Sells Broadway Buildings To Magnetic For 13M",
+          "clicks": 743,
+          "click_pct": 14.25
+        },
+        {
+          "url": "https://businessden.com/2026/03/03/former-avs-defenseman-launches-beer-brand-in-denver",
+          "title": "Former Avs Defenseman Launches Beer Brand In Denver",
+          "clicks": 664,
+          "click_pct": 12.73
+        },
+        {
+          "url": "https://businessden.com/2026/03/03/luzzatto-clears-ground-lease-hurdle-for-300m-downtown-project",
+          "title": "Luzzatto Clears Ground Lease Hurdle For 300M Downtown Project",
+          "clicks": 605,
+          "click_pct": 11.6
+        },
+        {
+          "url": "https://businessden.com/2026/03/03/residence-inn-marriott-lohi-denver-demolition-kairoi",
+          "title": "Residence Inn Marriott Lohi Denver Demolition Kairoi",
+          "clicks": 442,
+          "click_pct": 8.48
+        },
+        {
+          "url": "https://businessden.com/2026/03/02/brown-palace-hotel-denver-for-sale",
+          "title": "Brown Palace Hotel Denver For Sale",
+          "clicks": 169,
+          "click_pct": 3.24
+        },
+        {
+          "url": "https://businessden.com/2026/03/02/restaurant-industry-report-calls-for-dropping-denver-tipped-wage-to-state-minimum",
+          "title": "Restaurant Industry Report Calls For Dropping Denver Tipped Wage To State Minimum",
+          "clicks": 165,
+          "click_pct": 3.16
+        },
+        {
+          "url": "https://businessden.com/2026/03/02/golf-centric-coworking-business-adding-second-location",
+          "title": "Golf Centric Coworking Business Adding Second Location",
+          "clicks": 124,
+          "click_pct": 2.38
+        }
+      ]
+    },
+    {
+      "date": "2026-03-02",
+      "email_id": "208462284365",
+      "name": "BD 3.2.26",
+      "recipients": 19409,
+      "sent": 18350,
+      "delivered": 17707,
+      "opens": 5422,
+      "clicks": 1738,
+      "bounces": 643,
+      "hard_bounces": 8,
+      "soft_bounces": 635,
+      "unsubscribes": 14,
+      "spam_reports": 1,
+      "contacts_lost": 23,
+      "dropped": 813,
+      "suppressed": 246,
+      "pending": 0,
+      "open_rate": 30.62,
+      "click_rate": 9.81,
+      "click_through_rate": 32.05,
+      "bounce_rate": 3.5,
+      "unsubscribe_rate": 0.08,
+      "device_opens": {
+        "computer": 4321,
+        "mobile": 2074,
+        "unknown": 4078
+      },
+      "device_clicks": {
+        "computer": 1865,
+        "mobile": 1336,
+        "unknown": 0
+      },
+      "article_clicks": 3112,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/03/02/brown-palace-hotel-denver-for-sale",
+          "title": "Brown Palace Hotel Denver For Sale",
+          "clicks": 1040,
+          "click_pct": 19.18
+        },
+        {
+          "url": "https://businessden.com/2026/03/02/golf-centric-coworking-business-adding-second-location",
+          "title": "Golf Centric Coworking Business Adding Second Location",
+          "clicks": 799,
+          "click_pct": 14.74
+        },
+        {
+          "url": "https://businessden.com/2026/03/02/chicago-firm-mismanaged-project-before-abandoning-it-rino-developer-says",
+          "title": "Chicago Firm Mismanaged Project Before Abandoning It Rino Developer Says",
+          "clicks": 687,
+          "click_pct": 12.67
+        },
+        {
+          "url": "https://businessden.com/2026/03/02/restaurant-industry-report-calls-for-dropping-denver-tipped-wage-to-state-minimum",
+          "title": "Restaurant Industry Report Calls For Dropping Denver Tipped Wage To State Minimum",
+          "clicks": 431,
+          "click_pct": 7.95
+        },
+        {
+          "url": "https://businessden.com/2026/02/27/27-year-old-gift-shop-closing-platt-park-union-station-locations",
+          "title": "27 Year Old Gift Shop Closing Platt Park Union Station Locations",
+          "clicks": 155,
+          "click_pct": 2.86
+        }
+      ]
+    },
+    {
+      "date": "2026-02-27",
+      "email_id": "208415435687",
+      "name": "BD 2.27.26",
+      "recipients": 19383,
+      "sent": 18333,
+      "delivered": 17639,
+      "opens": 3473,
+      "clicks": 1494,
+      "bounces": 694,
+      "hard_bounces": 5,
+      "soft_bounces": 689,
+      "unsubscribes": 14,
+      "spam_reports": 1,
+      "contacts_lost": 20,
+      "dropped": 807,
+      "suppressed": 243,
+      "pending": 0,
+      "open_rate": 19.69,
+      "click_rate": 8.47,
+      "click_through_rate": 43.02,
+      "bounce_rate": 3.79,
+      "unsubscribe_rate": 0.08,
+      "device_opens": {
+        "computer": 3946,
+        "mobile": 2349,
+        "unknown": 454
+      },
+      "device_clicks": {
+        "computer": 1444,
+        "mobile": 1307,
+        "unknown": 0
+      },
+      "article_clicks": 3084,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/27/new-real-estate-group-scoops-up-first-office-property",
+          "title": "New Real Estate Group Scoops Up First Office Property",
+          "clicks": 978,
+          "click_pct": 28.16
+        },
+        {
+          "url": "https://businessden.com/2026/02/27/27-year-old-gift-shop-closing-platt-park-union-station-locations",
+          "title": "27 Year Old Gift Shop Closing Platt Park Union Station Locations",
+          "clicks": 919,
+          "click_pct": 26.46
+        },
+        {
+          "url": "https://businessden.com/2026/02/27/office-developer-done-for-after-900k-alaska-verdict",
+          "title": "Office Developer Done For After 900K Alaska Verdict",
+          "clicks": 403,
+          "click_pct": 11.6
+        },
+        {
+          "url": "https://businessden.com/2026/02/27/the-pipeline-commercial-real-estate-deals-for-2-27-26",
+          "title": "The Pipeline Commercial Real Estate Deals For 2 27 26",
+          "clicks": 319,
+          "click_pct": 9.19
+        },
+        {
+          "url": "https://businessden.com/2026/02/26/bikemaker-can-ask-jurors-for-eight-figures-from-gates-corp-judge-says",
+          "title": "Bikemaker Can Ask Jurors For Eight Figures From Gates Corp Judge Says",
+          "clicks": 129,
+          "click_pct": 3.71
+        },
+        {
+          "url": "https://businessden.com/2026/02/26/christou-nabs-five-points-church",
+          "title": "Christou Nabs Five Points Church",
+          "clicks": 120,
+          "click_pct": 3.46
+        },
+        {
+          "url": "https://businessden.com/2026/02/27/douglas-county-adopts-law-requiring-stores-to-report-theft-but-drops-fines-for-failing-to-do-so",
+          "title": "Douglas County Adopts Law Requiring Stores To Report Theft But Drops Fines For Failing To Do So",
+          "clicks": 115,
+          "click_pct": 3.31
+        },
+        {
+          "url": "https://businessden.com/2026/02/26/denver-names-new-county-assessor",
+          "title": "Denver Names New County Assessor",
+          "clicks": 101,
+          "click_pct": 2.91
+        }
+      ]
+    },
+    {
+      "date": "2026-02-26",
+      "email_id": "208311201419",
+      "name": "BD 2.26.26",
+      "recipients": 19369,
+      "sent": 18325,
+      "delivered": 17444,
+      "opens": 4970,
+      "clicks": 1381,
+      "bounces": 881,
+      "hard_bounces": 6,
+      "soft_bounces": 875,
+      "unsubscribes": 18,
+      "spam_reports": 1,
+      "contacts_lost": 25,
+      "dropped": 804,
+      "suppressed": 240,
+      "pending": 0,
+      "open_rate": 28.49,
+      "click_rate": 7.92,
+      "click_through_rate": 27.79,
+      "bounce_rate": 4.81,
+      "unsubscribe_rate": 0.1,
+      "device_opens": {
+        "computer": 3681,
+        "mobile": 1848,
+        "unknown": 3785
+      },
+      "device_clicks": {
+        "computer": 1327,
+        "mobile": 1106,
+        "unknown": 0
+      },
+      "article_clicks": 2349,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/26/christou-nabs-five-points-church",
+          "title": "Christou Nabs Five Points Church",
+          "clicks": 703,
+          "click_pct": 14.14
+        },
+        {
+          "url": "https://businessden.com/2026/02/26/the-docket-real-estate-lawsuit-roundup-for-2-26-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 2 26 26",
+          "clicks": 441,
+          "click_pct": 8.87
+        },
+        {
+          "url": "https://businessden.com/2026/02/26/bikemaker-can-ask-jurors-for-eight-figures-from-gates-corp-judge-says",
+          "title": "Bikemaker Can Ask Jurors For Eight Figures From Gates Corp Judge Says",
+          "clicks": 409,
+          "click_pct": 8.23
+        },
+        {
+          "url": "https://businessden.com/2026/02/26/apartments-proposed-at-montessori-site-along-federal-in-jefferson-park",
+          "title": "Apartments Proposed At Montessori Site Along Federal In Jefferson Park",
+          "clicks": 334,
+          "click_pct": 6.72
+        },
+        {
+          "url": "https://businessden.com/2026/02/26/denver-names-new-county-assessor",
+          "title": "Denver Names New County Assessor",
+          "clicks": 283,
+          "click_pct": 5.69
+        },
+        {
+          "url": "https://businessden.com/2026/02/25/ddda-hopes-100k-uli-panel-will-help-plot-denver-pavilions-future",
+          "title": "Ddda Hopes 100K Uli Panel Will Help Plot Denver Pavilions Future",
+          "clicks": 179,
+          "click_pct": 3.6
+        }
+      ]
+    },
+    {
+      "date": "2026-02-25",
+      "email_id": "208248826428",
+      "name": "BD 2.25.26",
+      "recipients": 19355,
+      "sent": 18320,
+      "delivered": 17495,
+      "opens": 5170,
+      "clicks": 1541,
+      "bounces": 825,
+      "hard_bounces": 1,
+      "soft_bounces": 824,
+      "unsubscribes": 19,
+      "spam_reports": 0,
+      "contacts_lost": 20,
+      "dropped": 799,
+      "suppressed": 236,
+      "pending": 0,
+      "open_rate": 29.55,
+      "click_rate": 8.81,
+      "click_through_rate": 29.81,
+      "bounce_rate": 4.5,
+      "unsubscribe_rate": 0.11,
+      "device_opens": {
+        "computer": 3900,
+        "mobile": 1969,
+        "unknown": 3504
+      },
+      "device_clicks": {
+        "computer": 1572,
+        "mobile": 1228,
+        "unknown": 0
+      },
+      "article_clicks": 2116,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/25/ddda-hopes-100k-uli-panel-will-help-plot-denver-pavilions-future",
+          "title": "Ddda Hopes 100K Uli Panel Will Help Plot Denver Pavilions Future",
+          "clicks": 740,
+          "click_pct": 14.31
+        },
+        {
+          "url": "https://businessden.com/2026/02/25/local-grocer-nude-foods-to-appear-on-shark-tank",
+          "title": "Local Grocer Nude Foods To Appear On Shark Tank",
+          "clicks": 431,
+          "click_pct": 8.34
+        },
+        {
+          "url": "https://businessden.com/2026/02/25/public-financing-the-focus-as-national-law-firm-opens-denver-office",
+          "title": "Public Financing The Focus As National Law Firm Opens Denver Office",
+          "clicks": 337,
+          "click_pct": 6.52
+        },
+        {
+          "url": "https://businessden.com/2026/02/25/cole-site-slated-for-apartments-rezoned-despite-concern-from-neighbors",
+          "title": "Cole Site Slated For Apartments Rezoned Despite Concern From Neighbors",
+          "clicks": 323,
+          "click_pct": 6.25
+        },
+        {
+          "url": "https://businessden.com/2026/02/24/denvers-population-growth-engine-slams-into-reverse",
+          "title": "Denvers Population Growth Engine Slams Into Reverse",
+          "clicks": 285,
+          "click_pct": 5.51
+        }
+      ]
+    },
+    {
+      "date": "2026-02-24",
+      "email_id": "208184670124",
+      "name": "BD 2.24.26",
+      "recipients": 19340,
+      "sent": 18311,
+      "delivered": 17453,
+      "opens": 5369,
+      "clicks": 1761,
+      "bounces": 858,
+      "hard_bounces": 0,
+      "soft_bounces": 858,
+      "unsubscribes": 17,
+      "spam_reports": 2,
+      "contacts_lost": 19,
+      "dropped": 794,
+      "suppressed": 235,
+      "pending": 0,
+      "open_rate": 30.76,
+      "click_rate": 10.09,
+      "click_through_rate": 32.8,
+      "bounce_rate": 4.69,
+      "unsubscribe_rate": 0.1,
+      "device_opens": {
+        "computer": 4125,
+        "mobile": 2034,
+        "unknown": 3954
+      },
+      "device_clicks": {
+        "computer": 1950,
+        "mobile": 1420,
+        "unknown": 0
+      },
+      "article_clicks": 3169,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/24/denvers-population-growth-engine-slams-into-reverse",
+          "title": "Denvers Population Growth Engine Slams Into Reverse",
+          "clicks": 1249,
+          "click_pct": 23.26
+        },
+        {
+          "url": "https://businessden.com/2026/02/24/cherry-creek-i-ii-aurora-under-contract",
+          "title": "Cherry Creek I Ii Aurora Under Contract",
+          "clicks": 629,
+          "click_pct": 11.72
+        },
+        {
+          "url": "https://businessden.com/2026/02/24/johnston-proposes-pause-on-new-data-centers-in-denver",
+          "title": "Johnston Proposes Pause On New Data Centers In Denver",
+          "clicks": 460,
+          "click_pct": 8.57
+        },
+        {
+          "url": "https://businessden.com/2026/02/24/boulder-vc-firm-adds-partners-targets-eight-figures-for-first-deep-tech-fund",
+          "title": "Boulder Vc Firm Adds Partners Targets Eight Figures For First Deep Tech Fund",
+          "clicks": 440,
+          "click_pct": 8.2
+        },
+        {
+          "url": "https://businessden.com/2026/02/23/at-broncos-request-dura-searches-for-blight-around-stadium-site",
+          "title": "At Broncos Request Dura Searches For Blight Around Stadium Site",
+          "clicks": 211,
+          "click_pct": 3.93
+        },
+        {
+          "url": "https://businessden.com/2026/02/23/boulder-bike-shop-was-sold-without-owners-ok-he-says",
+          "title": "Boulder Bike Shop Was Sold Without Owners Ok He Says",
+          "clicks": 180,
+          "click_pct": 3.35
+        }
+      ]
+    },
+    {
+      "date": "2026-02-23",
+      "email_id": "208068916648",
+      "name": "BD 2.23.26",
+      "recipients": 19332,
+      "sent": 18303,
+      "delivered": 18259,
+      "opens": 5642,
+      "clicks": 1768,
+      "bounces": 44,
+      "hard_bounces": 7,
+      "soft_bounces": 37,
+      "unsubscribes": 26,
+      "spam_reports": 3,
+      "contacts_lost": 36,
+      "dropped": 795,
+      "suppressed": 234,
+      "pending": 0,
+      "open_rate": 30.9,
+      "click_rate": 9.68,
+      "click_through_rate": 31.34,
+      "bounce_rate": 0.24,
+      "unsubscribe_rate": 0.14,
+      "device_opens": {
+        "computer": 4277,
+        "mobile": 2048,
+        "unknown": 3787
+      },
+      "device_clicks": {
+        "computer": 1815,
+        "mobile": 1311,
+        "unknown": 0
+      },
+      "article_clicks": 2729,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/23/at-broncos-request-dura-searches-for-blight-around-stadium-site",
+          "title": "At Broncos Request Dura Searches For Blight Around Stadium Site",
+          "clicks": 1235,
+          "click_pct": 21.89
+        },
+        {
+          "url": "https://businessden.com/2026/02/23/formativ-launches-senior-apartment-brand-with-4m-littleton-buy",
+          "title": "Formativ Launches Senior Apartment Brand With 4M Littleton Buy",
+          "clicks": 642,
+          "click_pct": 11.38
+        },
+        {
+          "url": "https://businessden.com/2026/02/23/boulder-bike-shop-was-sold-without-owners-ok-he-says",
+          "title": "Boulder Bike Shop Was Sold Without Owners Ok He Says",
+          "clicks": 549,
+          "click_pct": 9.73
+        },
+        {
+          "url": "https://businessden.com/2026/02/19/the-docket-real-estate-lawsuit-roundup-for-2-19-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 2 19 26",
+          "clicks": 303,
+          "click_pct": 5.37
+        }
+      ]
+    },
+    {
+      "date": "2026-02-20",
+      "email_id": "207982996088",
+      "name": "BD 2.20.26",
+      "recipients": 19293,
+      "sent": 18269,
+      "delivered": 18228,
+      "opens": 5653,
+      "clicks": 2035,
+      "bounces": 41,
+      "hard_bounces": 2,
+      "soft_bounces": 39,
+      "unsubscribes": 21,
+      "spam_reports": 1,
+      "contacts_lost": 24,
+      "dropped": 795,
+      "suppressed": 229,
+      "pending": 0,
+      "open_rate": 31.01,
+      "click_rate": 11.16,
+      "click_through_rate": 36.0,
+      "bounce_rate": 0.22,
+      "unsubscribe_rate": 0.12,
+      "device_opens": {
+        "computer": 4115,
+        "mobile": 2408,
+        "unknown": 3654
+      },
+      "device_clicks": {
+        "computer": 2076,
+        "mobile": 1729,
+        "unknown": 0
+      },
+      "article_clicks": 3312,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/20/exec-lists-cherry-hills-dream-home-for-18-million",
+          "title": "Exec Lists Cherry Hills Dream Home For 18 Million",
+          "clicks": 1381,
+          "click_pct": 24.43
+        },
+        {
+          "url": "https://businessden.com/2026/02/20/blank-barbers-buys-its-cherry-creek-building-for-1-5m",
+          "title": "Blank Barbers Buys Its Cherry Creek Building For 1 5M",
+          "clicks": 562,
+          "click_pct": 9.94
+        },
+        {
+          "url": "https://businessden.com/2026/02/20/law-firm-expanding-in-downtown-tower",
+          "title": "Law Firm Expanding In Downtown Tower",
+          "clicks": 387,
+          "click_pct": 6.85
+        },
+        {
+          "url": "https://businessden.com/2026/02/19/the-docket-real-estate-lawsuit-roundup-for-2-19-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 2 19 26",
+          "clicks": 269,
+          "click_pct": 4.76
+        },
+        {
+          "url": "https://businessden.com/2026/02/19/dtc-landlord-defaults-on-loan-amid-beyond-bad-local-office-market",
+          "title": "Dtc Landlord Defaults On Loan Amid Beyond Bad Local Office Market",
+          "clicks": 259,
+          "click_pct": 4.58
+        },
+        {
+          "url": "https://businessden.com/2026/02/20/craft-beer-consolidation-continues-as-left-hand-absorbs-another-colorado-brewery",
+          "title": "Craft Beer Consolidation Continues As Left Hand Absorbs Another Colorado Brewery",
+          "clicks": 180,
+          "click_pct": 3.18
+        },
+        {
+          "url": "https://businessden.com/2026/02/19/centennial-private-school-to-open-next-fall-after-3-6m-buy",
+          "title": "Centennial Private School To Open Next Fall After 3 6M Buy",
+          "clicks": 140,
+          "click_pct": 2.48
+        },
+        {
+          "url": "https://businessden.com/2026/02/19/will-denvers-tipped-minimum-wage-law-change-anytime-soon",
+          "title": "Will Denvers Tipped Minimum Wage Law Change Anytime Soon",
+          "clicks": 134,
+          "click_pct": 2.37
+        }
+      ]
+    },
+    {
+      "date": "2026-02-19",
+      "email_id": "207915280439",
+      "name": "BD 2.19.26",
+      "recipients": 19276,
+      "sent": 18258,
+      "delivered": 17450,
+      "opens": 5215,
+      "clicks": 1581,
+      "bounces": 808,
+      "hard_bounces": 2,
+      "soft_bounces": 806,
+      "unsubscribes": 20,
+      "spam_reports": 0,
+      "contacts_lost": 22,
+      "dropped": 791,
+      "suppressed": 227,
+      "pending": 0,
+      "open_rate": 29.89,
+      "click_rate": 9.06,
+      "click_through_rate": 30.32,
+      "bounce_rate": 4.42,
+      "unsubscribe_rate": 0.12,
+      "device_opens": {
+        "computer": 3742,
+        "mobile": 1968,
+        "unknown": 3597
+      },
+      "device_clicks": {
+        "computer": 1808,
+        "mobile": 1335,
+        "unknown": 0
+      },
+      "article_clicks": 2433,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/19/dtc-landlord-defaults-on-loan-amid-beyond-bad-local-office-market",
+          "title": "Dtc Landlord Defaults On Loan Amid Beyond Bad Local Office Market",
+          "clicks": 824,
+          "click_pct": 15.8
+        },
+        {
+          "url": "https://businessden.com/2026/02/19/rookie-lawyers-license-suspended-after-he-abandons-client-in-cu-case",
+          "title": "Rookie Lawyers License Suspended After He Abandons Client In Cu Case",
+          "clicks": 743,
+          "click_pct": 14.25
+        },
+        {
+          "url": "https://businessden.com/2026/02/19/centennial-private-school-to-open-next-fall-after-3-6m-buy",
+          "title": "Centennial Private School To Open Next Fall After 3 6M Buy",
+          "clicks": 537,
+          "click_pct": 10.3
+        },
+        {
+          "url": "https://businessden.com/2026/02/19/will-denvers-tipped-minimum-wage-law-change-anytime-soon",
+          "title": "Will Denvers Tipped Minimum Wage Law Change Anytime Soon",
+          "clicks": 329,
+          "click_pct": 6.31
+        }
+      ]
+    },
+    {
+      "date": "2026-02-18",
+      "email_id": "207828439691",
+      "name": "BD 2.18.26",
+      "recipients": 19270,
+      "sent": 18258,
+      "delivered": 17436,
+      "opens": 5222,
+      "clicks": 1584,
+      "bounces": 822,
+      "hard_bounces": 3,
+      "soft_bounces": 819,
+      "unsubscribes": 19,
+      "spam_reports": 1,
+      "contacts_lost": 23,
+      "dropped": 787,
+      "suppressed": 225,
+      "pending": 0,
+      "open_rate": 29.95,
+      "click_rate": 9.09,
+      "click_through_rate": 30.33,
+      "bounce_rate": 4.5,
+      "unsubscribe_rate": 0.11,
+      "device_opens": {
+        "computer": 3843,
+        "mobile": 2018,
+        "unknown": 3579
+      },
+      "device_clicks": {
+        "computer": 1826,
+        "mobile": 1326,
+        "unknown": 0
+      },
+      "article_clicks": 3459,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/17/a-jury-found-that-brian-watson-defrauded-investors-now-what",
+          "title": "A Jury Found That Brian Watson Defrauded Investors Now What",
+          "clicks": 968,
+          "click_pct": 18.54
+        },
+        {
+          "url": "https://businessden.com/2026/02/17/palantir-moves-hq-from-denver-to-miami",
+          "title": "Palantir Moves Hq From Denver To Miami",
+          "clicks": 852,
+          "click_pct": 16.32
+        },
+        {
+          "url": "https://businessden.com/2026/02/17/highlands-ranch-office-landlord-defaults-on-buildings-18m-loan",
+          "title": "Highlands Ranch Office Landlord Defaults On Buildings 18M Loan",
+          "clicks": 678,
+          "click_pct": 12.98
+        },
+        {
+          "url": "https://businessden.com/2026/02/17/golden-day-trader-barred-from-selling-stocks-after-pocketing-1m",
+          "title": "Golden Day Trader Barred From Selling Stocks After Pocketing 1M",
+          "clicks": 500,
+          "click_pct": 9.57
+        },
+        {
+          "url": "https://businessden.com/2026/02/17/whats-happening-with-colorado-planned-amazon-fresh-stores",
+          "title": "Whats Happening With Colorado Planned Amazon Fresh Stores",
+          "clicks": 283,
+          "click_pct": 5.42
+        },
+        {
+          "url": "https://businessden.com/2026/02/17/broncos-begin-bulldozing-buildings-by-burnham-yard",
+          "title": "Broncos Begin Bulldozing Buildings By Burnham Yard",
+          "clicks": 178,
+          "click_pct": 3.41
+        }
+      ]
+    },
+    {
+      "date": "2026-02-17",
+      "email_id": "207530833939",
+      "name": "BD 2.17.26",
+      "recipients": 19247,
+      "sent": 18241,
+      "delivered": 18206,
+      "opens": 5237,
+      "clicks": 1573,
+      "bounces": 35,
+      "hard_bounces": 2,
+      "soft_bounces": 33,
+      "unsubscribes": 22,
+      "spam_reports": 1,
+      "contacts_lost": 25,
+      "dropped": 786,
+      "suppressed": 220,
+      "pending": 0,
+      "open_rate": 28.77,
+      "click_rate": 8.64,
+      "click_through_rate": 30.04,
+      "bounce_rate": 0.19,
+      "unsubscribe_rate": 0.12,
+      "device_opens": {
+        "computer": 4122,
+        "mobile": 1996,
+        "unknown": 3608
+      },
+      "device_clicks": {
+        "computer": 1891,
+        "mobile": 1349,
+        "unknown": 0
+      },
+      "article_clicks": 2772,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/17/400-inverness-sale-westside-knightbridge",
+          "title": "400 Inverness Sale Westside Knightbridge",
+          "clicks": 671,
+          "click_pct": 12.81
+        },
+        {
+          "url": "https://businessden.com/2026/02/17/whats-happening-with-colorado-planned-amazon-fresh-stores",
+          "title": "Whats Happening With Colorado Planned Amazon Fresh Stores",
+          "clicks": 585,
+          "click_pct": 11.17
+        },
+        {
+          "url": "https://businessden.com/2026/02/17/broncos-begin-bulldozing-buildings-by-burnham-yard",
+          "title": "Broncos Begin Bulldozing Buildings By Burnham Yard",
+          "clicks": 569,
+          "click_pct": 10.86
+        },
+        {
+          "url": "https://businessden.com/2026/02/17/restaurateur-bringing-national-mediterranean-chain-to-rino",
+          "title": "Restaurateur Bringing National Mediterranean Chain To Rino",
+          "clicks": 407,
+          "click_pct": 7.77
+        },
+        {
+          "url": "https://businessden.com/2026/02/17/the-source-in-rino-complains-cement-plant-dust-spreading-to-nearby-lofts",
+          "title": "The Source In Rino Complains Cement Plant Dust Spreading To Nearby Lofts",
+          "clicks": 367,
+          "click_pct": 7.01
+        },
+        {
+          "url": "https://businessden.com/2026/02/13/south-broadway-theater-exits-bankruptcy-foreclosure",
+          "title": "South Broadway Theater Exits Bankruptcy Foreclosure",
+          "clicks": 173,
+          "click_pct": 3.3
+        }
+      ]
+    },
+    {
+      "date": "2026-02-13",
+      "email_id": "207462200629",
+      "name": "BD 2.13.26",
+      "recipients": 19184,
+      "sent": 18186,
+      "delivered": 18055,
+      "opens": 5321,
+      "clicks": 1776,
+      "bounces": 131,
+      "hard_bounces": 2,
+      "soft_bounces": 129,
+      "unsubscribes": 23,
+      "spam_reports": 1,
+      "contacts_lost": 26,
+      "dropped": 780,
+      "suppressed": 218,
+      "pending": 0,
+      "open_rate": 29.47,
+      "click_rate": 9.84,
+      "click_through_rate": 33.38,
+      "bounce_rate": 0.72,
+      "unsubscribe_rate": 0.13,
+      "device_opens": {
+        "computer": 3780,
+        "mobile": 2186,
+        "unknown": 3491
+      },
+      "device_clicks": {
+        "computer": 1921,
+        "mobile": 1445,
+        "unknown": 0
+      },
+      "article_clicks": 2990,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/13/john-maddens-hidden-office-penthouse-slashes-price-60",
+          "title": "John Maddens Hidden Office Penthouse Slashes Price 60",
+          "clicks": 1372,
+          "click_pct": 25.78
+        },
+        {
+          "url": "https://businessden.com/2026/02/13/south-broadway-theater-exits-bankruptcy-foreclosure",
+          "title": "South Broadway Theater Exits Bankruptcy Foreclosure",
+          "clicks": 468,
+          "click_pct": 8.8
+        },
+        {
+          "url": "https://businessden.com/2026/02/13/tax-credit-backed-development-coming-to-vacant-sun-valley-corner",
+          "title": "Tax Credit Backed Development Coming To Vacant Sun Valley Corner",
+          "clicks": 315,
+          "click_pct": 5.92
+        },
+        {
+          "url": "https://businessden.com/2026/02/13/the-pipeline-commercial-real-estate-deals-for-2-13-26",
+          "title": "The Pipeline Commercial Real Estate Deals For 2 13 26",
+          "clicks": 298,
+          "click_pct": 5.6
+        },
+        {
+          "url": "https://businessden.com/2026/02/13/tres-chiles-owner-opening-new-restaurant-in-its-former-tennyson-space",
+          "title": "Tres Chiles Owner Opening New Restaurant In Its Former Tennyson Space",
+          "clicks": 230,
+          "click_pct": 4.32
+        },
+        {
+          "url": "https://businessden.com/2026/02/12/ben-hrouda-flywheel-capital-bankruptcy",
+          "title": "Ben Hrouda Flywheel Capital Bankruptcy",
+          "clicks": 221,
+          "click_pct": 4.15
+        },
+        {
+          "url": "https://businessden.com/2026/02/12/quiktrip-buys-denver-property-despite-gas-station-restrictions",
+          "title": "Quiktrip Buys Denver Property Despite Gas Station Restrictions",
+          "clicks": 86,
+          "click_pct": 1.62
+        }
+      ]
+    },
+    {
+      "date": "2026-02-12",
+      "email_id": "207401639520",
+      "name": "BD 2.12.26",
+      "recipients": 19178,
+      "sent": 18182,
+      "delivered": 17235,
+      "opens": 5291,
+      "clicks": 1716,
+      "bounces": 947,
+      "hard_bounces": 2,
+      "soft_bounces": 945,
+      "unsubscribes": 23,
+      "spam_reports": 0,
+      "contacts_lost": 25,
+      "dropped": 780,
+      "suppressed": 216,
+      "pending": 0,
+      "open_rate": 30.7,
+      "click_rate": 9.96,
+      "click_through_rate": 32.43,
+      "bounce_rate": 5.21,
+      "unsubscribe_rate": 0.13,
+      "device_opens": {
+        "computer": 4104,
+        "mobile": 2110,
+        "unknown": 3809
+      },
+      "device_clicks": {
+        "computer": 1825,
+        "mobile": 1440,
+        "unknown": 0
+      },
+      "article_clicks": 3043,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/12/ben-hrouda-flywheel-capital-bankruptcy",
+          "title": "Ben Hrouda Flywheel Capital Bankruptcy",
+          "clicks": 1558,
+          "click_pct": 29.45
+        },
+        {
+          "url": "https://businessden.com/2026/02/12/dtc-office-building-could-be-demolished-to-make-way-for-apartments",
+          "title": "Dtc Office Building Could Be Demolished To Make Way For Apartments",
+          "clicks": 483,
+          "click_pct": 9.13
+        },
+        {
+          "url": "https://businessden.com/2026/02/12/the-docket-real-estate-lawsuit-roundup-for-2-12-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 2 12 26",
+          "clicks": 375,
+          "click_pct": 7.09
+        },
+        {
+          "url": "https://businessden.com/2026/02/12/quiktrip-buys-denver-property-despite-gas-station-restrictions",
+          "title": "Quiktrip Buys Denver Property Despite Gas Station Restrictions",
+          "clicks": 337,
+          "click_pct": 6.37
+        },
+        {
+          "url": "https://businessden.com/2026/02/11/blue-sparrow-to-open-fourth-location-in-tabor-center",
+          "title": "Blue Sparrow To Open Fourth Location In Tabor Center",
+          "clicks": 169,
+          "click_pct": 3.19
+        },
+        {
+          "url": "https://businessden.com/2026/02/11/new-boulder-law-firm-formed-to-handle-high-profile-business-disputes",
+          "title": "New Boulder Law Firm Formed To Handle High Profile Business Disputes",
+          "clicks": 121,
+          "click_pct": 2.29
+        }
+      ]
+    },
+    {
+      "date": "2026-02-11",
+      "email_id": "207306025024",
+      "name": "BD 2.11.26",
+      "recipients": 19161,
+      "sent": 18172,
+      "delivered": 17172,
+      "opens": 5117,
+      "clicks": 1390,
+      "bounces": 1000,
+      "hard_bounces": 2,
+      "soft_bounces": 998,
+      "unsubscribes": 21,
+      "spam_reports": 2,
+      "contacts_lost": 25,
+      "dropped": 777,
+      "suppressed": 212,
+      "pending": 0,
+      "open_rate": 29.8,
+      "click_rate": 8.1,
+      "click_through_rate": 27.16,
+      "bounce_rate": 5.5,
+      "unsubscribe_rate": 0.12,
+      "device_opens": {
+        "computer": 3813,
+        "mobile": 1817,
+        "unknown": 3579
+      },
+      "device_clicks": {
+        "computer": 1687,
+        "mobile": 1018,
+        "unknown": 0
+      },
+      "article_clicks": 2838,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/11/blue-sparrow-to-open-fourth-location-in-tabor-center",
+          "title": "Blue Sparrow To Open Fourth Location In Tabor Center",
+          "clicks": 784,
+          "click_pct": 15.32
+        },
+        {
+          "url": "https://businessden.com/2026/02/11/1960-dallas-1592-boston-aurora-bankruptcy",
+          "title": "1960 Dallas 1592 Boston Aurora Bankruptcy",
+          "clicks": 587,
+          "click_pct": 11.47
+        },
+        {
+          "url": "https://businessden.com/2026/02/11/legislators-approve-redevelopment-of-11-state-owned-acres-in-lakewood",
+          "title": "Legislators Approve Redevelopment Of 11 State Owned Acres In Lakewood",
+          "clicks": 577,
+          "click_pct": 11.28
+        },
+        {
+          "url": "https://businessden.com/2026/02/11/storage-redevelopment-eyed-for-portion-of-former-va-hospital-campus",
+          "title": "Storage Redevelopment Eyed For Portion Of Former Va Hospital Campus",
+          "clicks": 433,
+          "click_pct": 8.46
+        },
+        {
+          "url": "https://businessden.com/2026/02/11/new-boulder-law-firm-formed-to-handle-high-profile-business-disputes",
+          "title": "New Boulder Law Firm Formed To Handle High Profile Business Disputes",
+          "clicks": 307,
+          "click_pct": 6.0
+        },
+        {
+          "url": "https://businessden.com/2026/02/10/deal-coming-for-still-empty-hotel-bought-by-denver-in-2023-city-says",
+          "title": "Deal Coming For Still Empty Hotel Bought By Denver In 2023 City Says",
+          "clicks": 150,
+          "click_pct": 2.93
+        }
+      ]
+    },
+    {
+      "date": "2026-02-10",
+      "email_id": "207196600168",
+      "name": "BD 2.10.26",
+      "recipients": 19144,
+      "sent": 18158,
+      "delivered": 17111,
+      "opens": 5099,
+      "clicks": 1304,
+      "bounces": 1047,
+      "hard_bounces": 3,
+      "soft_bounces": 1044,
+      "unsubscribes": 17,
+      "spam_reports": 0,
+      "contacts_lost": 20,
+      "dropped": 776,
+      "suppressed": 210,
+      "pending": 0,
+      "open_rate": 29.8,
+      "click_rate": 7.62,
+      "click_through_rate": 25.57,
+      "bounce_rate": 5.77,
+      "unsubscribe_rate": 0.1,
+      "device_opens": {
+        "computer": 3521,
+        "mobile": 1807,
+        "unknown": 3531
+      },
+      "device_clicks": {
+        "computer": 1340,
+        "mobile": 1033,
+        "unknown": 0
+      },
+      "article_clicks": 2286,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/10/state-shuts-down-property-manager-fines-him-445k-hell-never-pay",
+          "title": "State Shuts Down Property Manager Fines Him 445K Hell Never Pay",
+          "clicks": 713,
+          "click_pct": 13.98
+        },
+        {
+          "url": "https://businessden.com/2026/02/10/deal-coming-for-still-empty-hotel-bought-by-denver-in-2023-city-says",
+          "title": "Deal Coming For Still Empty Hotel Bought By Denver In 2023 City Says",
+          "clicks": 581,
+          "click_pct": 11.39
+        },
+        {
+          "url": "https://businessden.com/2026/02/10/lakewood-law-firm-wins-trademark-dispute-over-beer-law-marketing",
+          "title": "Lakewood Law Firm Wins Trademark Dispute Over Beer Law Marketing",
+          "clicks": 293,
+          "click_pct": 5.75
+        },
+        {
+          "url": "https://businessden.com/2026/02/09/columbine-place-university-hawaii-foundation-denver-new-owner",
+          "title": "Columbine Place University Hawaii Foundation Denver New Owner",
+          "clicks": 213,
+          "click_pct": 4.18
+        },
+        {
+          "url": "https://businessden.com/2026/02/10/tea-shop-backed-by-dda-dollars-moving-within-market-station",
+          "title": "Tea Shop Backed By Dda Dollars Moving Within Market Station",
+          "clicks": 213,
+          "click_pct": 4.18
+        },
+        {
+          "url": "https://businessden.com/2026/02/09/plans-for-new-venue-in-former-beta-building-hit-early-snag",
+          "title": "Plans For New Venue In Former Beta Building Hit Early Snag",
+          "clicks": 152,
+          "click_pct": 2.98
+        },
+        {
+          "url": "https://businessden.com/2026/02/09/natural-grocers-buys-lakewood-office-building-for-5-6m",
+          "title": "Natural Grocers Buys Lakewood Office Building For 5 6M",
+          "clicks": 121,
+          "click_pct": 2.37
+        }
+      ]
+    },
+    {
+      "date": "2026-02-09",
+      "email_id": "207056150419",
+      "name": "BD 2.9.26",
+      "recipients": 19130,
+      "sent": 18147,
+      "delivered": 18105,
+      "opens": 5438,
+      "clicks": 1494,
+      "bounces": 42,
+      "hard_bounces": 7,
+      "soft_bounces": 35,
+      "unsubscribes": 25,
+      "spam_reports": 0,
+      "contacts_lost": 32,
+      "dropped": 774,
+      "suppressed": 209,
+      "pending": 0,
+      "open_rate": 30.04,
+      "click_rate": 8.25,
+      "click_through_rate": 27.47,
+      "bounce_rate": 0.23,
+      "unsubscribe_rate": 0.14,
+      "device_opens": {
+        "computer": 4072,
+        "mobile": 1910,
+        "unknown": 3803
+      },
+      "device_clicks": {
+        "computer": 1841,
+        "mobile": 1195,
+        "unknown": 0
+      },
+      "article_clicks": 3180,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/09/columbine-place-university-hawaii-foundation-denver-new-owner",
+          "title": "Columbine Place University Hawaii Foundation Denver New Owner",
+          "clicks": 886,
+          "click_pct": 16.29
+        },
+        {
+          "url": "https://businessden.com/2026/02/09/plans-for-new-venue-in-former-beta-building-hit-early-snag",
+          "title": "Plans For New Venue In Former Beta Building Hit Early Snag",
+          "clicks": 786,
+          "click_pct": 14.45
+        },
+        {
+          "url": "https://businessden.com/2026/02/09/natural-grocers-buys-lakewood-office-building-for-5-6m",
+          "title": "Natural Grocers Buys Lakewood Office Building For 5 6M",
+          "clicks": 639,
+          "click_pct": 11.75
+        },
+        {
+          "url": "https://businessden.com/2026/02/09/small-rino-office-sells-for-3m-to-mainspring-for-retail-conversion",
+          "title": "Small Rino Office Sells For 3M To Mainspring For Retail Conversion",
+          "clicks": 445,
+          "click_pct": 8.18
+        },
+        {
+          "url": "https://businessden.com/2026/02/06/tavern-littleton-sells-for-2m",
+          "title": "Tavern Littleton Sells For 2M",
+          "clicks": 312,
+          "click_pct": 5.74
+        },
+        {
+          "url": "https://businessden.com/2026/02/06/year-after-shark-tank-appearance-boulder-based-animal-coat-company-navigating-down-winter-tariffs",
+          "title": "Year After Shark Tank Appearance Boulder Based Animal Coat Company Navigating Down Winter Tariffs",
+          "clicks": 112,
+          "click_pct": 2.06
+        }
+      ]
+    },
+    {
+      "date": "2026-02-06",
+      "email_id": "206991138675",
+      "name": "BD 2.6.26",
+      "recipients": 19082,
+      "sent": 18118,
+      "delivered": 18084,
+      "opens": 5316,
+      "clicks": 2013,
+      "bounces": 34,
+      "hard_bounces": 3,
+      "soft_bounces": 31,
+      "unsubscribes": 21,
+      "spam_reports": 1,
+      "contacts_lost": 25,
+      "dropped": 765,
+      "suppressed": 199,
+      "pending": 0,
+      "open_rate": 29.4,
+      "click_rate": 11.13,
+      "click_through_rate": 37.87,
+      "bounce_rate": 0.19,
+      "unsubscribe_rate": 0.12,
+      "device_opens": {
+        "computer": 4067,
+        "mobile": 2308,
+        "unknown": 3530
+      },
+      "device_clicks": {
+        "computer": 2127,
+        "mobile": 1730,
+        "unknown": 0
+      },
+      "article_clicks": 4055,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/06/auto-exec-buys-cherry-hills-mansion-for-9-3-million-to-lead-january-sales",
+          "title": "Auto Exec Buys Cherry Hills Mansion For 9 3 Million To Lead January Sales",
+          "clicks": 1396,
+          "click_pct": 26.26
+        },
+        {
+          "url": "https://businessden.com/2026/02/06/lender-forecloses-on-four-central-denver-apartment-buildings",
+          "title": "Lender Forecloses On Four Central Denver Apartment Buildings",
+          "clicks": 779,
+          "click_pct": 14.65
+        },
+        {
+          "url": "https://businessden.com/2026/02/06/tavern-littleton-sells-for-2m",
+          "title": "Tavern Littleton Sells For 2M",
+          "clicks": 662,
+          "click_pct": 12.45
+        },
+        {
+          "url": "https://businessden.com/2026/02/06/year-after-shark-tank-appearance-boulder-based-animal-coat-company-navigating-down-winter-tariffs",
+          "title": "Year After Shark Tank Appearance Boulder Based Animal Coat Company Navigating Down Winter Tariffs",
+          "clicks": 364,
+          "click_pct": 6.85
+        },
+        {
+          "url": "https://businessden.com/2026/02/06/the-pipeline-commercial-real-estate-deals-for-2-6-26",
+          "title": "The Pipeline Commercial Real Estate Deals For 2 6 26",
+          "clicks": 284,
+          "click_pct": 5.34
+        },
+        {
+          "url": "https://businessden.com/2026/02/05/the-docket-real-estate-lawsuit-roundup-for-2-5-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 2 5 26",
+          "clicks": 241,
+          "click_pct": 4.53
+        },
+        {
+          "url": "https://businessden.com/2026/02/05/pagosa-springs-timeshares-go-bankrupt-will-sell-their-13-resort-buildings",
+          "title": "Pagosa Springs Timeshares Go Bankrupt Will Sell Their 13 Resort Buildings",
+          "clicks": 179,
+          "click_pct": 3.37
+        },
+        {
+          "url": "https://businessden.com/2026/02/05/month-after-denvers-worst-fire-in-decades-neighbors-attempt-to-return-to-normal",
+          "title": "Month After Denvers Worst Fire In Decades Neighbors Attempt To Return To Normal",
+          "clicks": 150,
+          "click_pct": 2.82
+        }
+      ]
+    },
+    {
+      "date": "2026-02-05",
+      "email_id": "206891341954",
+      "name": "BD 2.5.26",
+      "recipients": 19063,
+      "sent": 18104,
+      "delivered": 17292,
+      "opens": 5283,
+      "clicks": 1754,
+      "bounces": 812,
+      "hard_bounces": 1,
+      "soft_bounces": 811,
+      "unsubscribes": 16,
+      "spam_reports": 0,
+      "contacts_lost": 17,
+      "dropped": 765,
+      "suppressed": 194,
+      "pending": 0,
+      "open_rate": 30.55,
+      "click_rate": 10.14,
+      "click_through_rate": 33.2,
+      "bounce_rate": 4.49,
+      "unsubscribe_rate": 0.09,
+      "device_opens": {
+        "computer": 3726,
+        "mobile": 2132,
+        "unknown": 3922
+      },
+      "device_clicks": {
+        "computer": 1706,
+        "mobile": 1442,
+        "unknown": 0
+      },
+      "article_clicks": 3592,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/05/four-seasons-condo-project-coming-to-cherry-creek-denver",
+          "title": "Four Seasons Condo Project Coming To Cherry Creek Denver",
+          "clicks": 1068,
+          "click_pct": 20.22
+        },
+        {
+          "url": "https://businessden.com/2026/02/05/month-after-denvers-worst-fire-in-decades-neighbors-attempt-to-return-to-normal",
+          "title": "Month After Denvers Worst Fire In Decades Neighbors Attempt To Return To Normal",
+          "clicks": 950,
+          "click_pct": 17.98
+        },
+        {
+          "url": "https://businessden.com/2026/02/05/pagosa-springs-timeshares-go-bankrupt-will-sell-their-13-resort-buildings",
+          "title": "Pagosa Springs Timeshares Go Bankrupt Will Sell Their 13 Resort Buildings",
+          "clicks": 478,
+          "click_pct": 9.05
+        },
+        {
+          "url": "https://businessden.com/2026/02/05/the-docket-real-estate-lawsuit-roundup-for-2-5-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 2 5 26",
+          "clicks": 415,
+          "click_pct": 7.86
+        },
+        {
+          "url": "https://businessden.com/2026/02/05/lodo-nightclub-orchid-closes-after-shooting-licensing-issues",
+          "title": "Lodo Nightclub Orchid Closes After Shooting Licensing Issues",
+          "clicks": 341,
+          "click_pct": 6.45
+        },
+        {
+          "url": "https://businessden.com/2026/02/04/bank-could-take-evergreen-saloon-after-owners-squabble-resurfaces",
+          "title": "Bank Could Take Evergreen Saloon After Owners Squabble Resurfaces",
+          "clicks": 175,
+          "click_pct": 3.31
+        },
+        {
+          "url": "https://businessden.com/2026/02/04/denver-office-residential-conversion-symes-820-16th",
+          "title": "Denver Office Residential Conversion Symes 820 16Th",
+          "clicks": 165,
+          "click_pct": 3.12
+        }
+      ]
+    },
+    {
+      "date": "2026-02-04",
+      "email_id": "206791465226",
+      "name": "BD 2.4.26",
+      "recipients": 19065,
+      "sent": 18116,
+      "delivered": 17434,
+      "opens": 5340,
+      "clicks": 1877,
+      "bounces": 682,
+      "hard_bounces": 4,
+      "soft_bounces": 678,
+      "unsubscribes": 30,
+      "spam_reports": 1,
+      "contacts_lost": 35,
+      "dropped": 764,
+      "suppressed": 185,
+      "pending": 0,
+      "open_rate": 30.63,
+      "click_rate": 10.77,
+      "click_through_rate": 35.15,
+      "bounce_rate": 3.77,
+      "unsubscribe_rate": 0.17,
+      "device_opens": {
+        "computer": 3969,
+        "mobile": 2158,
+        "unknown": 3685
+      },
+      "device_clicks": {
+        "computer": 1987,
+        "mobile": 1507,
+        "unknown": 0
+      },
+      "article_clicks": 3019,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/04/denver-office-residential-conversion-symes-820-16th",
+          "title": "Denver Office Residential Conversion Symes 820 16Th",
+          "clicks": 1037,
+          "click_pct": 19.42
+        },
+        {
+          "url": "https://businessden.com/2026/02/04/bank-could-take-evergreen-saloon-after-owners-squabble-resurfaces",
+          "title": "Bank Could Take Evergreen Saloon After Owners Squabble Resurfaces",
+          "clicks": 424,
+          "click_pct": 7.94
+        },
+        {
+          "url": "https://businessden.com/2026/02/02/watson-defrauded-investors-in-11-real-estate-deals-jury-finds-after-sec-trial",
+          "title": "Watson Defrauded Investors In 11 Real Estate Deals Jury Finds After Sec Trial",
+          "clicks": 406,
+          "click_pct": 7.6
+        },
+        {
+          "url": "https://businessden.com/2026/02/02/mushroom-meat-startup-evicted-from-plant-assets-seized-over-taxes",
+          "title": "Mushroom Meat Startup Evicted From Plant Assets Seized Over Taxes",
+          "clicks": 402,
+          "click_pct": 7.53
+        },
+        {
+          "url": "https://businessden.com/2026/02/03/crate-barrel-is-rolling-back-into-cherry-creek",
+          "title": "Crate Barrel Is Rolling Back Into Cherry Creek",
+          "clicks": 305,
+          "click_pct": 5.71
+        },
+        {
+          "url": "https://businessden.com/2026/02/04/amazon-bid-for-faster-deliveries-takes-company-to-jefferson-park",
+          "title": "Amazon Bid For Faster Deliveries Takes Company To Jefferson Park",
+          "clicks": 270,
+          "click_pct": 5.06
+        },
+        {
+          "url": "https://businessden.com/2026/02/03/cherry-creek-italian-clothier-mario-di-leone-shutting-after-46-years",
+          "title": "Cherry Creek Italian Clothier Mario Di Leone Shutting After 46 Years",
+          "clicks": 175,
+          "click_pct": 3.28
+        }
+      ]
+    },
+    {
+      "date": "2026-02-03",
+      "email_id": "206686292321",
+      "name": "BD 2.3.26",
+      "recipients": 19042,
+      "sent": 18102,
+      "delivered": 17290,
+      "opens": 5800,
+      "clicks": 2233,
+      "bounces": 812,
+      "hard_bounces": 2,
+      "soft_bounces": 810,
+      "unsubscribes": 24,
+      "spam_reports": 1,
+      "contacts_lost": 27,
+      "dropped": 762,
+      "suppressed": 178,
+      "pending": 0,
+      "open_rate": 33.55,
+      "click_rate": 12.91,
+      "click_through_rate": 38.5,
+      "bounce_rate": 4.49,
+      "unsubscribe_rate": 0.14,
+      "device_opens": {
+        "computer": 4110,
+        "mobile": 2375,
+        "unknown": 3758
+      },
+      "device_clicks": {
+        "computer": 2329,
+        "mobile": 1949,
+        "unknown": 0
+      },
+      "article_clicks": 4427,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/03/cherry-creek-italian-clothier-mario-di-leone-shutting-after-46-years",
+          "title": "Cherry Creek Italian Clothier Mario Di Leone Shutting After 46 Years",
+          "clicks": 1270,
+          "click_pct": 21.9
+        },
+        {
+          "url": "https://businessden.com/2026/02/02/watson-defrauded-investors-in-11-real-estate-deals-jury-finds-after-sec-trial",
+          "title": "Watson Defrauded Investors In 11 Real Estate Deals Jury Finds After Sec Trial",
+          "clicks": 1130,
+          "click_pct": 19.48
+        },
+        {
+          "url": "https://businessden.com/2026/02/03/crate-barrel-is-rolling-back-into-cherry-creek",
+          "title": "Crate Barrel Is Rolling Back Into Cherry Creek",
+          "clicks": 666,
+          "click_pct": 11.48
+        },
+        {
+          "url": "https://businessden.com/2026/02/03/investor-in-rino-project-sues-developer-for-2-1m-as-both-allege-fraud",
+          "title": "Investor In Rino Project Sues Developer For 2 1M As Both Allege Fraud",
+          "clicks": 665,
+          "click_pct": 11.47
+        },
+        {
+          "url": "https://businessden.com/2026/02/02/downtown-office-complex-sells-at-75-discount",
+          "title": "Downtown Office Complex Sells At 75 Discount",
+          "clicks": 266,
+          "click_pct": 4.59
+        },
+        {
+          "url": "https://businessden.com/2026/02/03/cash-advances-send-motorsports-dealer-drifting-into-bankruptcy",
+          "title": "Cash Advances Send Motorsports Dealer Drifting Into Bankruptcy",
+          "clicks": 245,
+          "click_pct": 4.22
+        },
+        {
+          "url": "https://businessden.com/2026/02/02/nonprofit-has-11-months-to-buy-derelict-lodo-hotel",
+          "title": "Nonprofit Has 11 Months To Buy Derelict Lodo Hotel",
+          "clicks": 185,
+          "click_pct": 3.19
+        }
+      ]
+    },
+    {
+      "date": "2026-02-02",
+      "email_id": "206436280996",
+      "name": "BD 2.2.26",
+      "recipients": 19030,
+      "sent": 18096,
+      "delivered": 18055,
+      "opens": 5488,
+      "clicks": 1895,
+      "bounces": 41,
+      "hard_bounces": 10,
+      "soft_bounces": 31,
+      "unsubscribes": 17,
+      "spam_reports": 0,
+      "contacts_lost": 27,
+      "dropped": 762,
+      "suppressed": 172,
+      "pending": 0,
+      "open_rate": 30.4,
+      "click_rate": 10.5,
+      "click_through_rate": 34.53,
+      "bounce_rate": 0.23,
+      "unsubscribe_rate": 0.09,
+      "device_opens": {
+        "computer": 4286,
+        "mobile": 2052,
+        "unknown": 3797
+      },
+      "device_clicks": {
+        "computer": 2053,
+        "mobile": 1462,
+        "unknown": 0
+      },
+      "article_clicks": 3372,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/02/02/nonprofit-has-11-months-to-buy-derelict-lodo-hotel",
+          "title": "Nonprofit Has 11 Months To Buy Derelict Lodo Hotel",
+          "clicks": 1267,
+          "click_pct": 23.09
+        },
+        {
+          "url": "https://businessden.com/2026/02/02/broncos-spend-13m-for-land-near-potential-stadium",
+          "title": "Broncos Spend 13M For Land Near Potential Stadium",
+          "clicks": 731,
+          "click_pct": 13.32
+        },
+        {
+          "url": "https://businessden.com/2026/02/02/downtown-office-complex-sells-at-75-discount",
+          "title": "Downtown Office Complex Sells At 75 Discount",
+          "clicks": 662,
+          "click_pct": 12.06
+        },
+        {
+          "url": "https://businessden.com/2026/01/30/the-federal-government-was-weaponized-by-amazon-watson-says-in-sec-trial",
+          "title": "The Federal Government Was Weaponized By Amazon Watson Says In Sec Trial",
+          "clicks": 585,
+          "click_pct": 10.66
+        },
+        {
+          "url": "https://businessden.com/2026/01/30/revel-bikes-relocates-from-carbondale-to-golden",
+          "title": "Revel Bikes Relocates From Carbondale To Golden",
+          "clicks": 127,
+          "click_pct": 2.31
+        }
+      ]
+    },
+    {
+      "date": "2026-01-30",
+      "email_id": "206331560241",
+      "name": "BD 1.30.26",
+      "recipients": 18993,
+      "sent": 18065,
+      "delivered": 17864,
+      "opens": 5333,
+      "clicks": 1825,
+      "bounces": 201,
+      "hard_bounces": 5,
+      "soft_bounces": 196,
+      "unsubscribes": 15,
+      "spam_reports": 3,
+      "contacts_lost": 23,
+      "dropped": 760,
+      "suppressed": 168,
+      "pending": 0,
+      "open_rate": 29.85,
+      "click_rate": 10.22,
+      "click_through_rate": 34.22,
+      "bounce_rate": 1.11,
+      "unsubscribe_rate": 0.08,
+      "device_opens": {
+        "computer": 4238,
+        "mobile": 2199,
+        "unknown": 3679
+      },
+      "device_clicks": {
+        "computer": 1983,
+        "mobile": 1482,
+        "unknown": 0
+      },
+      "article_clicks": 3340,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/01/30/wash-park-home-lists-for-9-million",
+          "title": "Wash Park Home Lists For 9 Million",
+          "clicks": 1121,
+          "click_pct": 21.02
+        },
+        {
+          "url": "https://businessden.com/2026/01/30/the-federal-government-was-weaponized-by-amazon-watson-says-in-sec-trial",
+          "title": "The Federal Government Was Weaponized By Amazon Watson Says In Sec Trial",
+          "clicks": 571,
+          "click_pct": 10.71
+        },
+        {
+          "url": "https://businessden.com/2026/01/30/nonprofit-buys-aurora-church-for-6m-to-build-new-campus",
+          "title": "Nonprofit Buys Aurora Church For 6M To Build New Campus",
+          "clicks": 432,
+          "click_pct": 8.1
+        },
+        {
+          "url": "https://businessden.com/2026/01/30/revel-bikes-relocates-from-carbondale-to-golden",
+          "title": "Revel Bikes Relocates From Carbondale To Golden",
+          "clicks": 362,
+          "click_pct": 6.79
+        },
+        {
+          "url": "https://businessden.com/2026/01/30/the-pipeline-commercial-real-estate-deals-for-1-30-26",
+          "title": "The Pipeline Commercial Real Estate Deals For 1 30 26",
+          "clicks": 275,
+          "click_pct": 5.16
+        },
+        {
+          "url": "https://businessden.com/2026/01/29/tenant-holdout-disrupts-planned-downtown-office-to-residential-conversion-plan",
+          "title": "Tenant Holdout Disrupts Planned Downtown Office To Residential Conversion Plan",
+          "clicks": 236,
+          "click_pct": 4.43
+        },
+        {
+          "url": "https://businessden.com/2026/01/29/south-broadway-theater-owner-goes-bankrupt-to-avoid-foreclosure",
+          "title": "South Broadway Theater Owner Goes Bankrupt To Avoid Foreclosure",
+          "clicks": 180,
+          "click_pct": 3.38
+        },
+        {
+          "url": "https://businessden.com/2026/01/29/the-docket-real-estate-lawsuit-roundup-for-1-29-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 1 29 26",
+          "clicks": 163,
+          "click_pct": 3.06
+        }
+      ]
+    },
+    {
+      "date": "2026-01-29",
+      "email_id": "206240486272",
+      "name": "BD 1.29.26",
+      "recipients": 18995,
+      "sent": 18067,
+      "delivered": 17479,
+      "opens": 5408,
+      "clicks": 2039,
+      "bounces": 578,
+      "hard_bounces": 6,
+      "soft_bounces": 572,
+      "unsubscribes": 19,
+      "spam_reports": 0,
+      "contacts_lost": 25,
+      "dropped": 760,
+      "suppressed": 168,
+      "pending": 10,
+      "open_rate": 30.94,
+      "click_rate": 11.66,
+      "click_through_rate": 37.7,
+      "bounce_rate": 3.2,
+      "unsubscribe_rate": 0.11,
+      "device_opens": {
+        "computer": 4120,
+        "mobile": 2249,
+        "unknown": 3357
+      },
+      "device_clicks": {
+        "computer": 2413,
+        "mobile": 1696,
+        "unknown": 0
+      },
+      "article_clicks": 3777,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/01/29/northstars-last-employee-says-watson-strived-to-protect-investor-money",
+          "title": "Northstars Last Employee Says Watson Strived To Protect Investor Money",
+          "clicks": 1139,
+          "click_pct": 21.06
+        },
+        {
+          "url": "https://businessden.com/2026/01/29/tenant-holdout-disrupts-planned-downtown-office-to-residential-conversion-plan",
+          "title": "Tenant Holdout Disrupts Planned Downtown Office To Residential Conversion Plan",
+          "clicks": 841,
+          "click_pct": 15.55
+        },
+        {
+          "url": "https://businessden.com/2026/01/29/south-broadway-theater-owner-goes-bankrupt-to-avoid-foreclosure",
+          "title": "South Broadway Theater Owner Goes Bankrupt To Avoid Foreclosure",
+          "clicks": 551,
+          "click_pct": 10.19
+        },
+        {
+          "url": "https://businessden.com/2026/01/29/fleet-owner-framed-employees-to-hide-his-self-dealing-they-claim-in-3m-lawsuit",
+          "title": "Fleet Owner Framed Employees To Hide His Self Dealing They Claim In 3M Lawsuit",
+          "clicks": 398,
+          "click_pct": 7.36
+        },
+        {
+          "url": "https://businessden.com/2026/01/28/local-firm-snaps-up-west-wash-park-office-building-for-4-7m",
+          "title": "Local Firm Snaps Up West Wash Park Office Building For 4 7M",
+          "clicks": 373,
+          "click_pct": 6.9
+        },
+        {
+          "url": "https://businessden.com/2026/01/29/the-docket-real-estate-lawsuit-roundup-for-1-29-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 1 29 26",
+          "clicks": 328,
+          "click_pct": 6.07
+        },
+        {
+          "url": "https://businessden.com/2026/01/28/former-owner-reopening-loveland-motorcycle-dealership-that-went-bankrupt",
+          "title": "Former Owner Reopening Loveland Motorcycle Dealership That Went Bankrupt",
+          "clicks": 147,
+          "click_pct": 2.72
+        }
+      ]
+    },
+    {
+      "date": "2026-01-28",
+      "email_id": "206125666929",
+      "name": "BD 1.28.26",
+      "recipients": 18971,
+      "sent": 18057,
+      "delivered": 17308,
+      "opens": 5270,
+      "clicks": 1957,
+      "bounces": 749,
+      "hard_bounces": 10,
+      "soft_bounces": 739,
+      "unsubscribes": 22,
+      "spam_reports": 1,
+      "contacts_lost": 33,
+      "dropped": 752,
+      "suppressed": 162,
+      "pending": 0,
+      "open_rate": 30.45,
+      "click_rate": 11.31,
+      "click_through_rate": 37.13,
+      "bounce_rate": 4.15,
+      "unsubscribe_rate": 0.13,
+      "device_opens": {
+        "computer": 3959,
+        "mobile": 2267,
+        "unknown": 3401
+      },
+      "device_clicks": {
+        "computer": 2076,
+        "mobile": 1672,
+        "unknown": 0
+      },
+      "article_clicks": 3438,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/01/28/local-firm-snaps-up-west-wash-park-office-building-for-4-7m",
+          "title": "Local Firm Snaps Up West Wash Park Office Building For 4 7M",
+          "clicks": 1250,
+          "click_pct": 23.72
+        },
+        {
+          "url": "https://businessden.com/2026/01/28/denver-place-to-be-purchased-by-owner-of-adjacent-office-tower",
+          "title": "Denver Place To Be Purchased By Owner Of Adjacent Office Tower",
+          "clicks": 761,
+          "click_pct": 14.44
+        },
+        {
+          "url": "https://businessden.com/2026/01/28/watson-slams-secs-sad-and-offensive-fraud-claims-i-do-invest-my-capital",
+          "title": "Watson Slams Secs Sad And Offensive Fraud Claims I Do Invest My Capital",
+          "clicks": 609,
+          "click_pct": 11.56
+        },
+        {
+          "url": "https://businessden.com/2026/01/28/former-owner-reopening-loveland-motorcycle-dealership-that-went-bankrupt",
+          "title": "Former Owner Reopening Loveland Motorcycle Dealership That Went Bankrupt",
+          "clicks": 346,
+          "click_pct": 6.57
+        },
+        {
+          "url": "https://businessden.com/2026/01/27/nichols-aims-for-condos-on-cherry-creek-corner",
+          "title": "Nichols Aims For Condos On Cherry Creek Corner",
+          "clicks": 261,
+          "click_pct": 4.95
+        },
+        {
+          "url": "https://businessden.com/2026/01/27/riot-bbq-plans-chicken-centric-outpost-in-cherry-creek",
+          "title": "Riot Bbq Plans Chicken Centric Outpost In Cherry Creek",
+          "clicks": 211,
+          "click_pct": 4.0
+        }
+      ]
+    },
+    {
+      "date": "2026-01-27",
+      "email_id": "205962086148",
+      "name": "BD 1.27.26",
+      "recipients": 18955,
+      "sent": 18043,
+      "delivered": 17164,
+      "opens": 5396,
+      "clicks": 1843,
+      "bounces": 879,
+      "hard_bounces": 4,
+      "soft_bounces": 875,
+      "unsubscribes": 18,
+      "spam_reports": 0,
+      "contacts_lost": 22,
+      "dropped": 753,
+      "suppressed": 159,
+      "pending": 0,
+      "open_rate": 31.44,
+      "click_rate": 10.74,
+      "click_through_rate": 34.16,
+      "bounce_rate": 4.87,
+      "unsubscribe_rate": 0.1,
+      "device_opens": {
+        "computer": 4337,
+        "mobile": 2249,
+        "unknown": 3907
+      },
+      "device_clicks": {
+        "computer": 1990,
+        "mobile": 1581,
+        "unknown": 0
+      },
+      "article_clicks": 3304,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/01/27/nichols-aims-for-condos-on-cherry-creek-corner",
+          "title": "Nichols Aims For Condos On Cherry Creek Corner",
+          "clicks": 998,
+          "click_pct": 18.5
+        },
+        {
+          "url": "https://businessden.com/2026/01/27/jurors-to-decide-if-watson-defrauded-investors-or-was-only-less-than-perfect",
+          "title": "Jurors To Decide If Watson Defrauded Investors Or Was Only Less Than Perfect",
+          "clicks": 980,
+          "click_pct": 18.16
+        },
+        {
+          "url": "https://businessden.com/2026/01/27/riot-bbq-plans-chicken-centric-outpost-in-cherry-creek",
+          "title": "Riot Bbq Plans Chicken Centric Outpost In Cherry Creek",
+          "clicks": 444,
+          "click_pct": 8.23
+        },
+        {
+          "url": "https://businessden.com/2026/01/23/downtown-corner-eyed-by-denver-sells-for-2-5m",
+          "title": "Downtown Corner Eyed By Denver Sells For 2 5M",
+          "clicks": 415,
+          "click_pct": 7.69
+        },
+        {
+          "url": "https://businessden.com/2026/01/26/chicago-firm-seeks-18m-from-rino-developer-in-exit-from-planned-project",
+          "title": "Chicago Firm Seeks 18M From Rino Developer In Exit From Planned Project",
+          "clicks": 234,
+          "click_pct": 4.34
+        },
+        {
+          "url": "https://businessden.com/2026/01/26/from-a-roadside-stand-to-real-estate-why-mcwhinney-just-changed-its-name",
+          "title": "From A Roadside Stand To Real Estate Why Mcwhinney Just Changed Its Name",
+          "clicks": 233,
+          "click_pct": 4.32
+        }
+      ]
+    },
+    {
+      "date": "2026-01-26",
+      "email_id": "205776166443",
+      "name": "BD 1.26.26",
+      "recipients": 18945,
+      "sent": 18037,
+      "delivered": 17118,
+      "opens": 5432,
+      "clicks": 2063,
+      "bounces": 919,
+      "hard_bounces": 12,
+      "soft_bounces": 907,
+      "unsubscribes": 20,
+      "spam_reports": 0,
+      "contacts_lost": 32,
+      "dropped": 752,
+      "suppressed": 156,
+      "pending": 0,
+      "open_rate": 31.73,
+      "click_rate": 12.05,
+      "click_through_rate": 37.98,
+      "bounce_rate": 5.09,
+      "unsubscribe_rate": 0.12,
+      "device_opens": {
+        "computer": 4203,
+        "mobile": 2076,
+        "unknown": 3667
+      },
+      "device_clicks": {
+        "computer": 2285,
+        "mobile": 1579,
+        "unknown": 0
+      },
+      "article_clicks": 3935,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/01/26/from-a-roadside-stand-to-real-estate-why-mcwhinney-just-changed-its-name",
+          "title": "From A Roadside Stand To Real Estate Why Mcwhinney Just Changed Its Name",
+          "clicks": 1734,
+          "click_pct": 31.92
+        },
+        {
+          "url": "https://businessden.com/2026/01/26/chicago-firm-seeks-18m-from-rino-developer-in-exit-from-planned-project",
+          "title": "Chicago Firm Seeks 18M From Rino Developer In Exit From Planned Project",
+          "clicks": 775,
+          "click_pct": 14.27
+        },
+        {
+          "url": "https://businessden.com/2026/01/26/central-park-hotel-next-to-homeless-shelter-to-close-staff-says",
+          "title": "Central Park Hotel Next To Homeless Shelter To Close Staff Says",
+          "clicks": 452,
+          "click_pct": 8.32
+        },
+        {
+          "url": "https://businessden.com/2026/01/26/thai-spot-over-breakeven-weeks-after-lodo-debut",
+          "title": "Thai Spot Over Breakeven Weeks After Lodo Debut",
+          "clicks": 334,
+          "click_pct": 6.15
+        },
+        {
+          "url": "https://businessden.com/2026/01/23/gated-denver-mansion-lists-for-4m-after-9-year-renovation",
+          "title": "Gated Denver Mansion Lists For 4M After 9 Year Renovation",
+          "clicks": 315,
+          "click_pct": 5.8
+        },
+        {
+          "url": "https://businessden.com/2026/01/23/vw-dealerships-sue-state-to-stop-scout-motors-from-selling-direct",
+          "title": "Vw Dealerships Sue State To Stop Scout Motors From Selling Direct",
+          "clicks": 167,
+          "click_pct": 3.07
+        },
+        {
+          "url": "https://businessden.com/2026/01/23/1600-1618-east-colfax-demolition-pando-holdings",
+          "title": "1600 1618 East Colfax Demolition Pando Holdings",
+          "clicks": 158,
+          "click_pct": 2.91
+        }
+      ]
+    },
+    {
+      "date": "2026-01-23",
+      "email_id": "205683277643",
+      "name": "BD 1.23.26",
+      "recipients": 18921,
+      "sent": 18013,
+      "delivered": 17936,
+      "opens": 5319,
+      "clicks": 1764,
+      "bounces": 77,
+      "hard_bounces": 8,
+      "soft_bounces": 69,
+      "unsubscribes": 20,
+      "spam_reports": 0,
+      "contacts_lost": 28,
+      "dropped": 753,
+      "suppressed": 155,
+      "pending": 0,
+      "open_rate": 29.66,
+      "click_rate": 9.84,
+      "click_through_rate": 33.16,
+      "bounce_rate": 0.43,
+      "unsubscribe_rate": 0.11,
+      "device_opens": {
+        "computer": 4071,
+        "mobile": 1991,
+        "unknown": 3333
+      },
+      "device_clicks": {
+        "computer": 1892,
+        "mobile": 1288,
+        "unknown": 0
+      },
+      "article_clicks": 3285,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/01/23/gated-denver-mansion-lists-for-4m-after-9-year-renovation",
+          "title": "Gated Denver Mansion Lists For 4M After 9 Year Renovation",
+          "clicks": 967,
+          "click_pct": 18.18
+        },
+        {
+          "url": "https://businessden.com/2026/01/23/vw-dealerships-sue-state-to-stop-scout-motors-from-selling-direct",
+          "title": "Vw Dealerships Sue State To Stop Scout Motors From Selling Direct",
+          "clicks": 926,
+          "click_pct": 17.41
+        },
+        {
+          "url": "https://businessden.com/2026/01/23/1600-1618-east-colfax-demolition-pando-holdings",
+          "title": "1600 1618 East Colfax Demolition Pando Holdings",
+          "clicks": 497,
+          "click_pct": 9.34
+        },
+        {
+          "url": "https://businessden.com/2026/01/23/the-pipeline-commercial-real-estate-deals-for-1-23-26",
+          "title": "The Pipeline Commercial Real Estate Deals For 1 23 26",
+          "clicks": 308,
+          "click_pct": 5.79
+        },
+        {
+          "url": "https://businessden.com/2026/01/22/luzzatto-buys-large-swath-of-centennial-mall-for-28m",
+          "title": "Luzzatto Buys Large Swath Of Centennial Mall For 28M",
+          "clicks": 227,
+          "click_pct": 4.27
+        },
+        {
+          "url": "https://businessden.com/2026/01/22/the-docket-real-estate-lawsuit-roundup-for-1-22-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 1 22 26",
+          "clicks": 208,
+          "click_pct": 3.91
+        },
+        {
+          "url": "https://businessden.com/2026/01/22/machete-tequila-tacos-closing-after-10-years-on-colfax",
+          "title": "Machete Tequila Tacos Closing After 10 Years On Colfax",
+          "clicks": 152,
+          "click_pct": 2.86
+        }
+      ]
+    },
+    {
+      "date": "2026-01-22",
+      "email_id": "205578130548",
+      "name": "BD 1.22.26",
+      "recipients": 19050,
+      "sent": 18010,
+      "delivered": 17420,
+      "opens": 5306,
+      "clicks": 1691,
+      "bounces": 590,
+      "hard_bounces": 14,
+      "soft_bounces": 576,
+      "unsubscribes": 22,
+      "spam_reports": 1,
+      "contacts_lost": 37,
+      "dropped": 850,
+      "suppressed": 190,
+      "pending": 0,
+      "open_rate": 30.46,
+      "click_rate": 9.71,
+      "click_through_rate": 31.87,
+      "bounce_rate": 3.28,
+      "unsubscribe_rate": 0.13,
+      "device_opens": {
+        "computer": 4134,
+        "mobile": 2028,
+        "unknown": 3504
+      },
+      "device_clicks": {
+        "computer": 1643,
+        "mobile": 1285,
+        "unknown": 0
+      },
+      "article_clicks": 2849,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/01/22/luzzatto-buys-large-swath-of-centennial-mall-for-28m",
+          "title": "Luzzatto Buys Large Swath Of Centennial Mall For 28M",
+          "clicks": 1272,
+          "click_pct": 23.97
+        },
+        {
+          "url": "https://businessden.com/2026/01/22/fivetran-steel-house-lease-denver",
+          "title": "Fivetran Steel House Lease Denver",
+          "clicks": 558,
+          "click_pct": 10.52
+        },
+        {
+          "url": "https://businessden.com/2026/01/22/machete-tequila-tacos-closing-after-10-years-on-colfax",
+          "title": "Machete Tequila Tacos Closing After 10 Years On Colfax",
+          "clicks": 411,
+          "click_pct": 7.75
+        },
+        {
+          "url": "https://businessden.com/2026/01/22/the-docket-real-estate-lawsuit-roundup-for-1-22-26",
+          "title": "The Docket Real Estate Lawsuit Roundup For 1 22 26",
+          "clicks": 369,
+          "click_pct": 6.95
+        },
+        {
+          "url": "https://businessden.com/2026/01/21/crusoe-expanding-office-lease-denver",
+          "title": "Crusoe Expanding Office Lease Denver",
+          "clicks": 239,
+          "click_pct": 4.5
+        }
+      ]
+    },
+    {
+      "date": "2026-01-21",
+      "email_id": "205480683523",
+      "name": "BD 1.21.26",
+      "recipients": 18868,
+      "sent": 17994,
+      "delivered": 17956,
+      "opens": 5307,
+      "clicks": 1592,
+      "bounces": 38,
+      "hard_bounces": 5,
+      "soft_bounces": 33,
+      "unsubscribes": 19,
+      "spam_reports": 1,
+      "contacts_lost": 25,
+      "dropped": 732,
+      "suppressed": 142,
+      "pending": 0,
+      "open_rate": 29.56,
+      "click_rate": 8.87,
+      "click_through_rate": 30.0,
+      "bounce_rate": 0.21,
+      "unsubscribe_rate": 0.11,
+      "device_opens": {
+        "computer": 3816,
+        "mobile": 2005,
+        "unknown": 3473
+      },
+      "device_clicks": {
+        "computer": 1593,
+        "mobile": 1239,
+        "unknown": 0
+      },
+      "article_clicks": 3042,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/01/21/baker-brewery-novel-strand-buys-its-real-estate-for-1m",
+          "title": "Baker Brewery Novel Strand Buys Its Real Estate For 1M",
+          "clicks": 1061,
+          "click_pct": 19.99
+        },
+        {
+          "url": "https://businessden.com/2026/01/21/plastic-surgeon-says-producer-duped-him-into-investing-in-broadway-shows",
+          "title": "Plastic Surgeon Says Producer Duped Him Into Investing In Broadway Shows",
+          "clicks": 532,
+          "click_pct": 10.02
+        },
+        {
+          "url": "https://businessden.com/2026/01/21/local-landlords-2022-buys-end-up-foreclosed-in-receivership",
+          "title": "Local Landlords 2022 Buys End Up Foreclosed In Receivership",
+          "clicks": 448,
+          "click_pct": 8.44
+        },
+        {
+          "url": "https://businessden.com/2026/01/21/auto-parts-retailer-leases-huge-warehouse-in-commerce-city",
+          "title": "Auto Parts Retailer Leases Huge Warehouse In Commerce City",
+          "clicks": 424,
+          "click_pct": 7.99
+        },
+        {
+          "url": "https://businessden.com/2026/01/20/5700-dtc-pkwy-greenwood-village-sale",
+          "title": "5700 Dtc Pkwy Greenwood Village Sale",
+          "clicks": 261,
+          "click_pct": 4.92
+        },
+        {
+          "url": "https://businessden.com/2026/01/20/zaidys-owner-weight-loss-doctor-introduce-product-to-combat-ozempic-face",
+          "title": "Zaidys Owner Weight Loss Doctor Introduce Product To Combat Ozempic Face",
+          "clicks": 207,
+          "click_pct": 3.9
+        },
+        {
+          "url": "https://businessden.com/2026/01/20/aurora-store-that-helped-launch-breweries-to-close-after-30-years",
+          "title": "Aurora Store That Helped Launch Breweries To Close After 30 Years",
+          "clicks": 109,
+          "click_pct": 2.05
+        }
+      ]
+    },
+    {
+      "date": "2026-01-20",
+      "email_id": "205244688138",
+      "name": "BD 1.20.26",
+      "recipients": 18864,
+      "sent": 17995,
+      "delivered": 17943,
+      "opens": 5473,
+      "clicks": 1820,
+      "bounces": 52,
+      "hard_bounces": 8,
+      "soft_bounces": 44,
+      "unsubscribes": 20,
+      "spam_reports": 0,
+      "contacts_lost": 28,
+      "dropped": 730,
+      "suppressed": 139,
+      "pending": 0,
+      "open_rate": 30.5,
+      "click_rate": 10.14,
+      "click_through_rate": 33.25,
+      "bounce_rate": 0.29,
+      "unsubscribe_rate": 0.11,
+      "device_opens": {
+        "computer": 4262,
+        "mobile": 2045,
+        "unknown": 3515
+      },
+      "device_clicks": {
+        "computer": 1988,
+        "mobile": 1329,
+        "unknown": 0
+      },
+      "article_clicks": 3376,
+      "articles": [
+        {
+          "url": "https://businessden.com/2026/01/20/zaidys-owner-weight-loss-doctor-introduce-product-to-combat-ozempic-face",
+          "title": "Zaidys Owner Weight Loss Doctor Introduce Product To Combat Ozempic Face",
+          "clicks": 1225,
+          "click_pct": 22.38
+        },
+        {
+          "url": "https://businessden.com/2026/01/20/2m-deal-near-burnham-yard-suggests-broncos-may-be-thinking-bigger-than-known",
+          "title": "2M Deal Near Burnham Yard Suggests Broncos May Be Thinking Bigger Than Known",
+          "clicks": 830,
+          "click_pct": 15.17
+        },
+        {
+          "url": "https://businessden.com/2026/01/20/5700-dtc-pkwy-greenwood-village-sale",
+          "title": "5700 Dtc Pkwy Greenwood Village Sale",
+          "clicks": 769,
+          "click_pct": 14.05
+        },
+        {
+          "url": "https://businessden.com/2026/01/20/construction-exec-accused-of-embezzlement-says-he-is-owed-180k",
+          "title": "Construction Exec Accused Of Embezzlement Says He Is Owed 180K",
+          "clicks": 339,
+          "click_pct": 6.19
+        },
+        {
+          "url": "https://businessden.com/2026/01/20/aurora-store-that-helped-launch-breweries-to-close-after-30-years",
+          "title": "Aurora Store That Helped Launch Breweries To Close After 30 Years",
+          "clicks": 213,
+          "click_pct": 3.89
         }
       ]
     }
