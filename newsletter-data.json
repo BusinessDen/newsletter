@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated": "2026-04-16T20:26:37.446560+00:00",
+    "generated": "2026-04-16T20:30:41.338325+00:00",
     "total_sends": 5,
     "date_range": {
       "start": "2026-04-10",
@@ -15,57 +15,57 @@
       "recipients": 19801,
       "sent": 18578,
       "delivered": 17535,
-      "opens": 2976,
-      "clicks": 1497,
+      "opens": 2978,
+      "clicks": 1498,
       "bounces": 23,
       "hard_bounces": 2,
       "soft_bounces": 21,
-      "unsubscribes": 13,
-      "spam_reports": 4,
-      "contacts_lost": 19,
+      "unsubscribes": 14,
+      "spam_reports": 5,
+      "contacts_lost": 21,
       "dropped": 842,
       "suppressed": 381,
       "pending": 1020,
-      "open_rate": 16.97,
+      "open_rate": 16.98,
       "click_rate": 8.54,
       "click_through_rate": 50.3,
       "bounce_rate": 0.12,
-      "unsubscribe_rate": 0.07,
+      "unsubscribe_rate": 0.08,
       "device_opens": {
-        "computer": 3309,
+        "computer": 3322,
         "mobile": 2131,
         "unknown": 144
       },
       "device_clicks": {
-        "computer": 1557,
-        "mobile": 1278,
+        "computer": 1558,
+        "mobile": 1279,
         "unknown": 0
       },
-      "article_clicks": 2613,
+      "article_clicks": 2614,
       "articles": [
         {
           "url": "https://businessden.com/2026/04/16/golden-construction-firm-says-its-president-spent-stolen-millions-on-silver",
           "title": "Golden Construction Firm Says Its President Spent Stolen Millions On Silver",
           "clicks": 817,
-          "click_pct": 27.45
+          "click_pct": 27.43
         },
         {
           "url": "https://businessden.com/2026/04/16/restaurant-v-restaurant-56-restaurants-say-citys-tipped-wage-shouldnt-drop",
           "title": "Restaurant V Restaurant 56 Restaurants Say Citys Tipped Wage Shouldnt Drop",
-          "clicks": 704,
-          "click_pct": 23.66
+          "clicks": 705,
+          "click_pct": 23.67
         },
         {
           "url": "https://businessden.com/2026/04/16/building-maintenance-firm-closing-laying-off-143-people",
           "title": "Building Maintenance Firm Closing Laying Off 143 People",
           "clicks": 324,
-          "click_pct": 10.89
+          "click_pct": 10.88
         },
         {
           "url": "https://businessden.com/2026/04/16/da-pushes-back-against-council-proposal-to-change-municipal-sentencing",
           "title": "Da Pushes Back Against Council Proposal To Change Municipal Sentencing",
           "clicks": 308,
-          "click_pct": 10.35
+          "click_pct": 10.34
         },
         {
           "url": "https://businessden.com/2026/04/16/the-docket-real-estate-lawsuit-roundup-for-4-16-26",
@@ -77,13 +77,13 @@
           "url": "https://businessden.com/2026/04/15/peyton-manning-backed-group-eyeing-30m-restaurant-event-concept-in-littleton",
           "title": "Peyton Manning Backed Group Eyeing 30M Restaurant Event Concept In Littleton",
           "clicks": 160,
-          "click_pct": 5.38
+          "click_pct": 5.37
         },
         {
           "url": "https://businessden.com/2026/04/15/demolition-begins-at-leetsdale-apartment-building-torched-by-fire",
           "title": "Demolition Begins At Leetsdale Apartment Building Torched By Fire",
           "clicks": 85,
-          "click_pct": 2.86
+          "click_pct": 2.85
         }
       ]
     },
@@ -95,7 +95,7 @@
       "sent": 18560,
       "delivered": 17467,
       "opens": 3298,
-      "clicks": 1750,
+      "clicks": 1752,
       "bounces": 24,
       "hard_bounces": 5,
       "soft_bounces": 19,
@@ -106,8 +106,8 @@
       "suppressed": 380,
       "pending": 1069,
       "open_rate": 18.88,
-      "click_rate": 10.02,
-      "click_through_rate": 53.06,
+      "click_rate": 10.03,
+      "click_through_rate": 53.12,
       "bounce_rate": 0.13,
       "unsubscribe_rate": 0.02,
       "device_opens": {
@@ -116,7 +116,7 @@
         "unknown": 231
       },
       "device_clicks": {
-        "computer": 1813,
+        "computer": 1814,
         "mobile": 1405,
         "unknown": 0
       },
@@ -173,7 +173,7 @@
       "recipients": 19786,
       "sent": 18543,
       "delivered": 17889,
-      "opens": 3327,
+      "opens": 3328,
       "clicks": 1840,
       "bounces": 654,
       "hard_bounces": 4,
@@ -186,11 +186,11 @@
       "pending": 0,
       "open_rate": 18.6,
       "click_rate": 10.29,
-      "click_through_rate": 55.3,
+      "click_through_rate": 55.29,
       "bounce_rate": 3.53,
       "unsubscribe_rate": 0.04,
       "device_opens": {
-        "computer": 4214,
+        "computer": 4219,
         "mobile": 2327,
         "unknown": 263
       },
@@ -205,13 +205,13 @@
           "url": "https://businessden.com/2026/04/14/developers-fear-broomfield-is-trying-to-kill-long-planned-downtown-project",
           "title": "Developers Fear Broomfield Is Trying To Kill Long Planned Downtown Project",
           "clicks": 1117,
-          "click_pct": 33.57
+          "click_pct": 33.56
         },
         {
           "url": "https://businessden.com/2026/04/14/downtown-mens-fashion-retailer-to-close-after-decades-in-business",
           "title": "Downtown Mens Fashion Retailer To Close After Decades In Business",
           "clicks": 693,
-          "click_pct": 20.83
+          "click_pct": 20.82
         },
         {
           "url": "https://businessden.com/2026/04/14/lodos-nativ-hotel-nightclub-shut-down-by-city",
@@ -241,7 +241,7 @@
           "url": "https://businessden.com/2026/04/13/former-hospital-coming-down-as-wheat-ridge-considers-city-hall-land-swap",
           "title": "Former Hospital Coming Down As Wheat Ridge Considers City Hall Land Swap",
           "clicks": 90,
-          "click_pct": 2.71
+          "click_pct": 2.7
         }
       ]
     },
