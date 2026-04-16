@@ -414,10 +414,12 @@ td a:hover { text-decoration: underline; }
 // ---------------------------------------------------------------------------
 let DATA = null;
 let MENTIONS = null;
+let AUTHORS = null;
 let charts = {};
 
 const DATA_URL = 'newsletter-data.json';
 const MENTIONS_URL = 'https://businessden.github.io/reputation/mentions-data.json';
+const AUTHORS_URL = 'author-lookup.json';
 
 async function loadData() {
   try {
@@ -429,7 +431,15 @@ async function loadData() {
     return;
   }
 
-  // Optionally load mentions data for cross-referencing
+  // Load author lookup (local file, deployed alongside)
+  try {
+    const resp3 = await fetch(AUTHORS_URL);
+    AUTHORS = await resp3.json();
+  } catch (e) {
+    AUTHORS = null;
+  }
+
+  // Optionally load mentions data for GA4 cross-referencing
   try {
     const resp2 = await fetch(MENTIONS_URL);
     MENTIONS = await resp2.json();
@@ -532,9 +542,19 @@ function getSendsInRange(days) {
 }
 
 function lookupArticle(url) {
+  const clean = url.replace(/\/$/, '');
+
+  // Check author-lookup.json first (static backfill)
+  if (AUTHORS) {
+    const entry = AUTHORS[clean] || AUTHORS[clean + '/'] || AUTHORS[url];
+    if (entry && entry.author && entry.author !== 'Unknown') {
+      return { author: entry.author, title: entry.title || null };
+    }
+  }
+
+  // Fall back to mentions-data.json
   if (!MENTIONS) return null;
   const articles = MENTIONS.bd_articles || [];
-  const clean = url.replace(/\/$/, '');
   return articles.find(a => a.url && a.url.replace(/\/$/, '') === clean) || null;
 }
 
