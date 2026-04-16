@@ -1,0 +1,46 @@
+name: Backfill Authors
+
+on:
+  workflow_dispatch:
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pull data from gh-pages
+        run: |
+          git fetch origin gh-pages --depth=1 || true
+          git checkout origin/gh-pages -- newsletter-data.json 2>/dev/null || echo "No newsletter data"
+          git checkout origin/gh-pages -- author-lookup.json 2>/dev/null || echo "No existing author lookup"
+          ls -la newsletter-data.json author-lookup.json 2>/dev/null || true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run author backfill
+        run: python backfill_authors.py
+
+      - name: Stage deploy files
+        run: |
+          mkdir -p _site
+          touch _site/.nojekyll
+          cp index.html _site/
+          cp newsletter-data.json _site/
+          cp author-lookup.json _site/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
+          keep_files: false
