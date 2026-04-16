@@ -1,0 +1,17 @@
+# Output (downloaded via GitHub Actions artifacts, not committed)
+raw_output/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Secrets
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
