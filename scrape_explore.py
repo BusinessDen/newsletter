@@ -250,6 +250,94 @@ def explore_email_statistics():
         save("06_email_statistics_list.json", data)
 
 
+def explore_campaign_detail_v1(campaign_id):
+    """Try v1 campaign detail — may return email stats even if v3 emails is blocked."""
+    print(f"\n[7] Campaign Detail (v1 legacy) — id={campaign_id}")
+    data = get(
+        f"{BASE}/email/public/v1/campaigns/{campaign_id}",
+        label=f"campaign_detail_v1_{campaign_id[:8]}",
+    )
+    if data:
+        save(f"07_campaign_detail_v1_{campaign_id[:8]}.json", data)
+        print(f"    top-level keys: {sorted(data.keys())}")
+        for field in ["name", "subject", "numIncluded", "numSent", "counters"]:
+            if field in data:
+                print(f"    {field}: {data[field]}")
+    return data
+
+
+def explore_campaign_detail_v3(campaign_id):
+    """Try v3 campaign detail with properties."""
+    print(f"\n[8] Campaign Detail (v3) — id={campaign_id}")
+    data = get(
+        f"{BASE}/marketing/v3/campaigns/{campaign_id}",
+        label=f"campaign_detail_v3_{campaign_id[:8]}",
+    )
+    if data:
+        save(f"08_campaign_detail_v3_{campaign_id[:8]}.json", data)
+        props = data.get("properties", {})
+        print(f"    top-level keys: {sorted(data.keys())}")
+        if props:
+            print(f"    property keys: {sorted(props.keys())}")
+    return data
+
+
+def explore_v1_emails():
+    """Try the v1 marketing emails endpoint — different from v3."""
+    print(f"\n[9] Marketing Emails (v1 legacy)")
+    data = get(
+        f"{BASE}/marketing-emails/v1/emails",
+        params={"limit": 5, "orderBy": "-publishDate"},
+        label="marketing_emails_v1",
+    )
+    if data:
+        save("09_marketing_emails_v1.json", data)
+        objects = data.get("objects", [])
+        print(f"    returned {len(objects)} emails")
+        if objects:
+            print(f"    first email keys: {sorted(objects[0].keys())}")
+            for e in objects[:3]:
+                print(f"      - {e.get('id'):>12} | {e.get('name', '')[:60]}")
+                stats = e.get("stats", {}).get("counters", {})
+                if stats:
+                    print(f"        stats.counters: {stats}")
+    return data
+
+
+def explore_scope_info():
+    """Check what scopes this token actually has."""
+    print(f"\n[10] Token scope check")
+    data = get(
+        f"{BASE}/oauth/v2/private-apps/get/access-token-info",
+        label="token_info",
+    )
+    if not data:
+        # Try as POST
+        print("    GET failed, trying POST...")
+        import requests as req
+        r = req.post(
+            f"{BASE}/oauth/v2/private-apps/get/access-token-info",
+            headers=HEADERS,
+            json={"token": TOKEN},
+        )
+        if r.status_code == 200:
+            data = r.json()
+            save("10_token_info.json", scrub(data))
+            print(f"    token info keys: {sorted(data.keys())}")
+            if "scopes" in data:
+                print(f"    scopes: {data['scopes']}")
+        else:
+            print(f"    POST also failed: {r.status_code}")
+            save("ERROR_token_info_post.json", {
+                "status": r.status_code,
+                "response": r.text[:2000],
+            })
+    else:
+        save("10_token_info.json", data)
+        if "scopes" in data:
+            print(f"    scopes: {data['scopes']}")
+
+
 # ------------------------------------------------------------------
 # Main
 # ------------------------------------------------------------------
@@ -258,42 +346,48 @@ def main():
     print(f"Output: {OUT_DIR}")
     print("-" * 60)
 
-    # 1. List emails
+    # 0. Check what scopes we actually have
+    explore_scope_info()
+
+    # 1. List emails (v3)
     emails = explore_marketing_emails()
-    if not emails:
-        print("\nNo emails returned — trying events and campaigns anyway.")
-        explore_campaigns()
-        explore_email_events_v1()
-        explore_email_events_v1_all_types()
-        explore_email_statistics()
-        print("-" * 60)
-        print(f"Done. Output in: {OUT_DIR}")
-        return
 
-    # 2. Detail on most recent published email
-    published = [e for e in emails if e.get("state") == "PUBLISHED"]
-    target = published[0] if published else emails[0]
-    detail = explore_email_detail(target["id"])
+    # 1b. Try v1 emails endpoint as fallback
+    explore_v1_emails()
 
-    # Find a campaign_id for the events query
+    # 2. Detail on most recent email (if v3 list worked)
     campaign_id = None
-    if detail:
-        for field in ["allEmailCampaignIds", "campaignId", "emailCampaignId"]:
-            val = detail.get(field)
-            if val:
-                campaign_id = val[0] if isinstance(val, list) else val
-                break
+    if emails:
+        published = [e for e in emails if e.get("state") == "PUBLISHED"]
+        target = published[0] if published else emails[0]
+        detail = explore_email_detail(target["id"])
+        if detail:
+            for field in ["allEmailCampaignIds", "campaignId", "emailCampaignId"]:
+                val = detail.get(field)
+                if val:
+                    campaign_id = val[0] if isinstance(val, list) else val
+                    break
 
-    # 3. Campaigns
-    explore_campaigns()
+    # 3. Campaigns (v3 list — this worked last run)
+    campaigns_data = explore_campaigns()
 
-    # 4. Click events for that campaign
-    explore_email_events_v1(campaign_id=campaign_id)
+    # 4. Campaign detail — try both v1 and v3 on the first campaign
+    first_campaign_id = None
+    if campaigns_data:
+        results = campaigns_data.get("results", [])
+        if results:
+            first_campaign_id = results[0].get("id")
+            explore_campaign_detail_v1(first_campaign_id)
+            explore_campaign_detail_v3(first_campaign_id)
 
-    # 5. All event types for that campaign
-    explore_email_events_v1_all_types(campaign_id=campaign_id)
+    # 5. Click events (using campaign_id from email detail, or first campaign)
+    event_campaign = campaign_id or first_campaign_id
+    explore_email_events_v1(campaign_id=event_campaign)
 
-    # 6. Stats endpoints probe
+    # 6. All event types
+    explore_email_events_v1_all_types(campaign_id=event_campaign)
+
+    # 7. Stats endpoints
     explore_email_statistics()
 
     print("-" * 60)
