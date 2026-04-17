@@ -411,14 +411,25 @@ def fetch_ga4_sponsored(sponsored_paths):
             source = row.dimension_values[2].value.lower()
             views = int(row.metric_values[0].value)
             if page_path not in results:
-                results[page_path] = {"newsletter": 0, "homepage": 0, "other": 0, "total": 0}
+                results[page_path] = {
+                    "newsletter": 0, "homepage": 0, "search": 0,
+                    "direct": 0, "social": 0, "referral": 0, "total": 0,
+                }
             results[page_path]["total"] += views
             if channel == "email":
                 results[page_path]["newsletter"] += views
             elif channel == "referral" and "businessden" in source:
                 results[page_path]["homepage"] += views
+            elif channel in ("organic search", "paid search"):
+                results[page_path]["search"] += views
+            elif channel == "direct":
+                results[page_path]["direct"] += views
+            elif channel in ("organic social", "paid social", "social"):
+                results[page_path]["social"] += views
+            elif channel == "referral":
+                results[page_path]["referral"] += views
             else:
-                results[page_path]["other"] += views
+                results[page_path]["referral"] += views
         print(f"  GA4 returned data for {len(results)} sponsored URLs")
         return results
     except Exception as e:
