@@ -258,17 +258,15 @@ function renderSend(idx){
   const artC=arts.filter(a=>!a.is_sponsored).reduce((s,a)=>s+a.clicks,0);
   const spC=arts.filter(a=>a.is_sponsored).reduce((s,a)=>s+a.clicks,0);
   const edC=eds.reduce((s,a)=>s+a.clicks,0);
-  const adC=(s.ad_clicks||[]).reduce((s,a)=>s+a.clicks,0);
-  const tot=artC+spC+edC+adC||1;
+  const tot=artC+spC+edC||1;
   const wp=v=>(v/tot*100).toFixed(1);
   document.getElementById('sendBreakdown').innerHTML=`
     <div class="breakdown-bar">
       <div class="seg" style="width:${wp(artC)}%;background:var(--blue)">${wp(artC)}%</div>
       <div class="seg" style="width:${wp(edC)}%;background:var(--orange)">${wp(edC)}%</div>
       ${spC?`<div class="seg" style="width:${wp(spC)}%;background:var(--purple)">${wp(spC)}%</div>`:''}
-      ${adC?`<div class="seg" style="width:${wp(adC)}%;background:var(--green)">${wp(adC)}%</div>`:''}
     </div>
-    <div class="breakdown-legend"><span class="l-articles">Articles ${artC}</span><span class="l-editorial">Editorial ${edC}</span><span class="l-sponsored">Sponsored ${spC}</span>${adC?`<span class="l-ads">Ads ${adC}</span>`:''}</div>`;
+    <div class="breakdown-legend"><span class="l-articles">Articles ${artC}</span><span class="l-editorial">Editorial ${edC}</span>${spC?`<span class="l-sponsored">Sponsored ${spC}</span>`:''}</div>`;
 }
 
 // ========= ARTICLE CLICKS =========
@@ -440,32 +438,24 @@ function renderTrends(days){
     {label:useU?'Unique Clicker Rate %':'Click Rate %',data:cData,borderColor:'#60a5fa',backgroundColor:'rgba(96,165,250,0.1)',borderWidth:2,pointRadius:sp?0:3,tension:0.3,fill:true}
   ]},options:co()});
 
-  // Click breakdown: article vs editorial vs sponsored vs ads
+  // Click breakdown: article vs editorial vs sponsored
   const artData=sends.map(s=>{let t=0;(s.articles||[]).forEach(a=>{if(!a.is_sponsored)t+=useU?(a.unique_clickers||0):a.clicks;});return t;});
   const edData=sends.map(s=>(s.editorial_clicks||[]).reduce((sum,a)=>sum+(useU?(a.unique_clickers||0):a.clicks),0));
   const spData=sends.map(s=>{let t=0;(s.articles||[]).forEach(a=>{if(a.is_sponsored)t+=useU?(a.unique_clickers||0):a.clicks;});return t;});
-  const adData=sends.map(s=>(s.ad_clicks||[]).reduce((sum,a)=>sum+(useU?(a.unique_clickers||0):a.clicks),0));
-  const hasAdData=adData.some(v=>v>0);
 
-  const breakdownSets=[
+  dc('breakdown');charts.breakdown=new Chart(document.getElementById('chartBreakdown'),{type:'bar',data:{labels,datasets:[
     {label:'Articles',data:artData,backgroundColor:'rgba(96,165,250,0.6)',borderRadius:2},
     {label:'Editorial',data:edData,backgroundColor:'rgba(251,146,60,0.6)',borderRadius:2},
     {label:'Sponsored',data:spData,backgroundColor:'rgba(167,139,250,0.6)',borderRadius:2},
-  ];
-  if(hasAdData)breakdownSets.push({label:'Ads',data:adData,backgroundColor:'rgba(74,222,128,0.6)',borderRadius:2});
-
-  dc('breakdown');charts.breakdown=new Chart(document.getElementById('chartBreakdown'),{type:'bar',data:{labels,datasets:breakdownSets},options:co({scales:{x:{stacked:true},y:{stacked:true}}})});
+  ]},options:co({scales:{x:{stacked:true},y:{stacked:true}}})});
 
   // 100% stacked
-  const pctTot=sends.map((_,i)=>(artData[i]+edData[i]+spData[i]+(hasAdData?adData[i]:0))||1);
-  const pctSets=[
+  const pctTot=sends.map((_,i)=>(artData[i]+edData[i]+spData[i])||1);
+  dc('breakdownPct');charts.breakdownPct=new Chart(document.getElementById('chartBreakdownPct'),{type:'line',data:{labels,datasets:[
     {label:'Articles %',data:sends.map((_,i)=>artData[i]/pctTot[i]*100),borderColor:'#60a5fa',backgroundColor:'rgba(96,165,250,0.2)',borderWidth:2,pointRadius:0,tension:0.3,fill:true},
     {label:'Editorial %',data:sends.map((_,i)=>edData[i]/pctTot[i]*100),borderColor:'#fb923c',backgroundColor:'rgba(251,146,60,0.2)',borderWidth:2,pointRadius:0,tension:0.3,fill:true},
     {label:'Sponsored %',data:sends.map((_,i)=>spData[i]/pctTot[i]*100),borderColor:'#a78bfa',backgroundColor:'rgba(167,139,250,0.2)',borderWidth:2,pointRadius:0,tension:0.3,fill:true},
-  ];
-  if(hasAdData)pctSets.push({label:'Ads %',data:sends.map((_,i)=>adData[i]/pctTot[i]*100),borderColor:'#4ade80',backgroundColor:'rgba(74,222,128,0.2)',borderWidth:2,pointRadius:0,tension:0.3,fill:true});
-
-  dc('breakdownPct');charts.breakdownPct=new Chart(document.getElementById('chartBreakdownPct'),{type:'line',data:{labels,datasets:pctSets},options:co({scales:{y:{max:100,stacked:true,ticks:{callback:v=>v+'%'}}}})});
+  ]},options:co({scales:{y:{min:0,max:100,stacked:true,ticks:{callback:v=>v+'%'}}}})});
 
   // Shelf life
   const maxAge=5;
