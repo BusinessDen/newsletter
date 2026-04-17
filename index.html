@@ -366,7 +366,7 @@ function renderSponsored(){
   // Helper: display GA4 value (0 is valid, only show — if truly missing)
   const ga4v=(obj,key)=>obj&&key in obj?fmt(obj[key]):'—';
 
-  let h='<div class="section-label">Sponsored Content Performance</div><div class="table-wrap"><table><thead><tr><th>Article</th><th class="num">NL Clicks</th><th class="num">NL Unique</th><th class="num">Homepage</th><th class="num">Other</th><th class="num">Total Views</th><th class="num">Start Date</th><th class="num">Days</th><th class="num">Avg/Day</th></tr></thead><tbody>';
+  let h='<div class="section-label">Sponsored Content Performance</div><div class="table-wrap"><table><thead><tr><th>Article</th><th class="num">NL Clicks</th><th class="num">NL Unique</th><th class="num">Homepage</th><th class="num">Search</th><th class="num">Direct</th><th class="num">Social</th><th class="num">Referral</th><th class="num">Total Views</th><th class="num">Start Date</th><th class="num">Days</th><th class="num">Avg/Day</th></tr></thead><tbody>';
   articles.forEach(a=>{
     const m=la(a.url);const title=(m&&m.title)?m.title:a.title;
     const path=ga4path(a.url);
@@ -376,7 +376,7 @@ function renderSponsored(){
     const endDate=sortedDates[sortedDates.length-1]||startDate;
     const daySpan=startDate!=='—'?Math.max(1,Math.round((new Date(endDate)-new Date(startDate))/(1000*60*60*24))+1):1;
     const avgPerDay=(a.nlClicks/daySpan).toFixed(1);
-    h+=`<tr class="row-sp"><td><a href="${a.url}" target="_blank">${title}</a></td><td class="num mono">${fmt(a.nlClicks)}</td><td class="num mono">${fmt(a.nlUnique)}</td><td class="num mono">${ga4v(g,'homepage')}</td><td class="num mono">${ga4v(g,'other')}</td><td class="num mono">${ga4v(g,'total')}</td><td class="num mono" style="white-space:nowrap">${fmtD(startDate)}</td><td class="num mono">${daySpan}</td><td class="num mono">${avgPerDay}</td></tr>`;
+    h+=`<tr class="row-sp"><td><a href="${a.url}" target="_blank">${title}</a></td><td class="num mono">${fmt(a.nlClicks)}</td><td class="num mono">${fmt(a.nlUnique)}</td><td class="num mono">${ga4v(g,'homepage')}</td><td class="num mono">${ga4v(g,'search')}</td><td class="num mono">${ga4v(g,'direct')}</td><td class="num mono">${ga4v(g,'social')}</td><td class="num mono">${ga4v(g,'referral')}</td><td class="num mono">${ga4v(g,'total')}</td><td class="num mono" style="white-space:nowrap">${fmtD(startDate)}</td><td class="num mono">${daySpan}</td><td class="num mono">${avgPerDay}</td></tr>`;
   });
   h+='</tbody></table></div>';
 
@@ -388,11 +388,17 @@ function renderSponsored(){
     const labels=withGA4.map(a=>{const m=la(a.url);return((m&&m.title)?m.title:a.title).slice(0,30)+'...';});
     const nlData=withGA4.map(a=>a.nlClicks);
     const hpData=withGA4.map(a=>(ga4[ga4path(a.url)]||{}).homepage||0);
-    const otherData=withGA4.map(a=>(ga4[ga4path(a.url)]||{}).other||0);
+    const searchData=withGA4.map(a=>(ga4[ga4path(a.url)]||{}).search||0);
+    const directData=withGA4.map(a=>(ga4[ga4path(a.url)]||{}).direct||0);
+    const socialData=withGA4.map(a=>(ga4[ga4path(a.url)]||{}).social||0);
+    const refData=withGA4.map(a=>(ga4[ga4path(a.url)]||{}).referral||0);
     dc('spSource');charts.spSource=new Chart(document.getElementById('chartSpSource'),{type:'bar',data:{labels,datasets:[
       {label:'Newsletter',data:nlData,backgroundColor:'rgba(212,170,79,0.7)',borderRadius:3},
       {label:'Homepage',data:hpData,backgroundColor:'rgba(96,165,250,0.7)',borderRadius:3},
-      {label:'Other',data:otherData,backgroundColor:'rgba(138,138,154,0.5)',borderRadius:3},
+      {label:'Search',data:searchData,backgroundColor:'rgba(74,222,128,0.7)',borderRadius:3},
+      {label:'Direct',data:directData,backgroundColor:'rgba(167,139,250,0.7)',borderRadius:3},
+      {label:'Social',data:socialData,backgroundColor:'rgba(34,211,238,0.7)',borderRadius:3},
+      {label:'Referral',data:refData,backgroundColor:'rgba(138,138,154,0.5)',borderRadius:3},
     ]},options:co({scales:{x:{stacked:true,ticks:{color:'#5a5a6a',font:{family:"'JetBrains Mono',monospace",size:9},maxRotation:45}},y:{stacked:true}}})});
   }
 }
