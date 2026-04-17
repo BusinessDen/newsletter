@@ -1,27 +1,34 @@
 #!/usr/bin/env python3
 """
-BD Newsletter Analytics — Production Scraper
+BD Newsletter Analytics — Production Scraper v3
 
-Pulls BD Newsfeed newsletter data from HubSpot, aggregates per-article
-click counts, and merges with historical data. Designed for GitHub Actions
-with deploy-first → scrape → deploy-after pattern.
+Collects from HubSpot:
+- Per-article clicks + unique clickers + sponsored content flag
+- Ad/sponsor clicks by domain + unique clickers
+- Geographic distribution of clickers
+- Click shelf life (clicks by days after send)
+- Send-level stats (opens, bounces, unsubscribes, device breakdown)
 
-Required env vars:
-    HUBSPOT_TOKEN — HubSpot Private App access token or Personal Access Key
+Collects from GA4 (optional, if GA4_SERVICE_ACCOUNT set):
+- Sponsored content traffic by source (Newsletter, Homepage, Other)
 
-Optional env vars:
-    BACKFILL_DAYS — How many days of history to fetch (default: 7, use 9999 for full history)
-
-Output: newsletter-data.json
+Env vars:
+    HUBSPOT_TOKEN (required)
+    GA4_SERVICE_ACCOUNT (optional) — service account JSON string
+    GA4_PROPERTY_ID (optional, default 363209481)
+    BACKFILL_DAYS (optional, default 7, use 9999 for full history)
 """
 
+import hashlib
 import json
 import os
 import sys
+import tempfile
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs, urlencode
+from collections import defaultdict
 
 import requests
 
@@ -33,96 +40,91 @@ if not TOKEN:
     print("ERROR: HUBSPOT_TOKEN not set.")
     sys.exit(1)
 
-HEADERS = {
-    "Authorization": f"Bearer {TOKEN}",
-    "Content-Type": "application/json",
-}
+HEADERS = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"}
 BASE = "https://api.hubapi.com"
 BACKFILL_DAYS = int(os.environ.get("BACKFILL_DAYS", "7"))
 DATA_FILE = Path("newsletter-data.json")
 BD_CAMPAIGN_NAME = "BD Newsfeed"
 BD_DOMAIN = "businessden.com"
+GA4_PROPERTY_ID = os.environ.get("GA4_PROPERTY_ID", "363209481")
+
+SPONSORED_SLUG_EXCEPTIONS = [
+    "/2023/04/19/solving-5-equipment-maintenance-challenges-with-technology",
+    "/2022/07/25/first-interstate-bank-arrives-in-colorado-after-successful-merger-with-great-western-bank",
+]
 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 def get(url, params=None, retries=2):
-    """GET with retry and rate limiting."""
     for attempt in range(retries + 1):
         try:
             r = requests.get(url, headers=HEADERS, params=params, timeout=30)
             time.sleep(0.25)
-
             if r.status_code == 200:
                 return r.json()
-            elif r.status_code == 429:
-                wait = int(r.headers.get("Retry-After", 10))
-                print(f"  Rate limited, waiting {wait}s...")
-                time.sleep(wait)
+            if r.status_code == 429:
+                time.sleep(int(r.headers.get("Retry-After", 10)))
                 continue
-            else:
-                print(f"  ERROR {r.status_code}: {r.text[:200]}")
-                if attempt < retries:
-                    time.sleep(2)
-                    continue
-                return None
+            print(f"  ERROR {r.status_code}: {r.text[:200]}")
+            if attempt < retries:
+                time.sleep(2)
         except requests.exceptions.RequestException as e:
             print(f"  Request error: {e}")
             if attempt < retries:
                 time.sleep(2)
-                continue
-            return None
     return None
 
 
+def hash_email(email):
+    if not email or "@" not in str(email):
+        return None
+    return hashlib.sha256(str(email).lower().strip().encode()).hexdigest()[:16]
+
+
 def strip_utm(url):
-    """Remove UTM and HubSpot tracking parameters from a URL."""
     parsed = urlparse(url)
     if not parsed.query:
         return url
-    params = parse_qs(parsed.query, keep_blank_values=True)
-    cleaned = {
-        k: v for k, v in params.items()
-        if not k.startswith("utm_") and k not in ("_hsmi", "_hsenc", "hsCtaTracking")
-    }
-    if cleaned:
-        new_query = urlencode(cleaned, doseq=True)
-        return parsed._replace(query=new_query).geturl()
+    params = {k: v for k, v in parse_qs(parsed.query, keep_blank_values=True).items()
+              if not k.startswith("utm_") and k not in ("_hsmi", "_hsenc", "hsCtaTracking")}
+    if params:
+        return parsed._replace(query=urlencode(params, doseq=True)).geturl()
     return parsed._replace(query="").geturl().rstrip("?")
 
 
 def is_bd_article_url(url):
-    """Check if a URL is a BusinessDen article (not homepage, login, etc)."""
     parsed = urlparse(url)
     if BD_DOMAIN not in parsed.netloc:
         return False
-    path = parsed.path.rstrip("/")
-    # Articles follow /YYYY/MM/DD/slug/ pattern
-    parts = [p for p in path.split("/") if p]
+    parts = [p for p in parsed.path.rstrip("/").split("/") if p]
     if len(parts) >= 4:
         try:
-            int(parts[0])  # year
-            int(parts[1])  # month
-            int(parts[2])  # day
+            int(parts[0]); int(parts[1]); int(parts[2])
             return True
         except ValueError:
             pass
     return False
 
 
-def url_to_title(url):
-    """Extract a human-readable title from a BD article URL slug."""
+def is_bd_internal_url(url):
+    return BD_DOMAIN in urlparse(url).netloc
+
+
+def is_sponsored_content(url):
     parsed = urlparse(url)
+    if "sponsored-content" in parsed.path.lower():
+        return True
     path = parsed.path.rstrip("/")
-    parts = [p for p in path.split("/") if p]
-    if len(parts) >= 4:
-        slug = parts[3]
-        return slug.replace("-", " ").title()
-    return path
+    return any(path.endswith(exc.rstrip("/")) for exc in SPONSORED_SLUG_EXCEPTIONS)
+
+
+def url_to_title(url):
+    parts = [p for p in urlparse(url).path.rstrip("/").split("/") if p]
+    return parts[3].replace("-", " ").title() if len(parts) >= 4 else urlparse(url).path
 
 
 def load_existing():
-    """Load existing newsletter-data.json if present."""
     if DATA_FILE.exists():
         with open(DATA_FILE) as f:
             return json.load(f)
@@ -130,211 +132,199 @@ def load_existing():
 
 
 def save_data(data):
-    """Write newsletter-data.json."""
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=2)
-    size_kb = DATA_FILE.stat().st_size / 1024
-    print(f"  Saved {DATA_FILE} ({size_kb:.1f} KB)")
+    print(f"  Saved {DATA_FILE} ({DATA_FILE.stat().st_size / 1024:.1f} KB)")
+
+
+def needs_upgrade(send):
+    return ("unique_clickers" not in send or "ad_clicks" not in send
+            or "geo" not in send or "clicks_by_age" not in send)
 
 
 # ---------------------------------------------------------------------------
-# HubSpot API calls
+# HubSpot API
 # ---------------------------------------------------------------------------
 def fetch_bd_newsletters(since_date):
-    """Fetch all BD Newsfeed emails published after since_date."""
     print(f"\n  Fetching BD Newsfeed emails since {since_date.date()}...")
-    all_emails = []
-    after = None
-
+    all_emails, after = [], None
     while True:
-        params = {
-            "limit": 50,
-            "sort": "-publishDate",
-        }
+        params = {"limit": 50, "sort": "-publishDate"}
         if after:
             params["after"] = after
-
         data = get(f"{BASE}/marketing/v3/emails", params=params)
         if not data:
             break
-
-        results = data.get("results", [])
-        if not results:
-            break
-
-        for email in results:
-            # Filter: BD Newsfeed only, published only
-            if email.get("campaignName") != BD_CAMPAIGN_NAME:
+        for email in data.get("results", []):
+            if email.get("campaignName") != BD_CAMPAIGN_NAME or email.get("state") != "PUBLISHED":
                 continue
-            if email.get("state") != "PUBLISHED":
-                continue
-
-            pub_date = email.get("publishDate", "")
-            if pub_date:
-                pub_dt = datetime.fromisoformat(pub_date.replace("Z", "+00:00"))
-                if pub_dt < since_date:
-                    # We've gone past our date range — stop
-                    print(f"    Reached {pub_dt.date()}, stopping")
+            pub = email.get("publishDate", "")
+            if pub:
+                if datetime.fromisoformat(pub.replace("Z", "+00:00")) < since_date:
                     return all_emails
-
             all_emails.append(email)
-
-        # Check pagination
-        paging = data.get("paging", {})
-        next_page = paging.get("next", {})
-        after = next_page.get("after")
+        after = data.get("paging", {}).get("next", {}).get("after")
         if not after:
             break
-
     return all_emails
 
 
 def fetch_email_stats(email_id):
-    """Fetch full email detail with stats."""
-    data = get(
-        f"{BASE}/marketing/v3/emails/{email_id}",
-        params={"includeStats": "true"},
-    )
-    if not data:
-        return None
-    return data.get("stats", {})
+    data = get(f"{BASE}/marketing/v3/emails/{email_id}", params={"includeStats": "true"})
+    return data.get("stats", {}) if data else {}
 
 
-def fetch_click_events(email_campaign_id):
-    """Fetch all CLICK events for an email campaign, paginating through all."""
-    all_clicks = []
-    offset = None
-    page = 0
-
+def fetch_click_events(campaign_id):
+    all_clicks, offset = [], None
     while True:
-        params = {
-            "eventType": "CLICK",
-            "campaignId": str(email_campaign_id),
-            "limit": 1000,
-        }
+        params = {"eventType": "CLICK", "campaignId": str(campaign_id), "limit": 1000}
         if offset:
             params["offset"] = offset
-
         data = get(f"{BASE}/email/public/v1/events", params=params)
         if not data:
             break
-
-        events = data.get("events", [])
-        all_clicks.extend(events)
-        page += 1
-
+        all_clicks.extend(data.get("events", []))
         if not data.get("hasMore", False):
             break
         offset = data.get("offset")
         if not offset:
             break
-
     return all_clicks
 
 
-def aggregate_article_clicks(click_events):
-    """Aggregate click events by article URL, filtering to BD articles only."""
-    url_counts = {}
+# ---------------------------------------------------------------------------
+# Click processing
+# ---------------------------------------------------------------------------
+def process_clicks(click_events, send_date_str=""):
+    article_data = defaultdict(lambda: {"clicks": 0, "recipients": set()})
+    ad_data = defaultdict(lambda: {"clicks": 0, "recipients": set(), "domain": ""})
+    geo_data = defaultdict(lambda: {"clicks": 0, "recipients": set(), "lat": 0, "lng": 0})
+    all_recipients = set()
+    age_counts = defaultdict(int)
+
+    send_dt = None
+    if send_date_str:
+        try:
+            send_dt = datetime.strptime(send_date_str, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        except ValueError:
+            pass
 
     for ev in click_events:
         raw_url = ev.get("url", "")
         if not raw_url:
             continue
-        clean_url = strip_utm(raw_url)
-        if not is_bd_article_url(clean_url):
-            continue
+        clean_url = strip_utm(raw_url).rstrip("/")
+        rh = hash_email(ev.get("recipient", ""))
+        loc = ev.get("location", {})
 
-        # Normalize: strip trailing slash for consistent matching
-        clean_url = clean_url.rstrip("/")
+        if rh:
+            all_recipients.add(rh)
 
-        if clean_url not in url_counts:
-            url_counts[clean_url] = 0
-        url_counts[clean_url] += 1
+        # Age bucket
+        if send_dt and ev.get("created"):
+            try:
+                ts = ev["created"]
+                click_dt = datetime.fromtimestamp(ts / 1000, tz=timezone.utc) if isinstance(ts, (int, float)) else datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
+                age = (click_dt.date() - send_dt.date()).days
+                if 0 <= age <= 14:
+                    age_counts[age] += 1
+            except (ValueError, TypeError, OSError):
+                pass
 
-    # Convert to sorted list
-    articles = []
-    for url, clicks in sorted(url_counts.items(), key=lambda x: -x[1]):
-        articles.append({
-            "url": url,
-            "title": url_to_title(url),
-            "clicks": clicks,
-        })
+        # Categorize
+        if is_bd_article_url(clean_url):
+            article_data[clean_url]["clicks"] += 1
+            if rh:
+                article_data[clean_url]["recipients"].add(rh)
+        elif not is_bd_internal_url(clean_url):
+            domain = urlparse(clean_url).netloc.replace("www.", "")
+            if any(skip in domain for skip in ("hubspot", "hsforms", "hs-sites")):
+                continue
+            ad_data[clean_url]["clicks"] += 1
+            ad_data[clean_url]["domain"] = domain
+            if rh:
+                ad_data[clean_url]["recipients"].add(rh)
 
-    return articles
+        # Geo
+        if loc:
+            city, state = loc.get("city", ""), loc.get("state", "")
+            if city and state:
+                gk = f"{city}|{state}"
+                geo_data[gk]["clicks"] += 1
+                if rh:
+                    geo_data[gk]["recipients"].add(rh)
+                if not geo_data[gk]["lat"]:
+                    geo_data[gk]["lat"] = loc.get("latitude", 0)
+                    geo_data[gk]["lng"] = loc.get("longitude", 0)
+
+    articles = [{"url": u, "title": url_to_title(u), "clicks": d["clicks"],
+                 "unique_clickers": len(d["recipients"]), "is_sponsored": is_sponsored_content(u)}
+                for u, d in sorted(article_data.items(), key=lambda x: -x[1]["clicks"])]
+
+    ad_clicks = [{"url": u, "domain": d["domain"], "clicks": d["clicks"],
+                  "unique_clickers": len(d["recipients"])}
+                 for u, d in sorted(ad_data.items(), key=lambda x: -x[1]["clicks"])]
+
+    geo = [{"city": k.split("|")[0], "state": k.split("|")[1], "lat": d["lat"], "lng": d["lng"],
+            "clicks": d["clicks"], "unique_clickers": len(d["recipients"])}
+           for k, d in sorted(geo_data.items(), key=lambda x: -x[1]["clicks"])]
+
+    clicks_by_age = {str(k): v for k, v in sorted(age_counts.items()) if k <= 14}
+
+    return articles, ad_clicks, geo, len(all_recipients), clicks_by_age
 
 
 # ---------------------------------------------------------------------------
-# Main pipeline
+# Process one email
 # ---------------------------------------------------------------------------
 def process_email(email):
-    """Process a single newsletter email into a send record."""
     email_id = email["id"]
     name = email.get("name", "")
-    subject = email.get("subject", "")
     pub_date = email.get("publishDate", "")
     campaign_id = email.get("primaryEmailCampaignId")
 
     print(f"\n  Processing: {name}")
-    print(f"    email_id={email_id}, campaignId={campaign_id}")
 
-    # Get stats
+    send_date = ""
+    if pub_date:
+        try:
+            send_date = datetime.fromisoformat(pub_date.replace("Z", "+00:00")).strftime("%Y-%m-%d")
+        except ValueError:
+            send_date = pub_date[:10]
+
     stats = fetch_email_stats(email_id)
-    if not stats:
-        print(f"    WARNING: No stats returned for {email_id}")
-        stats = {}
-
     counters = stats.get("counters", {})
     ratios = stats.get("ratios", {})
     device = stats.get("deviceBreakdown", {})
 
-    # Get click events and aggregate
-    articles = []
-    total_article_clicks = 0
+    articles, ad_clicks, geo, unique_clickers, clicks_by_age = [], [], [], 0, {}
+
     if campaign_id:
-        click_events = fetch_click_events(campaign_id)
-        print(f"    {len(click_events)} total click events")
-        articles = aggregate_article_clicks(click_events)
-        total_article_clicks = sum(a["clicks"] for a in articles)
-        print(f"    {len(articles)} BD articles, {total_article_clicks} article clicks")
+        evts = fetch_click_events(campaign_id)
+        print(f"    {len(evts)} click events")
+        articles, ad_clicks, geo, unique_clickers, clicks_by_age = process_clicks(evts, send_date)
+        ta = sum(a["clicks"] for a in articles)
+        tad = sum(a["clicks"] for a in ad_clicks)
+        print(f"    {len(articles)} articles ({ta}), {len(ad_clicks)} ads ({tad}), {unique_clickers} unique, {len(geo)} geo")
 
-        # Calculate click_pct for each article (clicks / opens)
         opens = counters.get("open", 0)
-        if opens > 0:
-            for a in articles:
-                a["click_pct"] = round(a["clicks"] / opens * 100, 2)
-        else:
-            for a in articles:
-                a["click_pct"] = 0
-    else:
-        print(f"    WARNING: No campaignId found, skipping click events")
+        for a in articles:
+            a["click_pct"] = round(a["clicks"] / opens * 100, 2) if opens > 0 else 0
 
-    # Parse date to just YYYY-MM-DD
-    send_date = ""
-    if pub_date:
-        try:
-            send_date = datetime.fromisoformat(
-                pub_date.replace("Z", "+00:00")
-            ).strftime("%Y-%m-%d")
-        except ValueError:
-            send_date = pub_date[:10]
+    ct = counters.get("click", 0)
+    cpc = round(ct / unique_clickers, 2) if unique_clickers > 0 else 0
 
     return {
-        "date": send_date,
-        "email_id": str(email_id),
-        "name": name,
-        "recipients": counters.get("selected", 0),
-        "sent": counters.get("sent", 0),
-        "delivered": counters.get("delivered", 0),
-        "opens": counters.get("open", 0),
-        "clicks": counters.get("click", 0),
-        "bounces": counters.get("bounce", 0),
-        "hard_bounces": counters.get("hardbounced", 0),
+        "date": send_date, "email_id": str(email_id), "name": name,
+        "recipients": counters.get("selected", 0), "sent": counters.get("sent", 0),
+        "delivered": counters.get("delivered", 0), "opens": counters.get("open", 0),
+        "clicks": ct, "unique_clickers": unique_clickers, "clicks_per_clicker": cpc,
+        "bounces": counters.get("bounce", 0), "hard_bounces": counters.get("hardbounced", 0),
         "soft_bounces": counters.get("softbounced", 0),
         "unsubscribes": counters.get("unsubscribed", 0),
         "spam_reports": counters.get("spamreport", 0),
         "contacts_lost": counters.get("contactslost", 0),
-        "dropped": counters.get("dropped", 0),
-        "suppressed": counters.get("suppressed", 0),
+        "dropped": counters.get("dropped", 0), "suppressed": counters.get("suppressed", 0),
         "pending": counters.get("pending", 0),
         "open_rate": round(ratios.get("openratio", 0), 2),
         "click_rate": round(ratios.get("clickratio", 0), 2),
@@ -343,68 +333,168 @@ def process_email(email):
         "unsubscribe_rate": round(ratios.get("unsubscribedratio", 0), 2),
         "device_opens": device.get("open_device_type", {}),
         "device_clicks": device.get("click_device_type", {}),
-        "article_clicks": total_article_clicks,
-        "articles": articles,
+        "article_clicks": sum(a["clicks"] for a in articles),
+        "articles": articles, "ad_clicks": ad_clicks,
+        "geo": geo, "clicks_by_age": clicks_by_age,
     }
 
 
+# ---------------------------------------------------------------------------
+# GA4 — sponsored content source breakdown
+# ---------------------------------------------------------------------------
+def fetch_ga4_sponsored(sponsored_paths):
+    """Query GA4 for traffic sources on sponsored content URLs."""
+    sa_json = os.environ.get("GA4_SERVICE_ACCOUNT")
+    if not sa_json:
+        print("\n  GA4_SERVICE_ACCOUNT not set, skipping sponsored content source breakdown")
+        return {}
+
+    try:
+        from google.analytics.data_v1beta import BetaAnalyticsDataClient
+        from google.analytics.data_v1beta.types import (
+            RunReportRequest, Dimension, Metric, DateRange,
+            FilterExpression, Filter, InListFilter,
+        )
+    except ImportError:
+        print("\n  google-analytics-data not installed, skipping GA4")
+        return {}
+
+    print(f"\n  Querying GA4 for {len(sponsored_paths)} sponsored content URLs...")
+
+    # Write service account to temp file
+    try:
+        sa_data = json.loads(sa_json)
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+            json.dump(sa_data, f)
+            sa_path = f.name
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = sa_path
+    except (json.JSONDecodeError, IOError) as e:
+        print(f"  GA4 service account error: {e}")
+        return {}
+
+    try:
+        client = BetaAnalyticsDataClient()
+
+        # Normalize paths: ensure trailing slash to match GA4 format
+        paths = []
+        for p in sponsored_paths:
+            p = p.rstrip("/") + "/"
+            paths.append(p)
+
+        request = RunReportRequest(
+            property=f"properties/{GA4_PROPERTY_ID}",
+            dimensions=[
+                Dimension(name="pagePath"),
+                Dimension(name="sessionDefaultChannelGrouping"),
+                Dimension(name="sessionSource"),
+            ],
+            metrics=[Metric(name="screenPageViews")],
+            date_ranges=[DateRange(start_date="2021-01-01", end_date="today")],
+            dimension_filter=FilterExpression(
+                filter=Filter(
+                    field_name="pagePath",
+                    in_list_filter=InListFilter(values=paths),
+                )
+            ),
+            limit=10000,
+        )
+        response = client.run_report(request)
+
+        results = {}
+        for row in response.rows:
+            page_path = row.dimension_values[0].value.rstrip("/")
+            channel = row.dimension_values[1].value.lower()
+            source = row.dimension_values[2].value.lower()
+            views = int(row.metric_values[0].value)
+
+            if page_path not in results:
+                results[page_path] = {"newsletter": 0, "homepage": 0, "other": 0, "total": 0}
+
+            results[page_path]["total"] += views
+            if channel == "email":
+                results[page_path]["newsletter"] += views
+            elif channel == "referral" and "businessden" in source:
+                results[page_path]["homepage"] += views
+            else:
+                results[page_path]["other"] += views
+
+        print(f"  GA4 returned data for {len(results)} sponsored URLs")
+        return results
+
+    except Exception as e:
+        print(f"  GA4 query error: {e}")
+        return {}
+    finally:
+        try:
+            os.unlink(sa_path)
+        except OSError:
+            pass
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
 def main():
     now = datetime.now(timezone.utc)
     since = now - timedelta(days=BACKFILL_DAYS)
 
-    print(f"BD Newsletter Analytics — scraper run")
+    print(f"BD Newsletter Analytics — scraper v3")
     print(f"  Time: {now.isoformat()}")
-    print(f"  Backfill: {BACKFILL_DAYS} days (since {since.date()})")
+    print(f"  Backfill: {BACKFILL_DAYS} days")
 
-    # Load existing data
     existing = load_existing()
-    existing_dates = {s["date"] for s in existing.get("sends", [])}
-    print(f"  Existing data: {len(existing_dates)} sends on file")
+    existing_by_date = {s["date"]: s for s in existing.get("sends", [])}
+    print(f"  Existing: {len(existing_by_date)} sends")
 
-    # Fetch recent BD newsletters
+    needs_v3 = sum(1 for s in existing_by_date.values() if needs_upgrade(s))
+    if needs_v3:
+        print(f"  {needs_v3} sends need upgrade")
+
     emails = fetch_bd_newsletters(since)
     print(f"\n  Found {len(emails)} BD Newsfeed emails in range")
 
-    if not emails:
-        print("  No new emails to process.")
+    if not emails and not needs_v3:
+        print("  Nothing to process.")
         return
 
-    # Process each email
     new_sends = []
     for email in emails:
-        pub_date = email.get("publishDate", "")
-        if pub_date:
+        pub = email.get("publishDate", "")
+        sd = ""
+        if pub:
             try:
-                send_date = datetime.fromisoformat(
-                    pub_date.replace("Z", "+00:00")
-                ).strftime("%Y-%m-%d")
+                sd = datetime.fromisoformat(pub.replace("Z", "+00:00")).strftime("%Y-%m-%d")
             except ValueError:
-                send_date = pub_date[:10]
-        else:
-            send_date = ""
-
-        # Always re-fetch recent sends (stats update over time)
-        # Only skip if older than 3 days and already in data
-        days_old = (now.date() - datetime.strptime(send_date, "%Y-%m-%d").date()).days if send_date else 999
-        if send_date in existing_dates and days_old > 3:
-            print(f"\n  Skipping {email.get('name', '')} (already have data, {days_old}d old)")
+                sd = pub[:10]
+        days_old = (now.date() - datetime.strptime(sd, "%Y-%m-%d").date()).days if sd else 999
+        ex = existing_by_date.get(sd)
+        if ex and days_old > 3 and not needs_upgrade(ex):
             continue
+        new_sends.append(process_email(email))
 
-        send = process_email(email)
-        new_sends.append(send)
-
-    # Merge: new sends replace existing for same date
-    sends_by_date = {s["date"]: s for s in existing.get("sends", [])}
+    # Merge
+    sends_by_date = dict(existing_by_date)
     for s in new_sends:
         sends_by_date[s["date"]] = s
 
-    # Sort by date descending
     all_sends = sorted(sends_by_date.values(), key=lambda x: x["date"], reverse=True)
 
-    # Build output
+    # Collect all sponsored content URLs for GA4 query
+    sponsored_paths = set()
+    for s in all_sends:
+        for a in s.get("articles", []):
+            if a.get("is_sponsored"):
+                sponsored_paths.add(urlparse(a["url"]).path)
+
+    # GA4 sponsored content source breakdown
+    sponsored_ga4 = {}
+    if sponsored_paths:
+        sponsored_ga4 = fetch_ga4_sponsored(sponsored_paths)
+
     output = {
         "metadata": {
             "generated": now.isoformat(),
+            "version": 3,
             "total_sends": len(all_sends),
             "date_range": {
                 "start": all_sends[-1]["date"] if all_sends else "",
@@ -412,22 +502,18 @@ def main():
             },
         },
         "sends": all_sends,
+        "sponsored_ga4": sponsored_ga4,
     }
 
     save_data(output)
 
-    # Summary
     print(f"\n{'=' * 60}")
-    print(f"  Total sends in file: {len(all_sends)}")
+    print(f"  Total: {len(all_sends)} sends")
     print(f"  New/updated: {len(new_sends)}")
-    if all_sends:
-        latest = all_sends[0]
-        print(f"  Latest: {latest['name']} ({latest['date']})")
-        print(f"    Recipients: {latest['recipients']:,}")
-        print(f"    Open rate: {latest['open_rate']}%")
-        print(f"    Click rate: {latest['click_rate']}%")
-        print(f"    Articles clicked: {len(latest['articles'])}")
-        print(f"    Unsubscribes: {latest['unsubscribes']}")
+    v3 = sum(1 for s in all_sends if not needs_upgrade(s))
+    print(f"  v3 complete: {v3}")
+    print(f"  Sponsored content URLs: {len(sponsored_paths)}")
+    print(f"  Sponsored GA4 data: {len(sponsored_ga4)} URLs")
 
 
 if __name__ == "__main__":

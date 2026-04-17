@@ -52,12 +52,13 @@ jobs:
 
       - name: Install dependencies
         if: steps.tz.outputs.skip != 'true'
-        run: pip install requests
+        run: pip install requests google-analytics-data
 
       - name: Run scraper
         if: steps.tz.outputs.skip != 'true'
         env:
           HUBSPOT_TOKEN: ${{ secrets.HUBSPOT_TOKEN }}
+          GA4_SERVICE_ACCOUNT: ${{ secrets.GA4_SERVICE_ACCOUNT }}
           BACKFILL_DAYS: ${{ github.event.inputs.backfill_days || '7' }}
         run: python scrape.py
 
