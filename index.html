@@ -361,29 +361,34 @@ function renderSponsored(){
   const spToggle=document.getElementById('spToggle');
   const perReader=spToggle.querySelector('.toggle-btn:nth-child(3)')?.classList.contains('active')||false;
 
+  // Helper: build GA4 lookup path from article URL (strip fragment and trailing slash)
+  const ga4path=(url)=>{try{return'/'+new URL(url).pathname.replace(/\/$/,'').split('/').slice(1).join('/');}catch(e){return'/'+url.split('/').slice(3).join('/').replace(/\/$/,'').split('#')[0];}};
+  // Helper: display GA4 value (0 is valid, only show — if truly missing)
+  const ga4v=(obj,key)=>obj&&key in obj?fmt(obj[key]):'—';
+
   let h='<div class="section-label">Sponsored Content Performance</div><div class="table-wrap"><table><thead><tr><th>Article</th><th class="num">NL Clicks</th><th class="num">NL Unique</th><th class="num">Homepage</th><th class="num">Other</th><th class="num">Total Views</th><th class="num">Start Date</th><th class="num">Days</th><th class="num">Avg/Day</th></tr></thead><tbody>';
   articles.forEach(a=>{
     const m=la(a.url);const title=(m&&m.title)?m.title:a.title;
-    const path='/'+a.url.split('/').slice(3).join('/').replace(/\/$/,'');
-    const g=ga4[path]||{};
+    const path=ga4path(a.url);
+    const g=ga4[path]||null;
     const sortedDates=[...a.dates].sort();
     const startDate=sortedDates[0]||'—';
     const endDate=sortedDates[sortedDates.length-1]||startDate;
     const daySpan=startDate!=='—'?Math.max(1,Math.round((new Date(endDate)-new Date(startDate))/(1000*60*60*24))+1):1;
     const avgPerDay=(a.nlClicks/daySpan).toFixed(1);
-    h+=`<tr class="row-sp"><td><a href="${a.url}" target="_blank">${title}</a></td><td class="num mono">${fmt(a.nlClicks)}</td><td class="num mono">${fmt(a.nlUnique)}</td><td class="num mono">${fmt(g.homepage||'—')}</td><td class="num mono">${fmt(g.other||'—')}</td><td class="num mono">${fmt(g.total||'—')}</td><td class="num mono" style="white-space:nowrap">${fmtD(startDate)}</td><td class="num mono">${daySpan}</td><td class="num mono">${avgPerDay}</td></tr>`;
+    h+=`<tr class="row-sp"><td><a href="${a.url}" target="_blank">${title}</a></td><td class="num mono">${fmt(a.nlClicks)}</td><td class="num mono">${fmt(a.nlUnique)}</td><td class="num mono">${ga4v(g,'homepage')}</td><td class="num mono">${ga4v(g,'other')}</td><td class="num mono">${ga4v(g,'total')}</td><td class="num mono" style="white-space:nowrap">${fmtD(startDate)}</td><td class="num mono">${daySpan}</td><td class="num mono">${avgPerDay}</td></tr>`;
   });
   h+='</tbody></table></div>';
 
-  const withGA4=articles.filter(a=>{const p='/'+a.url.split('/').slice(3).join('/').replace(/\/$/,'');return ga4[p];});
+  const withGA4=articles.filter(a=>ga4[ga4path(a.url)]);
   if(withGA4.length)h+=`<div class="chart-container"><h3>Sponsored Content — Traffic by Source</h3><div class="chart-box"><canvas id="chartSpSource"></canvas></div></div>`;
   document.getElementById('spContent').innerHTML=h;
 
   if(withGA4.length){
     const labels=withGA4.map(a=>{const m=la(a.url);return((m&&m.title)?m.title:a.title).slice(0,30)+'...';});
     const nlData=withGA4.map(a=>a.nlClicks);
-    const hpData=withGA4.map(a=>{const p='/'+a.url.split('/').slice(3).join('/').replace(/\/$/,'');return(ga4[p]||{}).homepage||0;});
-    const otherData=withGA4.map(a=>{const p='/'+a.url.split('/').slice(3).join('/').replace(/\/$/,'');return(ga4[p]||{}).other||0;});
+    const hpData=withGA4.map(a=>(ga4[ga4path(a.url)]||{}).homepage||0);
+    const otherData=withGA4.map(a=>(ga4[ga4path(a.url)]||{}).other||0);
     dc('spSource');charts.spSource=new Chart(document.getElementById('chartSpSource'),{type:'bar',data:{labels,datasets:[
       {label:'Newsletter',data:nlData,backgroundColor:'rgba(212,170,79,0.7)',borderRadius:3},
       {label:'Homepage',data:hpData,backgroundColor:'rgba(96,165,250,0.7)',borderRadius:3},
