@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated": "2026-04-17T04:15:53.861874+00:00",
+    "generated": "2026-04-17T04:25:32.922146+00:00",
     "version": 3,
     "total_sends": 789,
     "date_range": {
@@ -44,7 +44,7 @@
         "mobile": 1315,
         "unknown": 0
       },
-      "article_clicks": 2743,
+      "article_clicks": 2746,
       "articles": [
         {
           "url": "https://businessden.com/2026/04/16/golden-construction-firm-says-its-president-spent-stolen-millions-on-silver",
@@ -89,10 +89,10 @@
         {
           "url": "https://businessden.com/2026/04/15/peyton-manning-backed-group-eyeing-30m-restaurant-event-concept-in-littleton",
           "title": "Peyton Manning Backed Group Eyeing 30M Restaurant Event Concept In Littleton",
-          "clicks": 171,
-          "unique_clickers": 122,
+          "clicks": 174,
+          "unique_clickers": 123,
           "is_sponsored": false,
-          "click_pct": 5.45
+          "click_pct": 5.55
         },
         {
           "url": "https://businessden.com/2026/04/15/demolition-begins-at-leetsdale-apartment-building-torched-by-fire",
@@ -141,7 +141,7 @@
           "state": "colorado",
           "lat": 39.7277,
           "lng": -104.9815,
-          "clicks": 1379,
+          "clicks": 1380,
           "unique_clickers": 801
         },
         {
@@ -149,7 +149,7 @@
           "state": "virginia",
           "lat": 39.0469,
           "lng": -77.4903,
-          "clicks": 286,
+          "clicks": 287,
           "unique_clickers": 150
         },
         {
@@ -187,10 +187,10 @@
         {
           "city": "los angeles",
           "state": "california",
-          "lat": 34.0544,
-          "lng": -118.244,
-          "clicks": 84,
-          "unique_clickers": 26
+          "lat": 34.0481,
+          "lng": -118.2531,
+          "clicks": 85,
+          "unique_clickers": 27
         },
         {
           "city": "reston",
@@ -1731,7 +1731,7 @@
       ],
       "clicks_by_age": {
         "0": 3595,
-        "1": 70
+        "1": 73
       }
     },
     {
@@ -1741,7 +1741,7 @@
       "recipients": 19789,
       "sent": 18544,
       "delivered": 17489,
-      "opens": 3316,
+      "opens": 3317,
       "clicks": 1762,
       "unique_clickers": 1797,
       "clicks_per_clicker": 0.98,
@@ -1754,13 +1754,13 @@
       "dropped": 865,
       "suppressed": 380,
       "pending": 1015,
-      "open_rate": 18.96,
+      "open_rate": 18.97,
       "click_rate": 10.07,
-      "click_through_rate": 53.14,
+      "click_through_rate": 53.12,
       "bounce_rate": 0.22,
       "unsubscribe_rate": 0.03,
       "device_opens": {
-        "computer": 3926,
+        "computer": 3927,
         "mobile": 2286,
         "unknown": 237
       },
@@ -1777,7 +1777,7 @@
           "clicks": 1286,
           "unique_clickers": 966,
           "is_sponsored": false,
-          "click_pct": 38.78
+          "click_pct": 38.77
         },
         {
           "url": "https://businessden.com/2026/04/15/buyer-backs-out-of-plan-to-acquire-cbz-apartments-in-aurora",
@@ -1825,7 +1825,7 @@
           "clicks": 96,
           "unique_clickers": 66,
           "is_sponsored": false,
-          "click_pct": 2.9
+          "click_pct": 2.89
         }
       ],
       "ad_clicks": [
