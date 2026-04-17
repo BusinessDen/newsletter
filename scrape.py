@@ -365,7 +365,7 @@ def fetch_ga4_sponsored(sponsored_paths):
         from google.analytics.data_v1beta import BetaAnalyticsDataClient
         from google.analytics.data_v1beta.types import (
             RunReportRequest, Dimension, Metric, DateRange,
-            FilterExpression, FilterExpressionList, Filter, StringFilter,
+            FilterExpression, Filter,
         )
     except ImportError as e:
         print(f"\n  google-analytics-data import failed: {e}")
@@ -383,34 +383,24 @@ def fetch_ga4_sponsored(sponsored_paths):
         return {}
     try:
         client = BetaAnalyticsDataClient()
-        # Try both with and without trailing slash for each path
-        path_variants = set()
+        # Include both with and without trailing slash
+        path_variants = []
         for p in sponsored_paths:
-            path_variants.add(p.rstrip("/") + "/")
-            path_variants.add(p.rstrip("/"))
-
-        # Build OR group of exact-match string filters (InListFilter not available in v1beta)
-        path_filters = [
-            FilterExpression(filter=Filter(
-                field_name="pagePath",
-                string_filter=StringFilter(
-                    match_type=StringFilter.MatchType.EXACT,
-                    value=path,
-                ),
-            ))
-            for path in path_variants
-        ]
-
-        dimension_filter = FilterExpression(
-            or_group=FilterExpressionList(expressions=path_filters)
-        )
+            path_variants.append(p.rstrip("/") + "/")
+            path_variants.append(p.rstrip("/"))
+        path_variants = list(set(path_variants))
 
         request = RunReportRequest(
             property=f"properties/{GA4_PROPERTY_ID}",
             dimensions=[Dimension(name="pagePath"),Dimension(name="sessionDefaultChannelGrouping"),Dimension(name="sessionSource")],
             metrics=[Metric(name="screenPageViews")],
             date_ranges=[DateRange(start_date="2021-01-01", end_date="today")],
-            dimension_filter=dimension_filter,
+            dimension_filter=FilterExpression(
+                filter=Filter(
+                    field_name="pagePath",
+                    in_list_filter=Filter.InListFilter(values=path_variants),
+                )
+            ),
             limit=10000,
         )
         response = client.run_report(request)
