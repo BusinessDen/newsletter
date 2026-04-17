@@ -76,6 +76,37 @@ SPONSORED_SLUG_EXCEPTIONS = [
     "/2022/07/25/first-interstate-bank-arrives-in-colorado-after-successful-merger-with-great-western-bank",
 ]
 
+SPONSORED_CATEGORY_ID = 763  # WordPress "Sponsored Content" category
+
+
+def fetch_all_sponsored_paths():
+    """Fetch all sponsored content article paths and titles from WordPress + hardcoded exceptions."""
+    paths = {}
+    for exc in SPONSORED_SLUG_EXCEPTIONS:
+        paths[exc] = exc.split("/")[-1].replace("-", " ").title()
+    try:
+        r = requests.get(
+            "https://businessden.com/wp-json/wp/v2/posts",
+            params={"categories": SPONSORED_CATEGORY_ID, "per_page": 100,
+                    "_fields": "link,title"},
+            timeout=15,
+        )
+        if r.status_code == 200:
+            for post in r.json():
+                link = post.get("link", "")
+                title = post.get("title", {}).get("rendered", "")
+                if link:
+                    path = urlparse(link).path.rstrip("/")
+                    if path:
+                        paths[path] = title or path.split("/")[-1].replace("-", " ").title()
+            print(f"  WordPress category {SPONSORED_CATEGORY_ID}: {len(r.json())} posts")
+        else:
+            print(f"  WordPress API error {r.status_code}, using exceptions only")
+    except requests.exceptions.RequestException as e:
+        print(f"  WordPress API failed: {e}, using exceptions only")
+    print(f"  Total sponsored content paths: {len(paths)}")
+    return paths
+
 def is_news_domain(domain):
     d = domain.lower().replace("www.", "")
     if d in NEWS_DOMAINS:
@@ -483,15 +514,47 @@ def main():
         sends_by_date[s["date"]] = s
     all_sends = sorted(sends_by_date.values(), key=lambda x: x["date"], reverse=True)
 
-    sponsored_paths = set()
+    sponsored_paths = fetch_all_sponsored_paths()
+    # Also add any dynamically found ones from click data
     for s in all_sends:
         for a in s.get("articles", []):
             if a.get("is_sponsored"):
-                sponsored_paths.add(urlparse(a["url"]).path)
+                p = urlparse(a["url"]).path.rstrip("/")
+                if p not in sponsored_paths:
+                    sponsored_paths[p] = a.get("title", p.split("/")[-1].replace("-", " ").title())
 
     sponsored_ga4 = {}
     if sponsored_paths:
-        sponsored_ga4 = fetch_ga4_sponsored(sponsored_paths)
+        sponsored_ga4 = fetch_ga4_sponsored(sponsored_paths.keys())
+
+    # Build sponsored_articles list with newsletter click data for all known articles
+    sp_nl_data = {}
+    for s in all_sends:
+        for a in s.get("articles", []):
+            if a.get("is_sponsored"):
+                path = urlparse(a["url"]).path.rstrip("/")
+                if path not in sp_nl_data:
+                    sp_nl_data[path] = {"url": a["url"], "title": a["title"],
+                                        "nl_clicks": 0, "nl_unique": 0, "sends": 0, "dates": []}
+                sp_nl_data[path]["nl_clicks"] += a["clicks"]
+                sp_nl_data[path]["nl_unique"] += a.get("unique_clickers", 0)
+                sp_nl_data[path]["sends"] += 1
+                sp_nl_data[path]["dates"].append(s["date"])
+
+    sponsored_articles = []
+    for path, wp_title in sorted(sponsored_paths.items()):
+        clean_path = path.rstrip("/")
+        url = f"https://businessden.com{clean_path}/"
+        nl = sp_nl_data.get(clean_path, {})
+        sponsored_articles.append({
+            "path": clean_path,
+            "url": nl.get("url", url),
+            "title": nl.get("title", wp_title),
+            "nl_clicks": nl.get("nl_clicks", 0),
+            "nl_unique": nl.get("nl_unique", 0),
+            "nl_sends": nl.get("sends", 0),
+            "nl_dates": nl.get("dates", []),
+        })
 
     output = {
         "metadata": {"generated": now.isoformat(), "version": 4,
@@ -499,6 +562,7 @@ def main():
             "date_range": {"start": all_sends[-1]["date"] if all_sends else "", "end": all_sends[0]["date"] if all_sends else ""}},
         "sends": all_sends,
         "sponsored_ga4": sponsored_ga4,
+        "sponsored_articles": sponsored_articles,
     }
     save_data(output)
     print(f"\n{'='*60}")
