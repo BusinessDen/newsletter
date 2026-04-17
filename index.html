@@ -25,8 +25,8 @@ body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur
 .range-filter,.toggle-bar{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
 .range-btn,.toggle-btn{padding:5px 12px;font-size:11px;font-family:var(--font-mono);color:var(--text-dim);background:var(--surface);border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:all 0.2s}.range-btn:hover,.toggle-btn:hover{color:var(--text);border-color:var(--text-dim)}.range-btn.active,.toggle-btn.active{color:var(--gold);border-color:var(--gold);background:var(--gold-dim)}
 .toggle-bar .tl{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-right:8px}
-.device-bar{display:flex;height:28px;border-radius:4px;overflow:hidden;margin-bottom:8px;max-width:500px}.device-bar .seg{display:flex;align-items:center;justify-content:center;font-size:10px;font-family:var(--font-mono);color:var(--bg);font-weight:500;min-width:40px}.device-bar .desktop{background:#60a5fa}.device-bar .mobile{background:#fb923c}.device-bar .unknown{background:var(--surface-3);color:var(--text-dim)}
-.device-legend{display:flex;gap:16px;font-size:10px;color:var(--text-dim);margin-bottom:20px}.device-legend span::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle}.device-legend .l-desktop::before{background:#60a5fa}.device-legend .l-mobile::before{background:#fb923c}
+.device-bar{display:flex;height:28px;border-radius:4px;overflow:hidden;margin-bottom:8px;max-width:500px}.device-bar .seg{display:flex;align-items:center;justify-content:center;font-size:10px;font-family:var(--font-mono);color:var(--bg);font-weight:500;min-width:40px}.device-bar .desktop{background:#60a5fa}.device-bar .mobile{background:#fb923c}.device-bar .unknown{background:#4ade80;color:var(--bg)}
+.device-legend{display:flex;gap:16px;font-size:10px;color:var(--text-dim);margin-bottom:20px}.device-legend span::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle}.device-legend .l-desktop::before{background:#60a5fa}.device-legend .l-mobile::before{background:#fb923c}.device-legend .l-unknown::before{background:#4ade80}
 .send-select{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:4px;font-family:var(--font-mono);font-size:11px;margin-bottom:20px;max-width:400px}
 .section-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:8px;margin-top:20px}
 .loading,.empty{text-align:center;padding:40px;color:var(--text-muted);font-size:12px;font-family:var(--font-mono)}
@@ -186,6 +186,7 @@ function init(){
 
 function fmt(n){return n==null||n===undefined?'—':typeof n==='number'?n.toLocaleString():n;}
 function pct(n){return n==null?'—':(n*1).toFixed(1)+'%';}
+function round(n,d){const m=Math.pow(10,d);return Math.round(n*m)/m;}
 function fmtD(d){if(!d||d==='—')return'—';const p=d.split('-');return p.length===3?(p[1]+'/'+p[2]+'/'+p[0].slice(2)):d;}
 function bSS(id,cb){const s=document.getElementById(id);DATA.sends.forEach((x,i)=>{const o=document.createElement('option');o.value=i;o.textContent=fmtD(x.date)+' — '+x.name;s.appendChild(o);});s.addEventListener('change',()=>cb(parseInt(s.value)));}
 function bRF(id,ranges,cb,defaultIdx=0){const el=document.getElementById(id);ranges.forEach((d,i)=>{const b=document.createElement('button');b.className='range-btn'+(i===defaultIdx?' active':'');b.textContent=d==='All'?'All':d+'d';b.addEventListener('click',()=>{el.querySelectorAll('.range-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');cb(d);});el.appendChild(b);});}
@@ -201,14 +202,17 @@ function co(ov){const b={responsive:true,maintainAspectRatio:false,plugins:{lege
 // ========= YESTERDAY'S SEND =========
 function renderSend(idx){
   const s=DATA.sends[idx];if(!s)return;
-  const uc=s.unique_clickers||0,cpc=s.clicks_per_clicker||0;
+  const uc=s.unique_clickers||0;
+  const evtClicks=(s.articles||[]).reduce((t,a)=>t+a.clicks,0)+(s.editorial_clicks||[]).reduce((t,a)=>t+a.clicks,0)+(s.ad_clicks||[]).reduce((t,a)=>t+a.clicks,0);
+  const totalClicks=evtClicks||s.clicks||0;
+  const cpc=uc>0?round(totalClicks/uc,2):0;
   const od=s.device_opens||{},cd=s.device_clicks||{};
   const os=(od.computer||0)+(od.mobile||0)+(od.unknown||0);
   const cs=(cd.computer||0)+(cd.mobile||0)+(cd.unknown||0);
   let h=`<div class="stats-row">
     <div class="stat-card"><div class="label">Recipients</div><div class="value">${fmt(s.recipients)}</div><div class="sub">${fmt(s.delivered)} delivered</div></div>
     <div class="stat-card"><div class="label">Open Rate</div><div class="value gold">${pct(s.open_rate)}</div><div class="sub">${fmt(s.opens)} opens</div></div>
-    <div class="stat-card"><div class="label">Click Rate</div><div class="value gold">${pct(s.click_rate)}</div><div class="sub">${fmt(s.clicks)} clicks</div></div>
+    <div class="stat-card"><div class="label">Click Rate</div><div class="value gold">${pct(s.click_rate)}</div><div class="sub">${fmt(totalClicks)} clicks</div></div>
     <div class="stat-card"><div class="label">Unique Clickers</div><div class="value">${fmt(uc)}</div><div class="sub">${cpc} clicks/clicker</div></div>
     <div class="stat-card"><div class="label">Bounces</div><div class="value">${fmt(s.bounces)}</div><div class="sub">${s.hard_bounces||0} hard · ${s.soft_bounces||0} soft</div></div>
     <div class="stat-card"><div class="label">Unsubscribes</div><div class="value">${fmt(s.unsubscribes)}</div><div class="sub">${fmt(s.spam_reports)} spam</div></div>
@@ -216,7 +220,7 @@ function renderSend(idx){
   const devBar=(data,total,label)=>{if(!total)return'';const p=k=>((data[k]||0)/total*100);const oth=100-p('computer')-p('mobile');return`<div class="section-label">${label}</div><div class="device-bar"><div class="seg desktop" style="width:${p('computer')}%">${p('computer').toFixed(0)}%</div><div class="seg mobile" style="width:${p('mobile')}%">${p('mobile').toFixed(0)}%</div>${oth>0.5?`<div class="seg unknown" style="width:${oth}%">${oth.toFixed(0)}%</div>`:''}</div>`;};
   h+=devBar(od,os,'Device — Opens');
   h+=devBar(cd,cs,'Device — Clicks');
-  if(os||cs)h+='<div class="device-legend"><span class="l-desktop">Desktop</span><span class="l-mobile">Mobile</span></div>';
+  if(os||cs)h+='<div class="device-legend"><span class="l-desktop">Desktop</span><span class="l-mobile">Mobile</span><span class="l-unknown">Unknown</span></div>';
   document.getElementById('sendStats').innerHTML=h;
 
   // 24-hour clicks chart
