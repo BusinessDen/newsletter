@@ -212,6 +212,7 @@ def process_clicks(click_events, send_date_str="", send_timestamp=""):
     editorial_data = defaultdict(lambda: {"clicks": 0, "recipients": set(), "domain": ""})
     geo_data = defaultdict(lambda: {"clicks": 0, "recipients": set(), "lat": 0, "lng": 0})
     all_recipients = set()
+    all_clicks_count = 0
     age_counts = defaultdict(int)
     hour_counts = defaultdict(int)
 
@@ -237,6 +238,7 @@ def process_clicks(click_events, send_date_str="", send_timestamp=""):
         loc = ev.get("location", {})
         if rh:
             all_recipients.add(rh)
+        all_clicks_count += 1
 
         if (send_dt or send_dt_precise) and ev.get("created"):
             try:
@@ -297,7 +299,7 @@ def process_clicks(click_events, send_date_str="", send_timestamp=""):
            for k, d in sorted(geo_data.items(), key=lambda x: -x[1]["clicks"])]
     clicks_by_age = {str(k): v for k, v in sorted(age_counts.items()) if k <= 14}
     clicks_by_hour = {str(k): v for k, v in sorted(hour_counts.items())}
-    return articles, ad_clicks, editorial_clicks, geo, len(all_recipients), clicks_by_age, clicks_by_hour
+    return articles, ad_clicks, editorial_clicks, geo, len(all_recipients), all_clicks_count, clicks_by_age, clicks_by_hour
 
 def process_email(email):
     email_id = email["id"]
@@ -316,21 +318,21 @@ def process_email(email):
     counters = stats.get("counters", {})
     ratios = stats.get("ratios", {})
     device = stats.get("deviceBreakdown", {})
-    articles, ad_clicks, editorial_clicks, geo, unique_clickers, clicks_by_age, clicks_by_hour = [], [], [], [], 0, {}, {}
+    articles, ad_clicks, editorial_clicks, geo, unique_clickers, total_clicks, clicks_by_age, clicks_by_hour = [], [], [], [], 0, 0, {}, {}
 
     if campaign_id:
         evts = fetch_click_events(campaign_id)
         print(f"    {len(evts)} click events")
-        articles, ad_clicks, editorial_clicks, geo, unique_clickers, clicks_by_age, clicks_by_hour = process_clicks(evts, send_date, pub_date)
+        articles, ad_clicks, editorial_clicks, geo, unique_clickers, total_clicks, clicks_by_age, clicks_by_hour = process_clicks(evts, send_date, pub_date)
         ta = sum(a["clicks"] for a in articles)
         tad = sum(a["clicks"] for a in ad_clicks)
         ted = sum(a["clicks"] for a in editorial_clicks)
-        print(f"    {len(articles)} articles ({ta}), {len(ad_clicks)} ads ({tad}), {len(editorial_clicks)} editorial ({ted}), {unique_clickers} unique, {len(geo)} geo")
+        print(f"    {len(articles)} articles ({ta}), {len(ad_clicks)} ads ({tad}), {len(editorial_clicks)} editorial ({ted}), {unique_clickers} unique, {total_clicks} total clicks, {len(geo)} geo")
         opens = counters.get("open", 0)
         for a in articles:
             a["click_pct"] = round(a["clicks"] / opens * 100, 2) if opens > 0 else 0
 
-    ct = counters.get("click", 0)
+    ct = total_clicks if total_clicks > 0 else counters.get("click", 0)
     cpc = round(ct / unique_clickers, 2) if unique_clickers > 0 else 0
     return {
         "date": send_date, "email_id": str(email_id), "name": name,
