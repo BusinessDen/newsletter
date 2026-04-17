@@ -85,6 +85,7 @@ def fetch_all_sponsored_paths():
     for exc in SPONSORED_SLUG_EXCEPTIONS:
         paths[exc] = exc.split("/")[-1].replace("-", " ").title()
     try:
+        # Primary: category 763
         r = requests.get(
             "https://businessden.com/wp-json/wp/v2/posts",
             params={"categories": SPONSORED_CATEGORY_ID, "per_page": 100,
@@ -101,7 +102,29 @@ def fetch_all_sponsored_paths():
                         paths[path] = title or path.split("/")[-1].replace("-", " ").title()
             print(f"  WordPress category {SPONSORED_CATEGORY_ID}: {len(r.json())} posts")
         else:
-            print(f"  WordPress API error {r.status_code}, using exceptions only")
+            print(f"  WordPress category API error {r.status_code}")
+
+        # Secondary: search for "sponsored content" in title (catches miscategorized posts)
+        r2 = requests.get(
+            "https://businessden.com/wp-json/wp/v2/posts",
+            params={"search": "sponsored content", "per_page": 100,
+                    "_fields": "link,title"},
+            timeout=15,
+        )
+        if r2.status_code == 200:
+            added = 0
+            for post in r2.json():
+                title = post.get("title", {}).get("rendered", "")
+                link = post.get("link", "")
+                if link and title and title.lower().startswith("sponsored content"):
+                    path = urlparse(link).path.rstrip("/")
+                    if path and path not in paths:
+                        paths[path] = title
+                        added += 1
+            if added:
+                print(f"  WordPress title search: {added} additional posts")
+        else:
+            print(f"  WordPress search API error {r2.status_code}")
     except requests.exceptions.RequestException as e:
         print(f"  WordPress API failed: {e}, using exceptions only")
     print(f"  Total sponsored content paths: {len(paths)}")

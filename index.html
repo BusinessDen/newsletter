@@ -227,7 +227,15 @@ function renderSend(idx){
   const hourData=s.clicks_by_hour||{};
   const hourLabels=Array.from({length:24},(_,i)=>{const hr=(6+i)%24;return hr===0?'12a':hr<12?hr+'a':hr===12?'12p':(hr-12)+'p';});
   const hourValues=Array.from({length:24},(_,i)=>hourData[String(i)]||0);
-  dc('hourly');charts.hourly=new Chart(document.getElementById('chartHourly'),{type:'bar',data:{labels:hourLabels,datasets:[{label:'Clicks',data:hourValues,backgroundColor:'rgba(212,170,79,0.6)',borderColor:'#d4aa4f',borderWidth:1,borderRadius:3}]},options:co()});
+  // Cumulative total
+  const hourCumulative=[];let runTotal=0;
+  hourValues.forEach(v=>{runTotal+=v;hourCumulative.push(runTotal);});
+  // Find last non-zero index for label placement
+  let lastIdx=23;for(let i=23;i>=0;i--){if(hourValues[i]>0){lastIdx=i;break;}}
+  dc('hourly');charts.hourly=new Chart(document.getElementById('chartHourly'),{type:'bar',data:{labels:hourLabels,datasets:[
+    {label:'Clicks',data:hourValues,backgroundColor:'rgba(212,170,79,0.6)',borderColor:'#d4aa4f',borderWidth:1,borderRadius:3,yAxisID:'y',order:2},
+    {label:'Cumulative',data:hourCumulative,type:'line',borderColor:'#4ade80',backgroundColor:'transparent',borderWidth:2,pointRadius:hourCumulative.map((_,i)=>i===lastIdx?5:0),pointBackgroundColor:'#4ade80',yAxisID:'y1',order:1,tension:0.3}
+  ]},options:{...co({scales:{y:{position:'left'},y1:{position:'right',grid:{drawOnChartArea:false}}}}),plugins:{...co().plugins,legend:{labels:{color:'#8a8a9a',font:{family:"'Sora',sans-serif",size:11},boxWidth:12,padding:16}},tooltip:{...co().plugins.tooltip},annotation:undefined},},plugins:[{id:'cumulativeLabel',afterDraw(chart){const ds=chart.data.datasets[1];const meta=chart.getDatasetMeta(1);const pt=meta.data[lastIdx];if(!pt)return;const ctx=chart.ctx;const val=ds.data[lastIdx].toLocaleString();ctx.save();ctx.font="600 12px 'JetBrains Mono',monospace";ctx.fillStyle='#4ade80';const tw=ctx.measureText(val).width;const x=pt.x-tw-8>0?pt.x-tw-8:pt.x+8;const y=pt.y-12>20?pt.y-12:pt.y+16;ctx.fillText(val,x,y);ctx.restore();}}]});
 
   // Article table
   const arts=s.articles||[];
@@ -260,7 +268,7 @@ function renderSend(idx){
       ${spC?`<div class="seg" style="width:${wp(spC)}%;background:var(--purple)">${wp(spC)}%</div>`:''}
       ${adC?`<div class="seg" style="width:${wp(adC)}%;background:var(--green)">${wp(adC)}%</div>`:''}
     </div>
-    <div class="breakdown-legend"><span class="l-articles">Articles ${artC}</span><span class="l-editorial">Editorial ${edC}</span><span class="l-sponsored">Sponsored ${spC}</span><span class="l-ads">Ads ${adC}</span></div>`;
+    <div class="breakdown-legend"><span class="l-articles">Articles ${artC}</span><span class="l-editorial">Editorial ${edC}</span><span class="l-sponsored">Sponsored ${spC}</span>${adC?`<span class="l-ads">Ads ${adC}</span>`:''}</div>`;
 }
 
 // ========= ARTICLE CLICKS =========
@@ -368,6 +376,11 @@ function renderSponsored(){
     });});
     articles=Object.values(byUrl);
   }
+  // Helper: build GA4 lookup path from article URL (strip fragment and trailing slash)
+  const ga4path=(url)=>{try{return new URL(url).pathname.replace(/\/$/,'');}catch(e){return'/'+url.split('/').slice(3).join('/').replace(/\/$/,'').split('#')[0];}};
+  // Helper: display GA4 value (0 is valid, only show — if truly missing)
+  const ga4v=(obj,key)=>obj&&key in obj?fmt(obj[key]):'—';
+
   articles.sort((a,b)=>{
     const aTotal=(ga4[ga4path(a.url)]||{}).total||0;
     const bTotal=(ga4[ga4path(b.url)]||{}).total||0;
@@ -377,11 +390,6 @@ function renderSponsored(){
 
   const spToggle=document.getElementById('spToggle');
   const perReader=spToggle.querySelector('.toggle-btn:nth-child(3)')?.classList.contains('active')||false;
-
-  // Helper: build GA4 lookup path from article URL (strip fragment and trailing slash)
-  const ga4path=(url)=>{try{return new URL(url).pathname.replace(/\/$/,'');}catch(e){return'/'+url.split('/').slice(3).join('/').replace(/\/$/,'').split('#')[0];}};
-  // Helper: display GA4 value (0 is valid, only show — if truly missing)
-  const ga4v=(obj,key)=>obj&&key in obj?fmt(obj[key]):'—';
 
   let h='<div class="section-label">Sponsored Content Performance</div><div class="table-wrap"><table><thead><tr><th>Article</th><th class="num">NL Clicks</th><th class="num">NL Unique</th><th class="num">Homepage</th><th class="num">Search</th><th class="num">Direct</th><th class="num">Social</th><th class="num">Referral</th><th class="num">Total Views</th><th class="num">Start Date</th><th class="num">Days</th><th class="num">Avg/Day</th></tr></thead><tbody>';
   articles.forEach(a=>{
@@ -437,21 +445,27 @@ function renderTrends(days){
   const edData=sends.map(s=>(s.editorial_clicks||[]).reduce((sum,a)=>sum+(useU?(a.unique_clickers||0):a.clicks),0));
   const spData=sends.map(s=>{let t=0;(s.articles||[]).forEach(a=>{if(a.is_sponsored)t+=useU?(a.unique_clickers||0):a.clicks;});return t;});
   const adData=sends.map(s=>(s.ad_clicks||[]).reduce((sum,a)=>sum+(useU?(a.unique_clickers||0):a.clicks),0));
+  const hasAdData=adData.some(v=>v>0);
 
-  dc('breakdown');charts.breakdown=new Chart(document.getElementById('chartBreakdown'),{type:'bar',data:{labels,datasets:[
+  const breakdownSets=[
     {label:'Articles',data:artData,backgroundColor:'rgba(96,165,250,0.6)',borderRadius:2},
     {label:'Editorial',data:edData,backgroundColor:'rgba(251,146,60,0.6)',borderRadius:2},
     {label:'Sponsored',data:spData,backgroundColor:'rgba(167,139,250,0.6)',borderRadius:2},
-    {label:'Ads',data:adData,backgroundColor:'rgba(74,222,128,0.6)',borderRadius:2},
-  ]},options:co({scales:{x:{stacked:true},y:{stacked:true}}})});
+  ];
+  if(hasAdData)breakdownSets.push({label:'Ads',data:adData,backgroundColor:'rgba(74,222,128,0.6)',borderRadius:2});
+
+  dc('breakdown');charts.breakdown=new Chart(document.getElementById('chartBreakdown'),{type:'bar',data:{labels,datasets:breakdownSets},options:co({scales:{x:{stacked:true},y:{stacked:true}}})});
 
   // 100% stacked
-  const pctTot=sends.map((_,i)=>(artData[i]+edData[i]+spData[i]+adData[i])||1);
-  dc('breakdownPct');charts.breakdownPct=new Chart(document.getElementById('chartBreakdownPct'),{type:'line',data:{labels,datasets:[
+  const pctTot=sends.map((_,i)=>(artData[i]+edData[i]+spData[i]+(hasAdData?adData[i]:0))||1);
+  const pctSets=[
     {label:'Articles %',data:sends.map((_,i)=>artData[i]/pctTot[i]*100),borderColor:'#60a5fa',backgroundColor:'rgba(96,165,250,0.2)',borderWidth:2,pointRadius:0,tension:0.3,fill:true},
     {label:'Editorial %',data:sends.map((_,i)=>edData[i]/pctTot[i]*100),borderColor:'#fb923c',backgroundColor:'rgba(251,146,60,0.2)',borderWidth:2,pointRadius:0,tension:0.3,fill:true},
     {label:'Sponsored %',data:sends.map((_,i)=>spData[i]/pctTot[i]*100),borderColor:'#a78bfa',backgroundColor:'rgba(167,139,250,0.2)',borderWidth:2,pointRadius:0,tension:0.3,fill:true},
-  ]},options:co({scales:{y:{max:100,stacked:true,ticks:{callback:v=>v+'%'}}}})});
+  ];
+  if(hasAdData)pctSets.push({label:'Ads %',data:sends.map((_,i)=>adData[i]/pctTot[i]*100),borderColor:'#4ade80',backgroundColor:'rgba(74,222,128,0.2)',borderWidth:2,pointRadius:0,tension:0.3,fill:true});
+
+  dc('breakdownPct');charts.breakdownPct=new Chart(document.getElementById('chartBreakdownPct'),{type:'line',data:{labels,datasets:pctSets},options:co({scales:{y:{max:100,stacked:true,ticks:{callback:v=>v+'%'}}}})});
 
   // Shelf life
   const maxAge=5;
