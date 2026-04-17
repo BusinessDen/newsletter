@@ -352,21 +352,34 @@ function renderEdDetail(domain){
 // ========= SPONSORED CONTENT =========
 function renderSponsored(){
   const ga4=DATA.sponsored_ga4||{};
-  const byUrl={};
-  DATA.sends.forEach(s=>{(s.articles||[]).forEach(a=>{
-    if(!a.is_sponsored)return;
-    if(!byUrl[a.url])byUrl[a.url]={url:a.url,title:a.title,nlClicks:0,nlUnique:0,sends:0,dates:[]};
-    byUrl[a.url].nlClicks+=a.clicks;byUrl[a.url].nlUnique+=(a.unique_clickers||0);byUrl[a.url].sends+=1;
-    byUrl[a.url].dates.push(s.date);
-  });});
-  const articles=Object.values(byUrl).sort((a,b)=>b.nlClicks-a.nlClicks);
+  const spList=DATA.sponsored_articles||[];
+
+  // Fallback: build from send data if sponsored_articles not in data yet
+  let articles;
+  if(spList.length){
+    articles=spList.map(a=>({url:a.url,title:a.title,nlClicks:a.nl_clicks,nlUnique:a.nl_unique,sends:a.nl_sends,dates:a.nl_dates||[],path:a.path}));
+  } else {
+    const byUrl={};
+    DATA.sends.forEach(s=>{(s.articles||[]).forEach(a=>{
+      if(!a.is_sponsored)return;
+      if(!byUrl[a.url])byUrl[a.url]={url:a.url,title:a.title,nlClicks:0,nlUnique:0,sends:0,dates:[]};
+      byUrl[a.url].nlClicks+=a.clicks;byUrl[a.url].nlUnique+=(a.unique_clickers||0);byUrl[a.url].sends+=1;
+      byUrl[a.url].dates.push(s.date);
+    });});
+    articles=Object.values(byUrl);
+  }
+  articles.sort((a,b)=>{
+    const aTotal=(ga4[ga4path(a.url)]||{}).total||0;
+    const bTotal=(ga4[ga4path(b.url)]||{}).total||0;
+    return bTotal-aTotal;
+  });
   if(!articles.length){document.getElementById('spContent').innerHTML='<div class="empty">No sponsored content found</div>';return;}
 
   const spToggle=document.getElementById('spToggle');
   const perReader=spToggle.querySelector('.toggle-btn:nth-child(3)')?.classList.contains('active')||false;
 
   // Helper: build GA4 lookup path from article URL (strip fragment and trailing slash)
-  const ga4path=(url)=>{try{return'/'+new URL(url).pathname.replace(/\/$/,'').split('/').slice(1).join('/');}catch(e){return'/'+url.split('/').slice(3).join('/').replace(/\/$/,'').split('#')[0];}};
+  const ga4path=(url)=>{try{return new URL(url).pathname.replace(/\/$/,'');}catch(e){return'/'+url.split('/').slice(3).join('/').replace(/\/$/,'').split('#')[0];}};
   // Helper: display GA4 value (0 is valid, only show — if truly missing)
   const ga4v=(obj,key)=>obj&&key in obj?fmt(obj[key]):'—';
 
