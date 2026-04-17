@@ -213,7 +213,7 @@ function renderSend(idx){
     <div class="stat-card"><div class="label">Bounces</div><div class="value">${fmt(s.bounces)}</div><div class="sub">${s.hard_bounces||0} hard · ${s.soft_bounces||0} soft</div></div>
     <div class="stat-card"><div class="label">Unsubscribes</div><div class="value">${fmt(s.unsubscribes)}</div><div class="sub">${fmt(s.spam_reports)} spam</div></div>
   </div>`;
-  const devBar=(data,total,label)=>{if(!total)return'';const p=k=>((data[k]||0)/total*100);return`<div class="section-label">${label}</div><div class="device-bar"><div class="seg desktop" style="width:${p('computer')}%">${p('computer').toFixed(0)}%</div><div class="seg mobile" style="width:${p('mobile')}%">${p('mobile').toFixed(0)}%</div></div>`;};
+  const devBar=(data,total,label)=>{if(!total)return'';const p=k=>((data[k]||0)/total*100);const oth=100-p('computer')-p('mobile');return`<div class="section-label">${label}</div><div class="device-bar"><div class="seg desktop" style="width:${p('computer')}%">${p('computer').toFixed(0)}%</div><div class="seg mobile" style="width:${p('mobile')}%">${p('mobile').toFixed(0)}%</div>${oth>0.5?`<div class="seg unknown" style="width:${oth}%">${oth.toFixed(0)}%</div>`:''}</div>`;};
   h+=devBar(od,os,'Device — Opens');
   h+=devBar(cd,cs,'Device — Clicks');
   if(os||cs)h+='<div class="device-legend"><span class="l-desktop">Desktop</span><span class="l-mobile">Mobile</span></div>';
