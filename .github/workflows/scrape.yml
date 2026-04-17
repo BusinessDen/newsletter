@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       backfill_days:
-        description: "Days of history to fetch (default 7, use 90 for initial backfill)"
+        description: "Days of history to fetch (default 7, use 9999 for full history)"
         required: false
         default: "7"
 
@@ -41,7 +41,8 @@ jobs:
         run: |
           git fetch origin gh-pages --depth=1 || true
           git checkout origin/gh-pages -- newsletter-data.json 2>/dev/null || echo "No existing data file"
-          ls -la newsletter-data.json 2>/dev/null || echo "Starting fresh"
+          git checkout origin/gh-pages -- author-lookup.json 2>/dev/null || echo "No author lookup file"
+          ls -la newsletter-data.json author-lookup.json 2>/dev/null || echo "Starting fresh"
 
       - name: Set up Python
         if: steps.tz.outputs.skip != 'true'
@@ -51,12 +52,13 @@ jobs:
 
       - name: Install dependencies
         if: steps.tz.outputs.skip != 'true'
-        run: pip install requests
+        run: pip install requests google-analytics-data
 
       - name: Run scraper
         if: steps.tz.outputs.skip != 'true'
         env:
           HUBSPOT_TOKEN: ${{ secrets.HUBSPOT_TOKEN }}
+          GA4_SERVICE_ACCOUNT: ${{ secrets.GA4_SERVICE_ACCOUNT }}
           BACKFILL_DAYS: ${{ github.event.inputs.backfill_days || '7' }}
         run: python scrape.py
 
@@ -68,6 +70,7 @@ jobs:
           touch _site/.nojekyll
           cp index.html _site/
           cp newsletter-data.json _site/
+          cp author-lookup.json _site/ 2>/dev/null || true
 
       # Deploy-after: push updated data + dashboard to gh-pages
       - name: Deploy to GitHub Pages
