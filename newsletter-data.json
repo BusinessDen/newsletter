@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated": "2026-04-16T21:17:46.460645+00:00",
+    "generated": "2026-04-17T01:54:41.942009+00:00",
     "total_sends": 789,
     "date_range": {
       "start": "2023-02-21",
@@ -14,76 +14,76 @@
       "name": "BD 4.16.26",
       "recipients": 19801,
       "sent": 18578,
-      "delivered": 17535,
-      "opens": 3012,
-      "clicks": 1512,
+      "delivered": 17539,
+      "opens": 3113,
+      "clicks": 1562,
       "bounces": 23,
       "hard_bounces": 2,
       "soft_bounces": 21,
-      "unsubscribes": 14,
-      "spam_reports": 5,
-      "contacts_lost": 21,
+      "unsubscribes": 17,
+      "spam_reports": 6,
+      "contacts_lost": 25,
       "dropped": 842,
       "suppressed": 381,
-      "pending": 1020,
-      "open_rate": 17.18,
-      "click_rate": 8.62,
-      "click_through_rate": 50.2,
+      "pending": 1016,
+      "open_rate": 17.75,
+      "click_rate": 8.91,
+      "click_through_rate": 50.18,
       "bounce_rate": 0.12,
-      "unsubscribe_rate": 0.08,
+      "unsubscribe_rate": 0.1,
       "device_opens": {
-        "computer": 3388,
-        "mobile": 2139,
-        "unknown": 145
+        "computer": 3555,
+        "mobile": 2179,
+        "unknown": 153
       },
       "device_clicks": {
-        "computer": 1574,
-        "mobile": 1284,
+        "computer": 1656,
+        "mobile": 1300,
         "unknown": 0
       },
-      "article_clicks": 2634,
+      "article_clicks": 2721,
       "articles": [
         {
           "url": "https://businessden.com/2026/04/16/golden-construction-firm-says-its-president-spent-stolen-millions-on-silver",
           "title": "Golden Construction Firm Says Its President Spent Stolen Millions On Silver",
-          "clicks": 821,
-          "click_pct": 27.26
+          "clicks": 843,
+          "click_pct": 27.08
         },
         {
           "url": "https://businessden.com/2026/04/16/restaurant-v-restaurant-56-restaurants-say-citys-tipped-wage-shouldnt-drop",
           "title": "Restaurant V Restaurant 56 Restaurants Say Citys Tipped Wage Shouldnt Drop",
-          "clicks": 713,
-          "click_pct": 23.67
+          "clicks": 744,
+          "click_pct": 23.9
         },
         {
           "url": "https://businessden.com/2026/04/16/building-maintenance-firm-closing-laying-off-143-people",
           "title": "Building Maintenance Firm Closing Laying Off 143 People",
-          "clicks": 326,
-          "click_pct": 10.82
+          "clicks": 333,
+          "click_pct": 10.7
         },
         {
           "url": "https://businessden.com/2026/04/16/da-pushes-back-against-council-proposal-to-change-municipal-sentencing",
           "title": "Da Pushes Back Against Council Proposal To Change Municipal Sentencing",
-          "clicks": 309,
-          "click_pct": 10.26
+          "clicks": 321,
+          "click_pct": 10.31
         },
         {
           "url": "https://businessden.com/2026/04/16/the-docket-real-estate-lawsuit-roundup-for-4-16-26",
           "title": "The Docket Real Estate Lawsuit Roundup For 4 16 26",
-          "clicks": 215,
-          "click_pct": 7.14
+          "clicks": 221,
+          "click_pct": 7.1
         },
         {
           "url": "https://businessden.com/2026/04/15/peyton-manning-backed-group-eyeing-30m-restaurant-event-concept-in-littleton",
           "title": "Peyton Manning Backed Group Eyeing 30M Restaurant Event Concept In Littleton",
-          "clicks": 164,
-          "click_pct": 5.44
+          "clicks": 169,
+          "click_pct": 5.43
         },
         {
           "url": "https://businessden.com/2026/04/15/demolition-begins-at-leetsdale-apartment-building-torched-by-fire",
           "title": "Demolition Begins At Leetsdale Apartment Building Torched By Fire",
-          "clicks": 86,
-          "click_pct": 2.86
+          "clicks": 90,
+          "click_pct": 2.89
         }
       ]
     },
