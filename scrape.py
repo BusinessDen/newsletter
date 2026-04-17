@@ -206,7 +206,7 @@ def fetch_click_events(campaign_id):
             break
     return all_clicks
 
-def process_clicks(click_events, send_date_str=""):
+def process_clicks(click_events, send_date_str="", send_timestamp=""):
     article_data = defaultdict(lambda: {"clicks": 0, "recipients": set()})
     ad_data = defaultdict(lambda: {"clicks": 0, "recipients": set(), "domain": ""})
     editorial_data = defaultdict(lambda: {"clicks": 0, "recipients": set(), "domain": ""})
@@ -216,9 +216,15 @@ def process_clicks(click_events, send_date_str=""):
     hour_counts = defaultdict(int)
 
     send_dt = None
+    send_dt_precise = None
     if send_date_str:
         try:
             send_dt = datetime.strptime(send_date_str, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        except ValueError:
+            pass
+    if send_timestamp:
+        try:
+            send_dt_precise = datetime.fromisoformat(send_timestamp.replace("Z", "+00:00"))
         except ValueError:
             pass
 
@@ -232,16 +238,18 @@ def process_clicks(click_events, send_date_str=""):
         if rh:
             all_recipients.add(rh)
 
-        if send_dt and ev.get("created"):
+        if (send_dt or send_dt_precise) and ev.get("created"):
             try:
                 ts = ev["created"]
                 click_dt = datetime.fromtimestamp(ts / 1000, tz=timezone.utc) if isinstance(ts, (int, float)) else datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
-                age = (click_dt.date() - send_dt.date()).days
-                if 0 <= age <= 14:
-                    age_counts[age] += 1
-                hours_after = (click_dt - send_dt).total_seconds() / 3600
-                if 0 <= hours_after < 24:
-                    hour_counts[int(hours_after)] += 1
+                if send_dt:
+                    age = (click_dt.date() - send_dt.date()).days
+                    if 0 <= age <= 14:
+                        age_counts[age] += 1
+                if send_dt_precise:
+                    hours_after = (click_dt - send_dt_precise).total_seconds() / 3600
+                    if 0 <= hours_after < 24:
+                        hour_counts[int(hours_after)] += 1
             except (ValueError, TypeError, OSError):
                 pass
 
@@ -313,7 +321,7 @@ def process_email(email):
     if campaign_id:
         evts = fetch_click_events(campaign_id)
         print(f"    {len(evts)} click events")
-        articles, ad_clicks, editorial_clicks, geo, unique_clickers, clicks_by_age, clicks_by_hour = process_clicks(evts, send_date)
+        articles, ad_clicks, editorial_clicks, geo, unique_clickers, clicks_by_age, clicks_by_hour = process_clicks(evts, send_date, pub_date)
         ta = sum(a["clicks"] for a in articles)
         tad = sum(a["clicks"] for a in ad_clicks)
         ted = sum(a["clicks"] for a in editorial_clicks)
