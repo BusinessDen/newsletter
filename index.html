@@ -62,7 +62,7 @@ body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur
 <div class="tab-content active" id="tab-send">
   <select class="send-select" id="sendSelector"></select>
   <div id="sendStats"></div>
-  <div class="chart-container"><h3>Clicks Over 24 Hours</h3><div class="chart-box"><canvas id="chartHourly"></canvas></div></div>
+  <div class="chart-container"><h3>Clicks Over 24 Hours (Mountain Time)</h3><div class="chart-box"><canvas id="chartHourly"></canvas></div></div>
   <div class="section-label">Article Performance</div><div id="sendArticles"></div>
   <div class="section-label">Editorial Links</div><div id="sendEditorial"></div>
   <div class="section-label">Click Breakdown</div><div id="sendBreakdown"></div>
@@ -218,7 +218,7 @@ function renderSend(idx){
   // 24-hour clicks chart
   const hourData=s.clicks_by_hour||{};
   const hourLabels=Array.from({length:24},(_,i)=>{const hr=(6+i)%24;return hr===0?'12a':hr<12?hr+'a':hr===12?'12p':(hr-12)+'p';});
-  const hourValues=Array.from({length:24},(_,i)=>{const hr=(6+i)%24;return hourData[String(hr)]||0;});
+  const hourValues=Array.from({length:24},(_,i)=>hourData[String(i)]||0);
   dc('hourly');charts.hourly=new Chart(document.getElementById('chartHourly'),{type:'bar',data:{labels:hourLabels,datasets:[{label:'Clicks',data:hourValues,backgroundColor:'rgba(212,170,79,0.6)',borderColor:'#d4aa4f',borderWidth:1,borderRadius:3}]},options:co()});
 
   // Article table
