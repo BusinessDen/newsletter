@@ -48,6 +48,37 @@ BD_CAMPAIGN_NAME = "BD Newsfeed"
 BD_DOMAIN = "businessden.com"
 GA4_PROPERTY_ID = os.environ.get("GA4_PROPERTY_ID", "363209481")
 
+# Domains that are news publications, not advertisers
+NEWS_DOMAINS = {
+    "cbsnews.com", "cnbc.com", "coloradosun.com", "canyoncourier.com",
+    "summitdaily.com", "vaildaily.com", "westword.com", "fastcompany.com",
+    "telegraph.co.uk", "inc.com", "denver7.com", "nypost.com", "seattletimes.com",
+    "apnews.com", "reuters.com", "wsj.com", "nytimes.com", "washingtonpost.com",
+    "denverpost.com", "cpr.org", "9news.com", "kdvr.com", "fox31.com",
+    "bloomberg.com", "bbc.com", "bbc.co.uk", "cnn.com", "npr.org",
+    "coloradopolitics.com", "coloradoindependent.com", "thedenverchannel.com",
+    "bizjournals.com", "axios.com", "politico.com", "theguardian.com",
+    "usatoday.com", "fortune.com", "forbes.com", "businessinsider.com",
+    "ft.com", "economist.com", "theatlantic.com", "newyorker.com",
+    "chicagotribune.com", "latimes.com", "sfchronicle.com", "boulderdailycanera.com",
+    "dailycamera.com", "reporterherald.com", "coloradoan.com", "gazette.com",
+    "steamboatpilot.com", "craigdailypress.com", "gjsentinel.com",
+    "durangoherald.com", "aspentimes.com", "postindependent.com",
+    "greeleytribune.com", "timescall.com", "longmontleader.com",
+    "complete-colorado.com", "sentinelcolorado.com",
+}
+
+def is_news_domain(domain):
+    """Check if a domain is a known news publication."""
+    d = domain.lower().replace("www.", "")
+    if d in NEWS_DOMAINS:
+        return True
+    # Check if it's a subdomain of a known news domain
+    for nd in NEWS_DOMAINS:
+        if d.endswith("." + nd):
+            return True
+    return False
+
 SPONSORED_SLUG_EXCEPTIONS = [
     "/2023/04/19/solving-5-equipment-maintenance-challenges-with-technology",
     "/2022/07/25/first-interstate-bank-arrives-in-colorado-after-successful-merger-with-great-western-bank",
@@ -139,7 +170,8 @@ def save_data(data):
 
 def needs_upgrade(send):
     return ("unique_clickers" not in send or "ad_clicks" not in send
-            or "geo" not in send or "clicks_by_age" not in send)
+            or "geo" not in send or "clicks_by_age" not in send
+            or "editorial_clicks" not in send)
 
 
 # ---------------------------------------------------------------------------
@@ -198,6 +230,7 @@ def fetch_click_events(campaign_id):
 def process_clicks(click_events, send_date_str=""):
     article_data = defaultdict(lambda: {"clicks": 0, "recipients": set()})
     ad_data = defaultdict(lambda: {"clicks": 0, "recipients": set(), "domain": ""})
+    editorial_data = defaultdict(lambda: {"clicks": 0, "recipients": set(), "domain": ""})
     geo_data = defaultdict(lambda: {"clicks": 0, "recipients": set(), "lat": 0, "lng": 0})
     all_recipients = set()
     age_counts = defaultdict(int)
@@ -240,10 +273,16 @@ def process_clicks(click_events, send_date_str=""):
             domain = urlparse(clean_url).netloc.replace("www.", "")
             if any(skip in domain for skip in ("hubspot", "hsforms", "hs-sites")):
                 continue
-            ad_data[clean_url]["clicks"] += 1
-            ad_data[clean_url]["domain"] = domain
-            if rh:
-                ad_data[clean_url]["recipients"].add(rh)
+            if is_news_domain(domain):
+                editorial_data[clean_url]["clicks"] += 1
+                editorial_data[clean_url]["domain"] = domain
+                if rh:
+                    editorial_data[clean_url]["recipients"].add(rh)
+            else:
+                ad_data[clean_url]["clicks"] += 1
+                ad_data[clean_url]["domain"] = domain
+                if rh:
+                    ad_data[clean_url]["recipients"].add(rh)
 
         # Geo
         if loc:
@@ -265,13 +304,17 @@ def process_clicks(click_events, send_date_str=""):
                   "unique_clickers": len(d["recipients"])}
                  for u, d in sorted(ad_data.items(), key=lambda x: -x[1]["clicks"])]
 
+    editorial_clicks = [{"url": u, "domain": d["domain"], "clicks": d["clicks"],
+                         "unique_clickers": len(d["recipients"])}
+                        for u, d in sorted(editorial_data.items(), key=lambda x: -x[1]["clicks"])]
+
     geo = [{"city": k.split("|")[0], "state": k.split("|")[1], "lat": d["lat"], "lng": d["lng"],
             "clicks": d["clicks"], "unique_clickers": len(d["recipients"])}
            for k, d in sorted(geo_data.items(), key=lambda x: -x[1]["clicks"])]
 
     clicks_by_age = {str(k): v for k, v in sorted(age_counts.items()) if k <= 14}
 
-    return articles, ad_clicks, geo, len(all_recipients), clicks_by_age
+    return articles, ad_clicks, editorial_clicks, geo, len(all_recipients), clicks_by_age
 
 
 # ---------------------------------------------------------------------------
@@ -297,15 +340,16 @@ def process_email(email):
     ratios = stats.get("ratios", {})
     device = stats.get("deviceBreakdown", {})
 
-    articles, ad_clicks, geo, unique_clickers, clicks_by_age = [], [], [], 0, {}
+    articles, ad_clicks, editorial_clicks, geo, unique_clickers, clicks_by_age = [], [], [], [], 0, {}
 
     if campaign_id:
         evts = fetch_click_events(campaign_id)
         print(f"    {len(evts)} click events")
-        articles, ad_clicks, geo, unique_clickers, clicks_by_age = process_clicks(evts, send_date)
+        articles, ad_clicks, editorial_clicks, geo, unique_clickers, clicks_by_age = process_clicks(evts, send_date)
         ta = sum(a["clicks"] for a in articles)
         tad = sum(a["clicks"] for a in ad_clicks)
-        print(f"    {len(articles)} articles ({ta}), {len(ad_clicks)} ads ({tad}), {unique_clickers} unique, {len(geo)} geo")
+        ted = sum(a["clicks"] for a in editorial_clicks)
+        print(f"    {len(articles)} articles ({ta}), {len(ad_clicks)} ads ({tad}), {len(editorial_clicks)} editorial ({ted}), {unique_clickers} unique, {len(geo)} geo")
 
         opens = counters.get("open", 0)
         for a in articles:
@@ -334,7 +378,7 @@ def process_email(email):
         "device_opens": device.get("open_device_type", {}),
         "device_clicks": device.get("click_device_type", {}),
         "article_clicks": sum(a["clicks"] for a in articles),
-        "articles": articles, "ad_clicks": ad_clicks,
+        "articles": articles, "ad_clicks": ad_clicks, "editorial_clicks": editorial_clicks,
         "geo": geo, "clicks_by_age": clicks_by_age,
     }
 
