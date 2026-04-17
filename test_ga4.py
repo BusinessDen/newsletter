@@ -48,7 +48,7 @@ try:
     from google.analytics.data_v1beta import BetaAnalyticsDataClient
     from google.analytics.data_v1beta.types import (
         RunReportRequest, Dimension, Metric, DateRange,
-        FilterExpression, Filter, InListFilter, StringFilter,
+        FilterExpression, Filter, StringFilter,
     )
     print(f"   OK")
 except ImportError as e:
@@ -115,12 +115,30 @@ sponsored_paths = [
     "/2023/10/02/sponsored-content-building-smart-hospitality-construction-mythbusters/",
 ]
 
-print(f"\n8. Query: sponsored content paths with InListFilter...")
-print(f"   Paths being queried:")
+print(f"\n8. Query: sponsored content paths with orGroup of StringFilters...")
+print(f"   Paths being queried (with and without trailing slash):")
+path_variants = []
 for p in sponsored_paths:
+    path_variants.append(p.rstrip("/") + "/")
+    path_variants.append(p.rstrip("/"))
+for p in path_variants:
     print(f"     {p}")
 
 try:
+    path_filters = [
+        FilterExpression(filter=Filter(
+            field_name="pagePath",
+            string_filter=StringFilter(
+                match_type=StringFilter.MatchType.EXACT,
+                value=path,
+            ),
+        ))
+        for path in path_variants
+    ]
+    from google.analytics.data_v1beta.types import FilterExpressionList
+    dimension_filter = FilterExpression(
+        or_group=FilterExpressionList(expressions=path_filters)
+    )
     request = RunReportRequest(
         property=f"properties/{GA4_PROPERTY_ID}",
         dimensions=[
@@ -130,12 +148,7 @@ try:
         ],
         metrics=[Metric(name="screenPageViews")],
         date_ranges=[DateRange(start_date="2021-01-01", end_date="today")],
-        dimension_filter=FilterExpression(
-            filter=Filter(
-                field_name="pagePath",
-                in_list_filter=InListFilter(values=sponsored_paths),
-            )
-        ),
+        dimension_filter=dimension_filter,
         limit=10000,
     )
     response = client.run_report(request)
@@ -159,17 +172,25 @@ for p in no_slash:
     print(f"     {p}")
 
 try:
+    path_filters_ns = [
+        FilterExpression(filter=Filter(
+            field_name="pagePath",
+            string_filter=StringFilter(
+                match_type=StringFilter.MatchType.EXACT,
+                value=path,
+            ),
+        ))
+        for path in no_slash
+    ]
+    dimension_filter_ns = FilterExpression(
+        or_group=FilterExpressionList(expressions=path_filters_ns)
+    )
     request = RunReportRequest(
         property=f"properties/{GA4_PROPERTY_ID}",
         dimensions=[Dimension(name="pagePath")],
         metrics=[Metric(name="screenPageViews")],
         date_ranges=[DateRange(start_date="2021-01-01", end_date="today")],
-        dimension_filter=FilterExpression(
-            filter=Filter(
-                field_name="pagePath",
-                in_list_filter=InListFilter(values=no_slash),
-            )
-        ),
+        dimension_filter=dimension_filter_ns,
         limit=100,
     )
     response = client.run_report(request)
