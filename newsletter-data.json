@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated": "2026-04-17T01:54:41.942009+00:00",
+    "generated": "2026-04-17T01:57:05.356330+00:00",
     "total_sends": 789,
     "date_range": {
       "start": "2023-02-21",
@@ -15,8 +15,8 @@
       "recipients": 19801,
       "sent": 18578,
       "delivered": 17539,
-      "opens": 3113,
-      "clicks": 1562,
+      "opens": 3114,
+      "clicks": 1563,
       "bounces": 23,
       "hard_bounces": 2,
       "soft_bounces": 21,
@@ -28,17 +28,17 @@
       "pending": 1016,
       "open_rate": 17.75,
       "click_rate": 8.91,
-      "click_through_rate": 50.18,
+      "click_through_rate": 50.19,
       "bounce_rate": 0.12,
       "unsubscribe_rate": 0.1,
       "device_opens": {
-        "computer": 3555,
+        "computer": 3556,
         "mobile": 2179,
         "unknown": 153
       },
       "device_clicks": {
         "computer": 1656,
-        "mobile": 1300,
+        "mobile": 1301,
         "unknown": 0
       },
       "article_clicks": 2721,
@@ -47,19 +47,19 @@
           "url": "https://businessden.com/2026/04/16/golden-construction-firm-says-its-president-spent-stolen-millions-on-silver",
           "title": "Golden Construction Firm Says Its President Spent Stolen Millions On Silver",
           "clicks": 843,
-          "click_pct": 27.08
+          "click_pct": 27.07
         },
         {
           "url": "https://businessden.com/2026/04/16/restaurant-v-restaurant-56-restaurants-say-citys-tipped-wage-shouldnt-drop",
           "title": "Restaurant V Restaurant 56 Restaurants Say Citys Tipped Wage Shouldnt Drop",
           "clicks": 744,
-          "click_pct": 23.9
+          "click_pct": 23.89
         },
         {
           "url": "https://businessden.com/2026/04/16/building-maintenance-firm-closing-laying-off-143-people",
           "title": "Building Maintenance Firm Closing Laying Off 143 People",
           "clicks": 333,
-          "click_pct": 10.7
+          "click_pct": 10.69
         },
         {
           "url": "https://businessden.com/2026/04/16/da-pushes-back-against-council-proposal-to-change-municipal-sentencing",
