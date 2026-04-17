@@ -1,0 +1,18 @@
+name: CTA API Explore
+on:
+  workflow_dispatch:
+
+jobs:
+  explore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install requests
+      - name: Explore CTA API
+        env:
+          HUBSPOT_TOKEN: ${{ secrets.HUBSPOT_TOKEN }}
+        run: python test_cta.py
