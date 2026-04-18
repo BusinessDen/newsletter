@@ -296,8 +296,23 @@ def process_clicks(click_events, send_date_str="", send_timestamp=""):
             pass  # BD non-article pages (events, subscribe, etc.)
         else:
             domain = urlparse(clean_url).netloc.replace("www.", "")
-            if any(skip in domain for skip in ("hsforms","hs-sites")):
+            # Skip HubSpot infrastructure URLs
+            if any(skip in domain for skip in ("hsforms","hs-sites","hsctaimages.net")):
                 continue
+            # Unwrap Proofpoint email security redirects
+            if "urldefense" in domain:
+                import re
+                m = re.search(r'/v\d+/__(.+?)__', urlparse(clean_url).path)
+                if m:
+                    unwrapped = m.group(1).replace("*2F", "/").replace("*3A", ":").replace("*3a", ":").replace("*2f", "/")
+                    if not unwrapped.startswith("http"):
+                        unwrapped = "https://" + unwrapped
+                    clean_url = strip_utm(unwrapped).rstrip("/")
+                    domain = urlparse(clean_url).netloc.replace("www.", "")
+                    if is_bd_article_url(clean_url) or is_bd_internal_url(clean_url):
+                        continue  # Skip BD links wrapped by Proofpoint
+                else:
+                    continue  # Can't parse, skip
             editorial_data[clean_url]["clicks"] += 1
             editorial_data[clean_url]["domain"] = domain
             if rh:
