@@ -166,7 +166,7 @@ body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur
 </div>
 
 <script>
-let DATA=null,AUTHORS=null,MENTIONS=null,charts={},geoMap=null,geoLayer=null;
+let DATA=null,AUTHORS=null,MENTIONS=null,ADNAMES={},charts={},geoMap=null,geoLayer=null;
 let clickMode=0;
 let adMode=0;
 const R=[30,60,90,180,365,'All'];
@@ -176,6 +176,7 @@ const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec
 async function loadData(){
   try{DATA=await(await fetch('newsletter-data.json')).json();}catch(e){document.querySelector('.container').innerHTML='<div class="loading">Could not load data</div>';return;}
   try{AUTHORS=await(await fetch('author-lookup.json')).json();}catch(e){}
+  try{ADNAMES=await(await fetch('advertiser-names.json')).json();}catch(e){}
   try{MENTIONS=await(await fetch('https://businessden.github.io/reputation/mentions-data.json')).json();}catch(e){}
   init();
 }
@@ -241,6 +242,14 @@ function syncToggles(i){['trendToggle','ltToggle','bylineToggle','topToggle'].fo
 function gsr(d){if(d==='All')return[...DATA.sends].reverse();const c=new Date();c.setDate(c.getDate()-d);const cs=c.toISOString().slice(0,10);return DATA.sends.filter(s=>s.date>=cs).reverse();}
 function la(url){const c=url.replace(/\/$/,'');if(AUTHORS){const e=AUTHORS[c]||AUTHORS[c+'/']||AUTHORS[url];if(e&&e.author&&e.author!=='Unknown')return{author:e.author,title:e.title||null};}if(!MENTIONS)return null;return(MENTIONS.bd_articles||[]).find(a=>a.url&&a.url.replace(/\/$/,'')===c)||null;}
 function dc(k){if(charts[k]){charts[k].destroy();delete charts[k];}}
+function dn(domain){
+  if(!domain)return'Unknown';
+  const d=domain.replace(/^www\./,'');
+  if(ADNAMES&&ADNAMES[d])return ADNAMES[d];
+  // Smart fallback: strip TLD, split compound words, title case
+  const base=d.split('.')[0];
+  return base.replace(/([a-z])([A-Z])/g,'$1 $2').replace(/[-_]/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+}
 function sl(d,n){const p=d.split('-');const short=parseInt(p[1])+'/'+p[2];return n>200?short:short;}
 function switchTab(name){document.querySelectorAll('.tab').forEach(t=>{t.classList.toggle('active',t.dataset.tab===name);});document.querySelectorAll('.tab-content').forEach(c=>{c.classList.toggle('active',c.id==='tab-'+name);});}
 function co(ov){const b={responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#8a8a9a',font:{family:"'Sora',sans-serif",size:11},boxWidth:12,padding:16}},tooltip:{backgroundColor:'#1a1a28',titleColor:'#e8e6e1',bodyColor:'#8a8a9a',borderColor:'#2a2a3d',borderWidth:1,titleFont:{family:"'Sora',sans-serif",size:12},bodyFont:{family:"'JetBrains Mono',monospace",size:11},padding:10}},scales:{x:{ticks:{color:'#5a5a6a',font:{family:"'JetBrains Mono',monospace",size:10},maxRotation:45,autoSkip:true,maxTicksLimit:30},grid:{color:'rgba(42,42,61,0.4)'}},y:{ticks:{color:'#5a5a6a',font:{family:"'JetBrains Mono',monospace",size:10}},grid:{color:'rgba(42,42,61,0.4)'}}}};if(ov){if(ov.scales)b.scales={...b.scales,...ov.scales};Object.keys(ov).forEach(k=>{if(k!=='scales')b[k]=ov[k];});}return b;}
@@ -326,7 +335,7 @@ function renderSend(idx){
       <div class="stat-card"><div class="label">Total Ad Clicks</div><div class="value">${fmt(adTotal)}</div></div>
       <div class="stat-card"><div class="label">Ad Click Share</div><div class="value">${adPct}%</div><div class="sub">of total clicks</div></div>
     </div>`;
-    const adLabels=ads.map(a=>{const d=a.domain||'';return d.replace(/^www\./,'').replace(/\.com$|\.us$|\.org$|\.net$/,'');});
+    const adLabels=ads.map(a=>dn(a.domain));
     const adValues=ads.map(a=>a.clicks);
     dc('sendAds');charts.sendAds=new Chart(document.getElementById('chartSendAds'),{type:'bar',data:{
       labels:adLabels,datasets:[{label:'Clicks',data:adValues,backgroundColor:ads.map((_,i)=>AD_COLORS[i%AD_COLORS.length]+'99'),borderColor:ads.map((_,i)=>AD_COLORS[i%AD_COLORS.length]),borderWidth:1,borderRadius:3}]
@@ -494,7 +503,7 @@ function renderAdvertising(days){
     const ctr=a.totalOpens>0?(a.clicks/a.totalOpens*100).toFixed(2)+'%':'\u2014';
     const hasSp=spPaths.some(u=>u&&u.includes(a.domain));
     const spFlag=hasSp?' <span style="color:#a78bfa;font-size:9px;cursor:pointer" onclick="event.stopPropagation();switchTab(\'sponsored\')">SPONSORED</span>':'';
-    const domLabel=a.domain.replace(/^www\./,'');
+    const domLabel=dn(a.domain);
     return`<tr style="cursor:pointer" onclick="showAdDetail('${a.domain}')"><td>${domLabel}${spFlag}</td><td class="num mono">${adFmt(adVal(a))}</td><td class="num mono">${fmt(a.unique)}</td><td class="num mono">${ctr}</td><td class="num mono">${a.sends}</td><td class="num mono">${(a.clicks/a.sends).toFixed(0)}</td><td class="num mono" style="white-space:nowrap">${fmtD(a.firstDate)}</td><td class="num mono" style="white-space:nowrap">${fmtD(a.lastDate)}</td><td class="num mono">${status}</td></tr>`;
   }).join('');
   document.getElementById('adLeaderboard').innerHTML=`<div class="table-wrap"><table><thead><tr><th>Advertiser</th><th class="num">${adLabel()}</th><th class="num">Unique</th><th class="num">CTR</th><th class="num">Sends</th><th class="num">Avg/Send</th><th class="num">First</th><th class="num">Last</th><th class="num">Status</th></tr></thead><tbody>${rows}</tbody></table></div>`;
@@ -515,7 +524,7 @@ function showAdDetail(domain){
   const adv=allAdv.find(a=>a.domain===domain);
   if(!adv)return;
   document.getElementById('adDetailWrap').style.display='block';
-  document.getElementById('adDetailName').textContent=domain;
+  document.getElementById('adDetailName').textContent=dn(domain);
 
   const daySpan=Math.max(1,Math.round((new Date(adv.lastDate)-new Date(adv.firstDate))/(1000*60*60*24))+1);
   const avgCTR=adv.totalOpens>0?(adv.clicks/adv.totalOpens*100).toFixed(2):'0';
