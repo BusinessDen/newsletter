@@ -45,6 +45,84 @@ HEADERS = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json
 BASE = "https://api.hubapi.com"
 BACKFILL_DAYS = int(os.environ.get("BACKFILL_DAYS", "7"))
 DATA_FILE = Path("newsletter-data.json")
+NAMES_FILE = Path("advertiser-names.json")
+
+
+def load_names():
+    if NAMES_FILE.exists():
+        with open(NAMES_FILE) as f:
+            return json.load(f)
+    return {}
+
+
+def save_names(names):
+    with open(NAMES_FILE, "w") as f:
+        json.dump(names, f, indent=2)
+    print(f"  Saved {NAMES_FILE} ({len(names)} names)")
+
+
+def fetch_advertiser_name(domain):
+    """Fetch a business name from the website's <title> tag."""
+    try:
+        url = f"https://{domain}"
+        r = requests.get(url, timeout=8, headers={
+            "User-Agent": "Mozilla/5.0 (compatible; BusinessDen Analytics)"
+        }, allow_redirects=True)
+        if r.status_code != 200:
+            return None
+        # Extract <title> tag
+        m = re.search(r'<title[^>]*>(.*?)</title>', r.text[:10000], re.IGNORECASE | re.DOTALL)
+        if not m:
+            return None
+        title = m.group(1).strip()
+        # Clean up common suffixes
+        for sep in [' | ', ' - ', ' – ', ' — ', ' :: ', ' · ']:
+            if sep in title:
+                parts = title.split(sep)
+                # Usually the business name is the first or shortest meaningful part
+                title = min([p.strip() for p in parts if len(p.strip()) > 2], key=len, default=title)
+                break
+        # Strip common words
+        for suffix in ['Home', 'Homepage', 'Welcome', 'Official Site', 'Official Website']:
+            if title.lower().endswith(suffix.lower()):
+                title = title[:-(len(suffix))].rstrip(' |-–—')
+        title = title.strip()
+        if len(title) < 2 or len(title) > 60:
+            return None
+        return title
+    except Exception:
+        return None
+
+
+def resolve_advertiser_names(ad_domains):
+    """Resolve display names for all advertiser domains, fetching new ones from websites."""
+    names = load_names()
+    new_count = 0
+    for domain in sorted(ad_domains):
+        if domain in names:
+            continue
+        if not domain or '.' not in domain:
+            continue
+        # Skip known non-advertiser domains
+        if any(s in domain for s in ('hubspot', 'hsforms', 'hs-sites', 'hsctaimages')):
+            continue
+        print(f"    Resolving name for {domain}...", end=" ")
+        name = fetch_advertiser_name(domain)
+        if name:
+            names[domain] = name
+            print(f"→ {name}")
+        else:
+            # Fallback: intelligent domain parsing
+            base = domain.replace("www.", "").split(".")[0]
+            fallback = re.sub(r'([a-z])([A-Z])', r'\1 \2', base).replace("-", " ").replace("_", " ").title()
+            names[domain] = fallback
+            print(f"→ {fallback} (fallback)")
+        new_count += 1
+        time.sleep(0.5)  # Be polite
+    if new_count:
+        save_names(names)
+        print(f"  Resolved {new_count} new advertiser names")
+    return names
 BD_CAMPAIGN_NAME = "BD Newsfeed"
 BD_DOMAIN = "businessden.com"
 GA4_PROPERTY_ID = os.environ.get("GA4_PROPERTY_ID", "363209481")
@@ -570,6 +648,15 @@ def main():
             "nl_sends": nl.get("sends", 0),
             "nl_dates": nl.get("dates", []),
         })
+
+    # Resolve advertiser display names
+    all_ad_domains = set()
+    for s in all_sends:
+        for a in s.get("ad_clicks", []):
+            if a.get("domain"):
+                all_ad_domains.add(a["domain"])
+    if all_ad_domains:
+        resolve_advertiser_names(all_ad_domains)
 
     output = {
         "metadata": {"generated": now.isoformat(), "version": 4,
