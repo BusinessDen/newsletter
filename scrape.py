@@ -315,9 +315,24 @@ def process_clicks(click_events, send_date_str="", send_timestamp=""):
                 article_data[clean_url]["recipients"].add(rh)
         elif not is_bd_internal_url(clean_url):
             domain = urlparse(clean_url).netloc.replace("www.", "")
-            if any(skip in domain for skip in ("hubspot","hsforms","hs-sites")):
+            # CTA tracking URLs: extract the actual destination from redirectUrl param
+            if "cta-service" in domain and "hubspot" in domain:
+                redir = parse_qs(urlparse(clean_url).query).get("redirectUrl", [None])[0]
+                if redir:
+                    clean_url = strip_utm(redir).rstrip("/")
+                    domain = urlparse(clean_url).netloc.replace("www.", "")
+                else:
+                    continue
+            elif any(skip in domain for skip in ("hsforms","hs-sites")):
                 continue
-            if is_news_domain(domain):
+            # Now categorize by destination domain
+            if is_bd_article_url(clean_url):
+                article_data[clean_url]["clicks"] += 1
+                if rh:
+                    article_data[clean_url]["recipients"].add(rh)
+            elif is_bd_internal_url(clean_url):
+                pass  # BD non-article pages (events, subscribe, etc.)
+            elif is_news_domain(domain):
                 editorial_data[clean_url]["clicks"] += 1
                 editorial_data[clean_url]["domain"] = domain
                 if rh:
