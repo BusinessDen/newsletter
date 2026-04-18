@@ -259,6 +259,9 @@ def save_data(data):
     print(f"  Saved {DATA_FILE} ({DATA_FILE.stat().st_size / 1024:.1f} KB)")
 
 def needs_upgrade(send):
+    # v5: CTA-only ad classification (no NEWS_DOMAINS)
+    if send.get("_v", 0) < 5:
+        return True
     return ("unique_clickers" not in send or "ad_clicks" not in send
             or "geo" not in send or "clicks_by_age" not in send
             or "editorial_clicks" not in send or "clicks_by_hour" not in send)
@@ -480,6 +483,7 @@ def process_email(email):
         "article_clicks": sum(a["clicks"] for a in articles),
         "articles": articles, "ad_clicks": ad_clicks, "editorial_clicks": editorial_clicks,
         "geo": geo, "clicks_by_age": clicks_by_age, "clicks_by_hour": clicks_by_hour,
+        "_v": 5,
     }
 
 def fetch_ga4_sponsored(sponsored_paths):
