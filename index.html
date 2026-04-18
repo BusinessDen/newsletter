@@ -67,6 +67,9 @@ body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur
   <div class="section-label">Article Performance</div><div id="sendArticles"></div>
   <div class="section-label">Editorial Links</div><div id="sendEditorial"></div>
   <div class="section-label">Click Breakdown</div><div id="sendBreakdown"></div>
+  <div class="section-label">Ad Performance</div>
+  <div id="sendAdStats"></div>
+  <div class="chart-container"><h3>Ad Clicks by Advertiser</h3><div class="chart-box"><canvas id="chartSendAds"></canvas></div></div>
 </div>
 
 <!-- Article Clicks -->
@@ -92,17 +95,30 @@ body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur
 
 <!-- Advertising -->
 <div class="tab-content" id="tab-advertising">
-  <div class="controls-row"><div class="range-filter" id="adRange"></div><div class="toggle-bar" id="adToggle"></div></div>
+  <div class="controls-row" style="flex-wrap:wrap;gap:8px;align-items:center">
+    <div class="range-filter" id="adRange"></div>
+    <div style="display:flex;gap:6px;align-items:center;font-size:11px;color:var(--text-dim)">
+      <input type="date" id="adDateFrom" class="send-select" style="margin:0;max-width:150px">
+      <span>to</span>
+      <input type="date" id="adDateTo" class="send-select" style="margin:0;max-width:150px">
+      <button class="range-btn" id="adDateApply">Apply</button>
+    </div>
+    <div class="toggle-bar" id="adToggle" style="margin-left:auto"></div>
+  </div>
   <div id="adStats"></div>
-  <div class="section-label">Advertiser Leaderboard</div>
+  <div id="adBdPromos"></div>
+  <div class="section-label">Advertiser Leaderboard <span style="font-size:9px;color:var(--text-dim);text-transform:none;letter-spacing:0">(click row for detail)</span></div>
   <div id="adLeaderboard"></div>
-  <div class="chart-container"><h3>Ad Clicks Over Time</h3><div class="chart-box"><canvas id="chartAdTime"></canvas></div></div>
-  <div class="section-label">Advertiser Detail</div>
-  <select class="send-select" id="adDetailSelect"></select>
-  <div id="adDetail"></div>
-  <div class="chart-container"><h3>Advertiser History</h3><div class="chart-box"><canvas id="chartAdDetail"></canvas></div></div>
-  <div class="section-label">Campaign Breakdown</div>
-  <div id="adCampaigns"></div>
+  <div class="chart-container"><h3>Ad Performance Over Time</h3><div class="chart-box"><canvas id="chartAdTime"></canvas></div></div>
+  <div id="adDetailWrap" style="display:none">
+    <div class="section-label">Advertiser Detail — <span id="adDetailName" style="color:var(--gold)"></span></div>
+    <div id="adDetail"></div>
+    <div class="chart-container"><h3>Per-Send Performance</h3><div class="chart-box"><canvas id="chartAdDetail"></canvas></div></div>
+    <div class="section-label">Campaigns by Landing Page</div>
+    <div id="adCampaigns"></div>
+    <div class="section-label">Send-by-Send Detail</div>
+    <div id="adSendDetail"></div>
+  </div>
 </div>
 
 <!-- Sponsored Content -->
@@ -152,7 +168,9 @@ body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur
 <script>
 let DATA=null,AUTHORS=null,MENTIONS=null,charts={},geoMap=null,geoLayer=null;
 let clickMode=0;
+let adMode=0;
 const R=[30,60,90,180,365,'All'];
+const AD_COLORS=['#4ade80','#60a5fa','#fb923c','#a78bfa','#f472b6','#facc15','#34d399','#f87171'];
 const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 async function loadData(){
@@ -180,18 +198,28 @@ function init(){
   as.addEventListener('change',()=>{if(as.value==='range')renderArticlesRange();else renderArticlesSingle(parseInt(as.value));});
   document.getElementById('articleSearch').addEventListener('input',e=>{filterArticleTable(e.target.value);});
 
-  let td=30,bd=30,tpd=30,ed=90,hd=90,ad=90;
+  let td=30,bd=30,tpd=30,ed=90,hd=90;
   mkToggle('trendToggle',['Total Clicks','Unique Clickers'],(i)=>{clickMode=i;syncToggles(i);renderTrends(td);});
   mkToggle('ltToggle',['Total Clicks','Unique Clickers'],(i)=>{clickMode=i;syncToggles(i);renderLT();});
   mkToggle('bylineToggle',['Total Clicks','Unique Clickers'],(i)=>{clickMode=i;syncToggles(i);renderByline(bd);});
   mkToggle('topToggle',['Total Clicks','Unique Clickers'],(i)=>{clickMode=i;syncToggles(i);renderTop(tpd);});
-  mkToggle('adToggle',['Total Clicks','Unique Clickers'],(i)=>{clickMode=i;syncToggles(i);renderAdvertising(ad);});
+  mkToggle('adToggle',['Total Clicks','Per Subscriber','Per Reader'],(i)=>{adMode=i;renderAdvertising(_adDays);});
   mkToggle('spToggle',['Total Clicks','Per Unique Reader'],(i)=>{renderSponsored();});
   bRF('trendRange',R,d=>{td=d;renderTrends(d);});
   bRF('bylineRange',R,d=>{bd=d;renderByline(d);});
   bRF('topRange',R,d=>{tpd=d;renderTop(d);});
   bRF('edRange',R,d=>{ed=d;renderEditorial(d);});
-  bRF('adRange',R,d=>{ad=d;renderAdvertising(d);});
+  bRF('adRange',[7,14,30,60,90,180,365,'All'],d=>{_adDays=d;_adCustom=null;renderAdvertising(d);},4);
+  // Custom date picker
+  const adFrom=document.getElementById('adDateFrom'),adTo=document.getElementById('adDateTo');
+  if(DATA.sends.length){adFrom.value=DATA.sends[DATA.sends.length-1].date;adTo.value=DATA.sends[0].date;}
+  document.getElementById('adDateApply').addEventListener('click',()=>{
+    if(adFrom.value&&adTo.value){
+      _adCustom={from:adFrom.value,to:adTo.value};
+      document.getElementById('adRange').querySelectorAll('.range-btn').forEach(b=>b.classList.remove('active'));
+      renderAdvertising('custom');
+    }
+  });
   bRF('healthRange',R,d=>{hd=d;renderHealth(d);});
   bRF('geoRange',R,d=>renderGeo(d));
   bRF('articleRange',[7,14,30,60,90,'All'],d=>{document.getElementById('articleSelector').value='range';renderArticlesRange(d);},7);
@@ -200,7 +228,6 @@ function init(){
   const defaultSend=yesterdayIdx>=0?yesterdayIdx:0;
   renderSend(defaultSend);document.getElementById('sendSelector').value=String(defaultSend);renderArticlesSingle(0);renderEditorial(90);renderAdvertising(90);renderSponsored();renderTrends(30);renderLT();renderByline(30);renderTop(30);renderHealth(90);
   buildEdDetailSelector();
-  buildAdDetailSelector();
 }
 
 function fmt(n){return n==null||n===undefined?'—':typeof n==='number'?n.toLocaleString():n;}
@@ -210,7 +237,7 @@ function fmtD(d){if(!d||d==='—')return'—';const p=d.split('-');return p.leng
 function bSS(id,cb){const s=document.getElementById(id);DATA.sends.forEach((x,i)=>{const o=document.createElement('option');o.value=i;o.textContent=fmtD(x.date)+' — '+x.name;s.appendChild(o);});s.addEventListener('change',()=>cb(parseInt(s.value)));}
 function bRF(id,ranges,cb,defaultIdx=0){const el=document.getElementById(id);ranges.forEach((d,i)=>{const b=document.createElement('button');b.className='range-btn'+(i===defaultIdx?' active':'');b.textContent=d==='All'?'All':d+'d';b.addEventListener('click',()=>{el.querySelectorAll('.range-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');cb(d);});el.appendChild(b);});}
 function mkToggle(id,labels,cb){const el=document.getElementById(id);el.innerHTML='<span class="tl">Show:</span>';labels.forEach((l,i)=>{const b=document.createElement('button');b.className='toggle-btn'+(i===0?' active':'');b.textContent=l;b.addEventListener('click',()=>{el.querySelectorAll('.toggle-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');cb(i);});el.appendChild(b);});}
-function syncToggles(i){['trendToggle','ltToggle','bylineToggle','topToggle','adToggle'].forEach(id=>{const el=document.getElementById(id);if(el)el.querySelectorAll('.toggle-btn').forEach((b,j)=>b.classList.toggle('active',j===i));});}
+function syncToggles(i){['trendToggle','ltToggle','bylineToggle','topToggle'].forEach(id=>{const el=document.getElementById(id);if(el)el.querySelectorAll('.toggle-btn').forEach((b,j)=>b.classList.toggle('active',j===i));});}
 function gsr(d){if(d==='All')return[...DATA.sends].reverse();const c=new Date();c.setDate(c.getDate()-d);const cs=c.toISOString().slice(0,10);return DATA.sends.filter(s=>s.date>=cs).reverse();}
 function la(url){const c=url.replace(/\/$/,'');if(AUTHORS){const e=AUTHORS[c]||AUTHORS[c+'/']||AUTHORS[url];if(e&&e.author&&e.author!=='Unknown')return{author:e.author,title:e.title||null};}if(!MENTIONS)return null;return(MENTIONS.bd_articles||[]).find(a=>a.url&&a.url.replace(/\/$/,'')===c)||null;}
 function dc(k){if(charts[k]){charts[k].destroy();delete charts[k];}}
@@ -288,6 +315,26 @@ function renderSend(idx){
       ${adC?`<div class="seg" style="width:${wp(adC)}%;background:var(--green)">${wp(adC)}%</div>`:''}
     </div>
     <div class="breakdown-legend"><span class="l-articles">Articles ${artC}</span><span class="l-editorial">Editorial ${edC}</span>${spC?`<span class="l-sponsored">Sponsored ${spC}</span>`:''}${adC?`<span class="l-ads">Ads ${adC}</span>`:''}</div>`;
+
+  // Ad Performance section
+  const ads=(s.ad_clicks||[]).filter(a=>a.clicks>0).sort((a,b)=>b.clicks-a.clicks);
+  if(ads.length){
+    const adTotal=ads.reduce((t,a)=>t+a.clicks,0);
+    const adPct=totalClicks>0?(adTotal/totalClicks*100).toFixed(1):'0';
+    document.getElementById('sendAdStats').innerHTML=`<div class="stats-row">
+      <div class="stat-card"><div class="label">Advertisers</div><div class="value gold">${ads.length}</div></div>
+      <div class="stat-card"><div class="label">Total Ad Clicks</div><div class="value">${fmt(adTotal)}</div></div>
+      <div class="stat-card"><div class="label">Ad Click Share</div><div class="value">${adPct}%</div><div class="sub">of total clicks</div></div>
+    </div>`;
+    const adLabels=ads.map(a=>{const d=a.domain||'';return d.replace(/^www\./,'').replace(/\.com$|\.us$|\.org$|\.net$/,'');});
+    const adValues=ads.map(a=>a.clicks);
+    dc('sendAds');charts.sendAds=new Chart(document.getElementById('chartSendAds'),{type:'bar',data:{
+      labels:adLabels,datasets:[{label:'Clicks',data:adValues,backgroundColor:ads.map((_,i)=>AD_COLORS[i%AD_COLORS.length]+'99'),borderColor:ads.map((_,i)=>AD_COLORS[i%AD_COLORS.length]),borderWidth:1,borderRadius:3}]
+    },options:{...co(),indexAxis:'y',plugins:{...co().plugins,legend:{display:false}}}});
+  } else {
+    document.getElementById('sendAdStats').innerHTML='<div class="empty">No ad clicks in this send</div>';
+    dc('sendAds');
+  }
 }
 
 // ========= ARTICLE CLICKS =========
@@ -377,128 +424,156 @@ function renderEdDetail(domain){
 }
 
 // ========= ADVERTISING =========
-const AD_COLORS=['#4ade80','#60a5fa','#fb923c','#a78bfa','#f472b6','#facc15','#34d399','#f87171'];
+let _adDays=90;
+let _adCustom=null;
+
+function getAdSends(days){
+  if(days==='custom'&&_adCustom){
+    return DATA.sends.filter(s=>s.date>=_adCustom.from&&s.date<=_adCustom.to).reverse();
+  }
+  return gsr(days);
+}
+
 function getAdvertiserData(days){
-  const sends=gsr(days),byDomain={};
+  const sends=getAdSends(days),byDomain={};
   sends.forEach(s=>(s.ad_clicks||[]).forEach(a=>{
     const d=a.domain||'unknown';
-    if(!byDomain[d])byDomain[d]={domain:d,clicks:0,unique:0,sends:0,urls:{},appearances:[],firstDate:s.date,lastDate:s.date,isBdPromo:d.includes('businessden')};
+    if(!byDomain[d])byDomain[d]={domain:d,clicks:0,unique:0,sends:0,urls:{},appearances:[],firstDate:s.date,lastDate:s.date,isBdPromo:d.includes('businessden'),totalDelivered:0,totalOpens:0};
     byDomain[d].clicks+=a.clicks;byDomain[d].unique+=(a.unique_clickers||0);byDomain[d].sends+=1;
-    byDomain[d].appearances.push({date:s.date,clicks:a.clicks,unique:a.unique_clickers||0});
+    byDomain[d].totalDelivered+=(s.delivered||0);byDomain[d].totalOpens+=(s.opens||0);
+    byDomain[d].appearances.push({date:s.date,clicks:a.clicks,unique:a.unique_clickers||0,delivered:s.delivered||0,opens:s.opens||0});
     if(s.date<byDomain[d].firstDate)byDomain[d].firstDate=s.date;
     if(s.date>byDomain[d].lastDate)byDomain[d].lastDate=s.date;
-    // Track URLs for campaign detection
     const url=a.url||'';const path=url.replace(/https?:\/\/[^/]+/,'').replace(/[?#].*/,'')||'/';
     if(!byDomain[d].urls[path])byDomain[d].urls[path]={path,clicks:0,unique:0,sends:0,dates:[]};
     byDomain[d].urls[path].clicks+=a.clicks;byDomain[d].urls[path].unique+=(a.unique_clickers||0);
     byDomain[d].urls[path].sends+=1;byDomain[d].urls[path].dates.push(s.date);
   }));
-  // Sort: BD promos first, then by clicks
-  const all=Object.values(byDomain);
-  const bdPromos=all.filter(a=>a.isBdPromo).sort((a,b)=>b.clicks-a.clicks);
-  const others=all.filter(a=>!a.isBdPromo).sort((a,b)=>b.clicks-a.clicks);
-  return[...bdPromos,...others];
+  return Object.values(byDomain);
 }
+
+function adVal(a){
+  if(adMode===1)return a.totalDelivered>0?(a.clicks/a.totalDelivered*100):0;
+  if(adMode===2)return a.totalOpens>0?(a.clicks/a.totalOpens*100):0;
+  return a.clicks;
+}
+function adFmt(v){return adMode>0?v.toFixed(2)+'%':fmt(v);}
+function adLabel(){return adMode===0?'Clicks':adMode===1?'Per Sub':'Per Reader';}
 
 function renderAdvertising(days){
-  const useU=clickMode===1;
-  const advertisers=getAdvertiserData(days);
-  const sends=gsr(days);
-  const totalAdClicks=advertisers.reduce((s,a)=>s+(useU?a.unique:a.clicks),0);
-  const totalAllClicks=sends.reduce((s,x)=>{
-    return s+(x.articles||[]).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0)
-      +(x.editorial_clicks||[]).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0)
-      +(x.ad_clicks||[]).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0);
-  },0);
-  const adRate=totalAllClicks>0?(totalAdClicks/totalAllClicks*100).toFixed(1):'0';
-  const sendsWithAds=sends.filter(s=>(s.ad_clicks||[]).length>0).length;
-  const avgPerSend=sendsWithAds>0?(totalAdClicks/sendsWithAds).toFixed(0):'0';
+  _adDays=days;
+  const allAdv=getAdvertiserData(days);
+  const sends=getAdSends(days);
+  const paid=allAdv.filter(a=>!a.isBdPromo).sort((a,b)=>adVal(b)-adVal(a));
+  const bdPromos=allAdv.filter(a=>a.isBdPromo).sort((a,b)=>b.clicks-a.clicks);
+  const totalClicks=paid.reduce((s,a)=>s+a.clicks,0);
+  const totalOpens=sends.reduce((s,x)=>s+(x.opens||0),0);
+  const avgCTR=totalOpens>0?(totalClicks/totalOpens*100).toFixed(2):'0';
+  const sendsWithAds=sends.filter(s=>(s.ad_clicks||[]).some(a=>!a.domain.includes('businessden'))).length;
 
-  // Stat cards
   document.getElementById('adStats').innerHTML=`<div class="stats-row">
-    <div class="stat-card"><div class="label">Active Advertisers</div><div class="value gold">${advertisers.length}</div></div>
-    <div class="stat-card"><div class="label">Total Ad Clicks</div><div class="value">${fmt(totalAdClicks)}</div></div>
-    <div class="stat-card"><div class="label">Ad Click Share</div><div class="value">${adRate}%</div><div class="sub">of all clicks</div></div>
-    <div class="stat-card"><div class="label">Avg Clicks/Send</div><div class="value">${avgPerSend}</div><div class="sub">${sendsWithAds} sends with ads</div></div>
+    <div class="stat-card"><div class="label">Paid Advertisers</div><div class="value gold">${paid.length}</div></div>
+    <div class="stat-card"><div class="label">Total Ad Clicks</div><div class="value">${fmt(totalClicks)}</div></div>
+    <div class="stat-card"><div class="label">Avg Ad CTR</div><div class="value gold">${avgCTR}%</div><div class="sub">clicks / opens</div></div>
+    <div class="stat-card"><div class="label">Avg Clicks/Send</div><div class="value">${sendsWithAds?(totalClicks/sendsWithAds).toFixed(0):'0'}</div><div class="sub">${sendsWithAds} sends with ads</div></div>
   </div>`;
 
-  // Determine active status (appeared in last 14 days)
-  const cutoff=new Date();cutoff.setDate(cutoff.getDate()-14);
-  const cutStr=cutoff.toISOString().slice(0,10);
+  if(bdPromos.length){
+    const bdRows=bdPromos.map(a=>{
+      return Object.values(a.urls).sort((x,y)=>y.clicks-x.clicks).map(u=>`<tr><td style="font-size:11px"><a href="https://${a.domain}${u.path}" target="_blank" style="color:#d4aa4f">${u.path||'/'}</a></td><td class="num mono">${fmt(u.clicks)}</td><td class="num mono">${u.sends}</td></tr>`).join('');
+    }).join('');
+    document.getElementById('adBdPromos').innerHTML=`<div class="section-label">BD Promos</div><div class="table-wrap"><table><thead><tr><th>BD Promo Destination</th><th class="num">Clicks</th><th class="num">Sends</th></tr></thead><tbody>${bdRows}</tbody></table></div>`;
+  } else {
+    document.getElementById('adBdPromos').innerHTML='<div class="empty">No BD promos in this period</div>';
+  }
 
-  // Leaderboard table
-  const rows=advertisers.map(a=>{
+  const cutoff=new Date();cutoff.setDate(cutoff.getDate()-14);const cutStr=cutoff.toISOString().slice(0,10);
+  const spPaths=(DATA.sponsored_articles||[]).map(sp=>sp.url);
+  const rows=paid.map(a=>{
     const status=a.lastDate>=cutStr?'<span style="color:#4ade80">Active</span>':'<span style="color:#5a5a6a">Inactive</span>';
-    const avgSend=(a.clicks/a.sends).toFixed(0);
-    const bdFlag=a.isBdPromo?'<span style="color:#d4aa4f;font-size:10px;margin-left:4px">BD PROMO</span>':'';
-    // Check if also has sponsored content
-    const spPaths=(DATA.sponsored_articles||[]).map(sp=>sp.url);
+    const ctr=a.totalOpens>0?(a.clicks/a.totalOpens*100).toFixed(2)+'%':'\u2014';
     const hasSp=spPaths.some(u=>u&&u.includes(a.domain));
-    const spFlag=hasSp?'<span style="color:#a78bfa;font-size:10px;margin-left:4px">SPONSORED</span>':'';
-    return`<tr><td>${a.domain}${bdFlag}${spFlag}</td><td class="num mono">${fmt(useU?a.unique:a.clicks)}</td><td class="num mono">${a.sends}</td><td class="num mono">${avgSend}</td><td class="num mono" style="white-space:nowrap">${fmtD(a.firstDate)}</td><td class="num mono" style="white-space:nowrap">${fmtD(a.lastDate)}</td><td class="num mono">${status}</td></tr>`;
+    const spFlag=hasSp?' <span style="color:#a78bfa;font-size:9px;cursor:pointer" onclick="event.stopPropagation();switchTab(\'sponsored\')">SPONSORED</span>':'';
+    const domLabel=a.domain.replace(/^www\./,'');
+    return`<tr style="cursor:pointer" onclick="showAdDetail('${a.domain}')"><td>${domLabel}${spFlag}</td><td class="num mono">${adFmt(adVal(a))}</td><td class="num mono">${fmt(a.unique)}</td><td class="num mono">${ctr}</td><td class="num mono">${a.sends}</td><td class="num mono">${(a.clicks/a.sends).toFixed(0)}</td><td class="num mono" style="white-space:nowrap">${fmtD(a.firstDate)}</td><td class="num mono" style="white-space:nowrap">${fmtD(a.lastDate)}</td><td class="num mono">${status}</td></tr>`;
   }).join('');
-  document.getElementById('adLeaderboard').innerHTML=`<div class="table-wrap"><table><thead><tr><th>Advertiser</th><th class="num">${useU?'Unique':'Clicks'}</th><th class="num">Sends</th><th class="num">Avg/Send</th><th class="num">First</th><th class="num">Last</th><th class="num">Status</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  document.getElementById('adLeaderboard').innerHTML=`<div class="table-wrap"><table><thead><tr><th>Advertiser</th><th class="num">${adLabel()}</th><th class="num">Unique</th><th class="num">CTR</th><th class="num">Sends</th><th class="num">Avg/Send</th><th class="num">First</th><th class="num">Last</th><th class="num">Status</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 
-  // Stacked bar chart: ad clicks over time, top 8 advertisers + Other
   const labels=sends.map(s=>sl(s.date,sends.length));
-  const top8=advertisers.filter(a=>!a.isBdPromo).slice(0,8).map(a=>a.domain);
-  const datasets=top8.map((domain,i)=>({
-    label:domain.replace(/\.com$|\.us$|\.org$|\.net$/,''),
-    data:sends.map(s=>(s.ad_clicks||[]).filter(a=>a.domain===domain).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0)),
-    backgroundColor:AD_COLORS[i%AD_COLORS.length]+'99',borderRadius:1
-  }));
-  // "Other" = everything not in top 8 and not BD promo
-  const otherData=sends.map(s=>(s.ad_clicks||[]).filter(a=>!top8.includes(a.domain)&&!a.domain.includes('businessden')).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0));
-  if(otherData.some(v=>v>0))datasets.push({label:'Other',data:otherData,backgroundColor:'rgba(138,138,154,0.4)',borderRadius:1});
-  // BD Promos as separate bar
-  const bdData=sends.map(s=>(s.ad_clicks||[]).filter(a=>a.domain&&a.domain.includes('businessden')).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0));
-  if(bdData.some(v=>v>0))datasets.unshift({label:'BD Promos',data:bdData,backgroundColor:'rgba(212,170,79,0.5)',borderRadius:1});
+  const adPerSend=sends.map(s=>(s.ad_clicks||[]).filter(a=>!a.domain.includes('businessden')).reduce((t,a)=>t+a.clicks,0));
+  const ctrPerSend=sends.map(s=>{const ac=(s.ad_clicks||[]).filter(a=>!a.domain.includes('businessden')).reduce((t,a)=>t+a.clicks,0);return s.opens>0?(ac/s.opens*100):0;});
+  dc('adTime');charts.adTime=new Chart(document.getElementById('chartAdTime'),{type:'bar',data:{labels,datasets:[
+    {label:'Ad Clicks',data:adPerSend,backgroundColor:'rgba(212,170,79,0.5)',borderColor:'#d4aa4f',borderWidth:1,borderRadius:3,yAxisID:'y',order:2},
+    {label:'CTR %',data:ctrPerSend,type:'line',borderColor:'#4ade80',backgroundColor:'transparent',borderWidth:2,pointRadius:sends.length>60?0:2,pointBackgroundColor:'#4ade80',yAxisID:'y1',order:1,tension:0.3}
+  ]},options:co({scales:{y:{position:'left'},y1:{position:'right',grid:{drawOnChartArea:false},ticks:{callback:v=>v.toFixed(1)+'%'}}}})});
 
-  dc('adTime');charts.adTime=new Chart(document.getElementById('chartAdTime'),{type:'bar',data:{labels,datasets},options:co({scales:{x:{stacked:true},y:{stacked:true}}})});
+  document.getElementById('adDetailWrap').style.display='none';
 }
 
-function buildAdDetailSelector(){
-  const sel=document.getElementById('adDetailSelect');
-  const advertisers=getAdvertiserData('All');
-  advertisers.forEach(a=>{const o=document.createElement('option');o.value=a.domain;o.textContent=`${a.domain} (${a.clicks} clicks, ${a.sends} sends)`;sel.appendChild(o);});
-  sel.addEventListener('change',()=>renderAdDetail(sel.value));
-  if(advertisers.length)renderAdDetail(advertisers[0].domain);
-}
-
-function renderAdDetail(domain){
-  const advertisers=getAdvertiserData('All');
-  const adv=advertisers.find(a=>a.domain===domain);
-  if(!adv){document.getElementById('adDetail').innerHTML='<div class="empty">No data</div>';document.getElementById('adCampaigns').innerHTML='';return;}
+function showAdDetail(domain){
+  const allAdv=getAdvertiserData(_adDays);
+  const adv=allAdv.find(a=>a.domain===domain);
+  if(!adv)return;
+  document.getElementById('adDetailWrap').style.display='block';
+  document.getElementById('adDetailName').textContent=domain;
 
   const daySpan=Math.max(1,Math.round((new Date(adv.lastDate)-new Date(adv.firstDate))/(1000*60*60*24))+1);
+  const avgCTR=adv.totalOpens>0?(adv.clicks/adv.totalOpens*100).toFixed(2):'0';
+  const bestSend=adv.appearances.reduce((b,a)=>a.clicks>b.clicks?a:b,{clicks:0,date:'\u2014'});
+  const allPaid=allAdv.filter(a=>!a.isBdPromo&&a.totalOpens>0);
+  const avgAllCTR=allPaid.length?(allPaid.reduce((s,a)=>s+a.clicks,0)/allPaid.reduce((s,a)=>s+a.totalOpens,0)*100).toFixed(2):'0';
+  const spPaths=(DATA.sponsored_articles||[]).map(sp=>sp.url);
+  const hasSp=spPaths.some(u=>u&&u.includes(domain));
+  const spLink=hasSp?'<div style="margin-top:8px"><span style="color:#a78bfa;font-size:11px;cursor:pointer" onclick="switchTab(\'sponsored\')">This advertiser also has Sponsored Content →</span></div>':'';
 
   document.getElementById('adDetail').innerHTML=`<div class="stats-row">
     <div class="stat-card"><div class="label">Total Clicks</div><div class="value gold">${fmt(adv.clicks)}</div></div>
     <div class="stat-card"><div class="label">Unique Clickers</div><div class="value">${fmt(adv.unique)}</div></div>
-    <div class="stat-card"><div class="label">Newsletter Appearances</div><div class="value">${adv.sends}</div></div>
-    <div class="stat-card"><div class="label">Avg Clicks/Send</div><div class="value">${(adv.clicks/adv.sends).toFixed(0)}</div></div>
-    <div class="stat-card"><div class="label">Active Period</div><div class="value">${daySpan}d</div><div class="sub">${fmtD(adv.firstDate)} – ${fmtD(adv.lastDate)}</div></div>
-    <div class="stat-card"><div class="label">Campaigns</div><div class="value">${Object.keys(adv.urls).length}</div><div class="sub">distinct landing pages</div></div>
-  </div>`;
+    <div class="stat-card"><div class="label">Avg CTR/Send</div><div class="value">${avgCTR}%</div><div class="sub">vs ${avgAllCTR}% avg all advertisers</div></div>
+    <div class="stat-card"><div class="label">Best Send</div><div class="value">${bestSend.clicks}</div><div class="sub">${fmtD(bestSend.date)}</div></div>
+    <div class="stat-card"><div class="label">Active Period</div><div class="value">${daySpan}d</div><div class="sub">${fmtD(adv.firstDate)} \u2013 ${fmtD(adv.lastDate)}</div></div>
+    <div class="stat-card"><div class="label">Campaigns</div><div class="value">${Object.keys(adv.urls).length}</div><div class="sub">landing pages</div></div>
+  </div>${spLink}`;
 
-  // Per-send click chart
   const sorted=[...adv.appearances].sort((a,b)=>a.date.localeCompare(b.date));
+  const ctrData=sorted.map(a=>a.opens>0?(a.clicks/a.opens*100):0);
   dc('adDetail');charts.adDetail=new Chart(document.getElementById('chartAdDetail'),{type:'bar',data:{
     labels:sorted.map(a=>fmtD(a.date)),
-    datasets:[{label:domain,data:sorted.map(a=>a.clicks),backgroundColor:'rgba(74,222,128,0.6)',borderColor:'#4ade80',borderWidth:1,borderRadius:3}]
-  },options:co()});
+    datasets:[
+      {label:'Clicks',data:sorted.map(a=>a.clicks),backgroundColor:'rgba(96,165,250,0.6)',borderColor:'#60a5fa',borderWidth:1,borderRadius:3,yAxisID:'y',order:2},
+      {label:'CTR %',data:ctrData,type:'line',borderColor:'#4ade80',backgroundColor:'transparent',borderWidth:2,pointRadius:sorted.length>40?0:3,pointBackgroundColor:'#4ade80',yAxisID:'y1',order:1,tension:0.3}
+    ]
+  },options:co({scales:{y:{position:'left'},y1:{position:'right',grid:{drawOnChartArea:false},ticks:{callback:v=>v.toFixed(1)+'%'}}}})});
 
-  // Campaign breakdown table (grouped by URL path)
-  const campaigns=Object.values(adv.urls).sort((a,b)=>b.clicks-a.clicks);
-  const campRows=campaigns.map(c=>{
+  const campList=Object.values(adv.urls).sort((a,b)=>b.clicks-a.clicks);
+  const campRows=campList.map(c=>{
     const dates=[...c.dates].sort();
-    const start=dates[0]||'—';
-    const end=dates[dates.length-1]||start;
-    const dur=start!=='—'?Math.max(1,Math.round((new Date(end)-new Date(start))/(1000*60*60*24))+1):1;
-    const pathDisplay=c.path.length>60?c.path.slice(0,57)+'...':c.path;
+    const start=dates[0]||'\u2014';const end=dates[dates.length-1]||start;
+    const dur=start!=='\u2014'?Math.max(1,Math.round((new Date(end)-new Date(start))/(1000*60*60*24))+1):1;
+    const pathDisplay=c.path.length>55?c.path.slice(0,52)+'...':c.path;
+    const ctr=c.clicks>0&&adv.totalOpens>0?((c.clicks/adv.totalOpens*100*(adv.sends/c.sends))).toFixed(2)+'%':'\u2014';
     return`<tr><td style="font-size:11px;word-break:break-all"><a href="https://${domain}${c.path}" target="_blank" style="color:#60a5fa">${pathDisplay||'/'}</a></td><td class="num mono">${fmt(c.clicks)}</td><td class="num mono">${fmt(c.unique)}</td><td class="num mono">${c.sends}</td><td class="num mono">${(c.clicks/c.sends).toFixed(0)}</td><td class="num mono" style="white-space:nowrap">${fmtD(start)}</td><td class="num mono" style="white-space:nowrap">${fmtD(end)}</td><td class="num mono">${dur}d</td></tr>`;
   }).join('');
   document.getElementById('adCampaigns').innerHTML=`<div class="table-wrap"><table><thead><tr><th>Landing Page</th><th class="num">Clicks</th><th class="num">Unique</th><th class="num">Sends</th><th class="num">Avg/Send</th><th class="num">Start</th><th class="num">End</th><th class="num">Duration</th></tr></thead><tbody>${campRows}</tbody></table></div>`;
+
+  // Per-send chronological detail: show each send with the landing page(s) used
+  const sends=getAdSends(_adDays);
+  const sendDetails=[];
+  sends.forEach(s=>{
+    const domainAds=(s.ad_clicks||[]).filter(a=>a.domain===domain);
+    if(!domainAds.length)return;
+    domainAds.forEach(a=>{
+      const path=(a.url||'').replace(/https?:\/\/[^/]+/,'').replace(/[?#].*/,'')||'/';
+      const pathShort=path.length>45?path.slice(0,42)+'...':path;
+      const ctr=s.opens>0?(a.clicks/s.opens*100).toFixed(2)+'%':'\u2014';
+      sendDetails.push({date:s.date,path,pathShort,clicks:a.clicks,unique:a.unique_clickers||0,ctr,opens:s.opens,delivered:s.delivered});
+    });
+  });
+  sendDetails.sort((a,b)=>b.date.localeCompare(a.date));
+  const sdRows=sendDetails.map(d=>`<tr><td class="num mono" style="white-space:nowrap">${fmtD(d.date)}</td><td style="font-size:11px;word-break:break-all"><a href="https://${domain}${d.path}" target="_blank" style="color:#60a5fa">${d.pathShort}</a></td><td class="num mono">${fmt(d.clicks)}</td><td class="num mono">${fmt(d.unique)}</td><td class="num mono">${d.ctr}</td><td class="num mono">${fmt(d.opens)}</td></tr>`).join('');
+  document.getElementById('adSendDetail').innerHTML=`<div class="table-wrap" style="max-height:400px;overflow-y:auto"><table><thead><tr><th>Date</th><th>Landing Page</th><th class="num">Clicks</th><th class="num">Unique</th><th class="num">CTR</th><th class="num">Opens</th></tr></thead><tbody>${sdRows}</tbody></table></div>`;
+
+  document.getElementById('adDetailWrap').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 // ========= SPONSORED CONTENT =========
