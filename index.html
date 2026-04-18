@@ -40,6 +40,7 @@ body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur
 .breakdown-legend{display:flex;gap:16px;font-size:10px;color:var(--text-dim);margin-bottom:20px;flex-wrap:wrap}.breakdown-legend span::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle}
 .breakdown-legend .l-articles::before{background:var(--blue)}.breakdown-legend .l-editorial::before{background:var(--orange)}.breakdown-legend .l-sponsored::before{background:var(--purple)}.breakdown-legend .l-ads::before{background:var(--green)}
 .controls-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+[data-tip]{position:relative}[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1a28;color:#e8e6e1;border:1px solid #2a2a3d;padding:4px 10px;border-radius:4px;font-size:11px;font-family:var(--font-mono);white-space:nowrap;z-index:100;pointer-events:none}
 </style>
 </head>
 <body>
@@ -48,6 +49,7 @@ body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur
 <div class="header"><h1>Newsletter</h1><span class="meta" id="meta"></span></div>
 <div class="tabs">
   <button class="tab active" data-tab="send">Yesterday's Send</button>
+  <button class="tab" data-tab="mediakit">Media Kit</button>
   <button class="tab" data-tab="articles">Article Clicks</button>
   <button class="tab" data-tab="editorial">Editorial Links</button>
   <button class="tab" data-tab="advertising">Advertising</button>
@@ -71,6 +73,19 @@ body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur
   <div class="section-label">Ad Performance</div>
   <div id="sendAdStats"></div>
   <div class="chart-container"><h3>Ad Clicks by Advertiser</h3><div class="chart-box"><canvas id="chartSendAds"></canvas></div></div>
+</div>
+
+<!-- Article Clicks -->
+
+<!-- Media Kit -->
+<div class="tab-content" id="tab-mediakit">
+  <div id="mkStats"></div>
+  <div id="mkDeviceBars"></div>
+  <div id="mkClickType"></div>
+  <div class="chart-container"><h3>Click Timing — When Do Readers Click?</h3><div class="chart-box"><canvas id="chartMkTiming"></canvas></div></div>
+  <div id="mkEngagement"></div>
+  <div id="mkAdPerf"></div>
+  <div id="mkGeo"></div>
 </div>
 
 <!-- Article Clicks -->
@@ -228,7 +243,7 @@ function init(){
   const today=new Date().toISOString().slice(0,10);
   const yesterdayIdx=DATA.sends.findIndex(s=>s.date<today);
   const defaultSend=yesterdayIdx>=0?yesterdayIdx:0;
-  renderSend(defaultSend);document.getElementById('sendSelector').value=String(defaultSend);renderArticlesSingle(0);renderEditorial(90);renderAdvertising(90);renderSponsored();renderTrends(30);renderLT();renderByline(30);renderTop(30);renderHealth(90);
+  renderSend(defaultSend);document.getElementById('sendSelector').value=String(defaultSend);renderMediaKit();renderArticlesSingle(0);renderEditorial(90);renderAdvertising(90);renderSponsored();renderTrends(30);renderLT();renderByline(30);renderTop(30);renderHealth(90);
   buildEdDetailSelector();
 }
 
@@ -273,7 +288,7 @@ function renderSend(idx){
     <div class="stat-card"><div class="label">Bounces</div><div class="value">${fmt(s.bounces)}</div><div class="sub">${s.hard_bounces||0} hard · ${s.soft_bounces||0} soft</div></div>
     <div class="stat-card"><div class="label">Unsubscribes</div><div class="value">${fmt(s.unsubscribes)}</div><div class="sub">${fmt(s.spam_reports)} spam</div></div>
   </div>`;
-  const devBar=(data,total,label)=>{if(!total)return'';const p=k=>((data[k]||0)/total*100);const n=k=>(data[k]||0);const oth=100-p('computer')-p('mobile');const othN=total-n('computer')-n('mobile');return`<div class="section-label">${label}</div><div class="device-bar" style="max-width:500px"><div class="seg desktop" style="width:${p('computer')}%" title="Desktop: ${fmt(n('computer'))}">${p('computer').toFixed(0)}%</div><div class="seg mobile" style="width:${p('mobile')}%" title="Mobile: ${fmt(n('mobile'))}">${p('mobile').toFixed(0)}%</div>${oth>0.5?`<div class="seg unknown" style="width:${oth}%" title="Unknown: ${fmt(othN)}">${oth.toFixed(0)}%</div>`:''}</div>`;};
+  const devBar=(data,total,label)=>{if(!total)return'';const p=k=>((data[k]||0)/total*100);const n=k=>(data[k]||0);const oth=100-p('computer')-p('mobile');const othN=total-n('computer')-n('mobile');return`<div class="section-label">${label}</div><div class="device-bar" style="max-width:500px"><div class="seg desktop" style="width:${p('computer')}%" data-tip="Desktop: ${fmt(n('computer'))}">${p('computer').toFixed(0)}%</div><div class="seg mobile" style="width:${p('mobile')}%" data-tip="Mobile: ${fmt(n('mobile'))}">${p('mobile').toFixed(0)}%</div>${oth>0.5?`<div class="seg unknown" style="width:${oth}%" data-tip="Unknown: ${fmt(othN)}">${oth.toFixed(0)}%</div>`:''}</div>`;};
   h+=devBar(od,os,'Device — Opens');
   h+=devBar(cd,cs,'Device — Clicks');
   if(os||cs)h+='<div class="device-legend" style="max-width:500px"><span class="l-desktop">Desktop</span><span class="l-mobile">Mobile</span><span class="l-unknown">Unknown</span></div>';
@@ -320,10 +335,10 @@ function renderSend(idx){
   document.getElementById('sendBreakdown').innerHTML=`
     <div class="section-label">Click Breakdown</div>
     <div class="breakdown-bar" style="max-width:500px">
-      <div class="seg" style="width:${wp(artC)}%;background:var(--blue)" title="Articles: ${fmt(artC)}">${wp(artC)}%</div>
-      <div class="seg" style="width:${wp(edC)}%;background:var(--orange)" title="Editorial: ${fmt(edC)}">${wp(edC)}%</div>
-      ${spC?`<div class="seg" style="width:${wp(spC)}%;background:var(--purple)" title="Sponsored: ${fmt(spC)}">${wp(spC)}%</div>`:''}
-      ${adC?`<div class="seg" style="width:${wp(adC)}%;background:var(--green)" title="Ads: ${fmt(adC)}">${wp(adC)}%</div>`:''}
+      <div class="seg" style="width:${wp(artC)}%;background:var(--blue)" data-tip="Articles: ${fmt(artC)}">${wp(artC)}%</div>
+      <div class="seg" style="width:${wp(edC)}%;background:var(--orange)" data-tip="Editorial: ${fmt(edC)}">${wp(edC)}%</div>
+      ${spC?`<div class="seg" style="width:${wp(spC)}%;background:var(--purple)" data-tip="Sponsored: ${fmt(spC)}">${wp(spC)}%</div>`:''}
+      ${adC?`<div class="seg" style="width:${wp(adC)}%;background:var(--green)" data-tip="Ads: ${fmt(adC)}">${wp(adC)}%</div>`:''}
     </div>
     <div class="breakdown-legend" style="max-width:500px"><span class="l-articles">Articles ${fmt(artC)}</span><span class="l-editorial">Editorial ${fmt(edC)}</span>${spC?`<span class="l-sponsored">Sponsored ${fmt(spC)}</span>`:''}${adC?`<span class="l-ads">Ads ${fmt(adC)}</span>`:''}</div>`;
 
@@ -382,6 +397,137 @@ function renderArticleTableFromRows(){
 function filterArticleTable(q){
   q=q.toLowerCase().trim();
   document.querySelectorAll('#articleTable tr[data-search]').forEach(r=>{r.style.display=!q||r.dataset.search.includes(q)?'':'none';});
+}
+
+// ========= MEDIA KIT =========
+function renderMediaKit(){
+  const sends=[...DATA.sends].reverse(); // chronological
+  if(!sends.length)return;
+  const n=sends.length;
+  const latest=sends[n-1];
+
+  // --- Stat cards ---
+  const avgCR=sends.reduce((s,x)=>s+(x.click_rate||0),0)/n;
+  const avgOR=sends.reduce((s,x)=>s+(x.open_rate||0),0)/n;
+  const avgCTR=sends.reduce((s,x)=>s+(x.click_through_rate||0),0)/n;
+  const totalClickers=sends.reduce((s,x)=>s+(x.unique_clickers||0),0);
+  const avgClickers=totalClickers/n;
+  const totalArticleClicks=sends.reduce((s,x)=>s+(x.articles||[]).reduce((t,a)=>t+a.clicks,0),0);
+  const avgClicksPerSend=sends.reduce((s,x)=>s+(x.clicks||0),0)/n;
+
+  document.getElementById('mkStats').innerHTML=`
+    <div class="section-label">All-Time Newsletter Performance</div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="label">Total Sends</div><div class="value gold">${fmt(n)}</div><div class="sub">${sends[0].date} to ${latest.date}</div></div>
+      <div class="stat-card"><div class="label">Current Subscribers</div><div class="value">${fmt(latest.delivered)}</div><div class="sub">${fmt(latest.recipients)} recipients</div></div>
+      <div class="stat-card"><div class="label">Avg Open Rate</div><div class="value gold">${avgOR.toFixed(1)}%</div><div class="sub">Industry avg: 21.5%</div></div>
+      <div class="stat-card"><div class="label">Avg Click Rate</div><div class="value gold">${avgCR.toFixed(1)}%</div><div class="sub">Industry avg: 2.3%</div></div>
+      <div class="stat-card"><div class="label">Avg CTR</div><div class="value">${avgCTR.toFixed(1)}%</div><div class="sub">clicks / opens</div></div>
+      <div class="stat-card"><div class="label">Avg Clicks/Send</div><div class="value">${avgClicksPerSend.toFixed(0)}</div></div>
+    </div>`;
+
+  // --- Device distribution (all-time) ---
+  const devTotals=(key)=>{let d=0,m=0,u=0;sends.forEach(s=>{const dd=s[key]||{};d+=(dd.computer||0);m+=(dd.mobile||0);u+=(dd.unknown||0);});return{desktop:d,mobile:m,unknown:u,total:d+m+u};};
+  const devO=devTotals('device_opens'),devC=devTotals('device_clicks');
+  const devBarMK=(d,label)=>{if(!d.total)return'';const p=k=>(d[k]/d.total*100);return`<div class="section-label">${label}</div><div class="device-bar" style="max-width:500px"><div class="seg desktop" style="width:${p('desktop')}%" data-tip="Desktop: ${fmt(d.desktop)}">${p('desktop').toFixed(0)}%</div><div class="seg mobile" style="width:${p('mobile')}%" data-tip="Mobile: ${fmt(d.mobile)}">${p('mobile').toFixed(0)}%</div>${d.unknown/d.total>0.005?`<div class="seg unknown" style="width:${p('unknown')}%" data-tip="Unknown: ${fmt(d.unknown)}">${p('unknown').toFixed(0)}%</div>`:''}</div>`;};
+  document.getElementById('mkDeviceBars').innerHTML=devBarMK(devO,'All-Time Device — Opens')+devBarMK(devC,'All-Time Device — Clicks')+'<div class="device-legend" style="max-width:500px"><span class="l-desktop">Desktop</span><span class="l-mobile">Mobile</span><span class="l-unknown">Unknown</span></div>';
+
+  // --- Click type distribution (all-time) ---
+  const JUNK_AD=new Set(['hubspotusercontent','hsctaimages.net','vimeo.com','bit.ly','direc.to','calendar.google.com','form.typeform.com','streaklinks.com','facebook.com','instagram.com','linkedin.com','youtube.com']);
+  const isJunkAd=(d)=>!d||[...JUNK_AD].some(j=>d.includes(j));
+  let allArt=0,allSp=0,allEd=0,allAd=0;
+  sends.forEach(s=>{
+    (s.articles||[]).forEach(a=>{if(a.is_sponsored)allSp+=a.clicks;else allArt+=a.clicks;});
+    allEd+=(s.editorial_clicks||[]).reduce((t,a)=>t+a.clicks,0);
+    allAd+=(s.ad_clicks||[]).filter(a=>!isJunkAd(a.domain)&&!a.domain.includes('businessden')).reduce((t,a)=>t+a.clicks,0);
+  });
+  const allTot=allArt+allSp+allEd+allAd||1;
+  const wp2=v=>(v/allTot*100).toFixed(1);
+  document.getElementById('mkClickType').innerHTML=`
+    <div class="section-label">All-Time Click Distribution</div>
+    <div class="breakdown-bar" style="max-width:500px">
+      <div class="seg" style="width:${wp2(allArt)}%;background:var(--blue)" data-tip="Articles: ${fmt(allArt)}">${wp2(allArt)}%</div>
+      <div class="seg" style="width:${wp2(allEd)}%;background:var(--orange)" data-tip="Editorial: ${fmt(allEd)}">${wp2(allEd)}%</div>
+      ${allSp?`<div class="seg" style="width:${wp2(allSp)}%;background:var(--purple)" data-tip="Sponsored: ${fmt(allSp)}">${wp2(allSp)}%</div>`:''}
+      ${allAd?`<div class="seg" style="width:${wp2(allAd)}%;background:var(--green)" data-tip="Ads: ${fmt(allAd)}">${wp2(allAd)}%</div>`:''}
+    </div>
+    <div class="breakdown-legend" style="max-width:500px"><span class="l-articles">Articles ${fmt(allArt)}</span><span class="l-editorial">Editorial ${fmt(allEd)}</span>${allSp?`<span class="l-sponsored">Sponsored ${fmt(allSp)}</span>`:''}${allAd?`<span class="l-ads">Ads ${fmt(allAd)}</span>`:''}</div>`;
+
+  // --- Click timing: % by hour after send, cumulative line ---
+  const hourTotals=new Array(24).fill(0);
+  let hourGrandTotal=0;
+  sends.forEach(s=>{const h=s.clicks_by_hour||{};for(let i=0;i<24;i++){const v=h[String(i)]||0;hourTotals[i]+=v;hourGrandTotal+=v;}});
+  const hourPct=hourTotals.map(v=>hourGrandTotal>0?(v/hourGrandTotal*100):0);
+  const hourCum=[];let cumRun=0;hourPct.forEach(v=>{cumRun+=v;hourCum.push(cumRun);});
+  // Find the hour where 50% and 80% of clicks have occurred
+  const pctAt2h=hourCum[1]||0;
+  const pctAt4h=hourCum[3]||0;
+  const hourLabels=Array.from({length:24},(_,i)=>{const hr=(6+i)%24;return hr===0?'12a':hr<12?hr+'a':hr===12?'12p':(hr-12)+'p';});
+
+  dc('mkTiming');charts.mkTiming=new Chart(document.getElementById('chartMkTiming'),{type:'bar',data:{labels:hourLabels,datasets:[
+    {label:'% of Clicks',data:hourPct,backgroundColor:'rgba(212,170,79,0.6)',borderColor:'#d4aa4f',borderWidth:1,borderRadius:3,yAxisID:'y',order:2},
+    {label:'Cumulative %',data:hourCum,type:'line',borderColor:'#4ade80',backgroundColor:'transparent',borderWidth:2.5,pointRadius:0,yAxisID:'y1',order:1,tension:0.3}
+  ]},options:co({scales:{y:{position:'left',title:{display:true,text:'% of clicks',color:'#5a5a6a',font:{family:"'Sora',sans-serif",size:10}}},y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false},ticks:{callback:v=>v+'%'},title:{display:true,text:'Cumulative %',color:'#5a5a6a',font:{family:"'Sora',sans-serif",size:10}}}}})});
+
+  // --- Engagement stats ---
+  const clickerValues=sends.filter(s=>s.unique_clickers>0).map(s=>s.unique_clickers);
+  const cpcValues=sends.filter(s=>s.clicks_per_clicker>0).map(s=>s.clicks_per_clicker);
+  const medianOf=arr=>{if(!arr.length)return 0;const s=[...arr].sort((a,b)=>a-b);const m=Math.floor(s.length/2);return s.length%2?s[m]:(s[m-1]+s[m])/2;};
+  const meanOf=arr=>arr.length?arr.reduce((s,v)=>s+v,0)/arr.length:0;
+
+  document.getElementById('mkEngagement').innerHTML=`
+    <div class="section-label">Engagement Depth</div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="label">Mean Unique Clickers/Send</div><div class="value gold">${meanOf(clickerValues).toFixed(0)}</div></div>
+      <div class="stat-card"><div class="label">Median Unique Clickers/Send</div><div class="value">${medianOf(clickerValues).toFixed(0)}</div></div>
+      <div class="stat-card"><div class="label">Mean Clicks/Clicker</div><div class="value gold">${meanOf(cpcValues).toFixed(1)}</div></div>
+      <div class="stat-card"><div class="label">Median Clicks/Clicker</div><div class="value">${medianOf(cpcValues).toFixed(1)}</div></div>
+      <div class="stat-card"><div class="label">Clicks in First 2hrs</div><div class="value gold">${pctAt2h.toFixed(0)}%</div></div>
+      <div class="stat-card"><div class="label">Clicks in First 4hrs</div><div class="value">${pctAt4h.toFixed(0)}%</div></div>
+    </div>`;
+
+  // --- Ad performance summary ---
+  const sendsWithAds=sends.filter(s=>(s.ad_clicks||[]).some(a=>!isJunkAd(a.domain)&&!a.domain.includes('businessden')));
+  const adDomains=new Set();
+  const perSendCTR=[];const perSendClicks=[];
+  sendsWithAds.forEach(s=>{
+    const ac=(s.ad_clicks||[]).filter(a=>!isJunkAd(a.domain)&&!a.domain.includes('businessden'));
+    const clicks=ac.reduce((t,a)=>t+a.clicks,0);
+    ac.forEach(a=>adDomains.add(a.domain));
+    perSendClicks.push(clicks);
+    if(s.opens>0)perSendCTR.push(clicks/s.opens*100);
+  });
+  const totalAdClicks=perSendClicks.reduce((s,v)=>s+v,0);
+
+  document.getElementById('mkAdPerf').innerHTML=`
+    <div class="section-label">Ad Performance Summary</div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="label">Total Advertisers</div><div class="value gold">${adDomains.size}</div></div>
+      <div class="stat-card"><div class="label">Sends with Ads</div><div class="value">${sendsWithAds.length}</div><div class="sub">of ${n} total sends</div></div>
+      <div class="stat-card"><div class="label">Total Ad Clicks</div><div class="value">${fmt(totalAdClicks)}</div></div>
+      <div class="stat-card"><div class="label">Mean Ad Clicks/Send</div><div class="value">${meanOf(perSendClicks).toFixed(0)}</div></div>
+      <div class="stat-card"><div class="label">Mean Ad CTR</div><div class="value gold">${meanOf(perSendCTR).toFixed(2)}%</div><div class="sub">clicks / opens</div></div>
+      <div class="stat-card"><div class="label">Median Ad CTR</div><div class="value">${medianOf(perSendCTR).toFixed(2)}%</div></div>
+    </div>`;
+
+  // --- Geographic concentration ---
+  const byCity={};let coClicks=0,totalGeoClicks=0;
+  sends.forEach(s=>(s.geo||[]).forEach(g=>{
+    totalGeoClicks+=g.clicks;
+    if(g.state&&g.state.toLowerCase()==='colorado')coClicks+=g.clicks;
+    const k=g.city+'|'+(g.state||'');
+    if(!byCity[k])byCity[k]={city:g.city,state:g.state||'',clicks:0,unique:0};
+    byCity[k].clicks+=g.clicks;byCity[k].unique+=(g.unique_clickers||0);
+  }));
+  const topCities=Object.values(byCity).sort((a,b)=>b.clicks-a.clicks).slice(0,10);
+  const coPct=totalGeoClicks>0?(coClicks/totalGeoClicks*100).toFixed(0):'—';
+  const cityRows=topCities.map((c,i)=>`<tr><td class="mono" style="color:var(--text-muted)">${i+1}</td><td>${c.city}, ${c.state}</td><td class="num mono">${fmt(c.clicks)}</td><td class="num mono">${fmt(c.unique)}</td></tr>`).join('');
+  document.getElementById('mkGeo').innerHTML=`
+    <div class="section-label">Geographic Concentration</div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="label">Colorado Share</div><div class="value gold">${coPct}%</div><div class="sub">of all geo-tracked clicks</div></div>
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>#</th><th>City</th><th class="num">Clicks</th><th class="num">Unique</th></tr></thead><tbody>${cityRows}</tbody></table></div>`;
 }
 
 // ========= EDITORIAL LINKS =========
