@@ -49,6 +49,7 @@ body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur
   <button class="tab active" data-tab="send">Yesterday's Send</button>
   <button class="tab" data-tab="articles">Article Clicks</button>
   <button class="tab" data-tab="editorial">Editorial Links</button>
+  <button class="tab" data-tab="advertising">Advertising</button>
   <button class="tab" data-tab="sponsored">Sponsored Content</button>
   <button class="tab" data-tab="trends">Trends</button>
   <button class="tab" data-tab="longterm">Long-Term</button>
@@ -87,6 +88,21 @@ body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur
   <select class="send-select" id="edDetailSelect"></select>
   <div id="edDetail"></div>
   <div class="chart-container"><h3>Publication History</h3><div class="chart-box"><canvas id="chartEdDetail"></canvas></div></div>
+</div>
+
+<!-- Advertising -->
+<div class="tab-content" id="tab-advertising">
+  <div class="controls-row"><div class="range-filter" id="adRange"></div><div class="toggle-bar" id="adToggle"></div></div>
+  <div id="adStats"></div>
+  <div class="section-label">Advertiser Leaderboard</div>
+  <div id="adLeaderboard"></div>
+  <div class="chart-container"><h3>Ad Clicks Over Time</h3><div class="chart-box"><canvas id="chartAdTime"></canvas></div></div>
+  <div class="section-label">Advertiser Detail</div>
+  <select class="send-select" id="adDetailSelect"></select>
+  <div id="adDetail"></div>
+  <div class="chart-container"><h3>Advertiser History</h3><div class="chart-box"><canvas id="chartAdDetail"></canvas></div></div>
+  <div class="section-label">Campaign Breakdown</div>
+  <div id="adCampaigns"></div>
 </div>
 
 <!-- Sponsored Content -->
@@ -164,24 +180,27 @@ function init(){
   as.addEventListener('change',()=>{if(as.value==='range')renderArticlesRange();else renderArticlesSingle(parseInt(as.value));});
   document.getElementById('articleSearch').addEventListener('input',e=>{filterArticleTable(e.target.value);});
 
-  let td=30,bd=30,tpd=30,ed=90,hd=90;
+  let td=30,bd=30,tpd=30,ed=90,hd=90,ad=90;
   mkToggle('trendToggle',['Total Clicks','Unique Clickers'],(i)=>{clickMode=i;syncToggles(i);renderTrends(td);});
   mkToggle('ltToggle',['Total Clicks','Unique Clickers'],(i)=>{clickMode=i;syncToggles(i);renderLT();});
   mkToggle('bylineToggle',['Total Clicks','Unique Clickers'],(i)=>{clickMode=i;syncToggles(i);renderByline(bd);});
   mkToggle('topToggle',['Total Clicks','Unique Clickers'],(i)=>{clickMode=i;syncToggles(i);renderTop(tpd);});
+  mkToggle('adToggle',['Total Clicks','Unique Clickers'],(i)=>{clickMode=i;syncToggles(i);renderAdvertising(ad);});
   mkToggle('spToggle',['Total Clicks','Per Unique Reader'],(i)=>{renderSponsored();});
   bRF('trendRange',R,d=>{td=d;renderTrends(d);});
   bRF('bylineRange',R,d=>{bd=d;renderByline(d);});
   bRF('topRange',R,d=>{tpd=d;renderTop(d);});
   bRF('edRange',R,d=>{ed=d;renderEditorial(d);});
+  bRF('adRange',R,d=>{ad=d;renderAdvertising(d);});
   bRF('healthRange',R,d=>{hd=d;renderHealth(d);});
   bRF('geoRange',R,d=>renderGeo(d));
   bRF('articleRange',[7,14,30,60,90,'All'],d=>{document.getElementById('articleSelector').value='range';renderArticlesRange(d);},7);
   const today=new Date().toISOString().slice(0,10);
   const yesterdayIdx=DATA.sends.findIndex(s=>s.date<today);
   const defaultSend=yesterdayIdx>=0?yesterdayIdx:0;
-  renderSend(defaultSend);document.getElementById('sendSelector').value=String(defaultSend);renderArticlesSingle(0);renderEditorial(90);renderSponsored();renderTrends(30);renderLT();renderByline(30);renderTop(30);renderHealth(90);
+  renderSend(defaultSend);document.getElementById('sendSelector').value=String(defaultSend);renderArticlesSingle(0);renderEditorial(90);renderAdvertising(90);renderSponsored();renderTrends(30);renderLT();renderByline(30);renderTop(30);renderHealth(90);
   buildEdDetailSelector();
+  buildAdDetailSelector();
 }
 
 function fmt(n){return n==null||n===undefined?'—':typeof n==='number'?n.toLocaleString():n;}
@@ -191,7 +210,7 @@ function fmtD(d){if(!d||d==='—')return'—';const p=d.split('-');return p.leng
 function bSS(id,cb){const s=document.getElementById(id);DATA.sends.forEach((x,i)=>{const o=document.createElement('option');o.value=i;o.textContent=fmtD(x.date)+' — '+x.name;s.appendChild(o);});s.addEventListener('change',()=>cb(parseInt(s.value)));}
 function bRF(id,ranges,cb,defaultIdx=0){const el=document.getElementById(id);ranges.forEach((d,i)=>{const b=document.createElement('button');b.className='range-btn'+(i===defaultIdx?' active':'');b.textContent=d==='All'?'All':d+'d';b.addEventListener('click',()=>{el.querySelectorAll('.range-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');cb(d);});el.appendChild(b);});}
 function mkToggle(id,labels,cb){const el=document.getElementById(id);el.innerHTML='<span class="tl">Show:</span>';labels.forEach((l,i)=>{const b=document.createElement('button');b.className='toggle-btn'+(i===0?' active':'');b.textContent=l;b.addEventListener('click',()=>{el.querySelectorAll('.toggle-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');cb(i);});el.appendChild(b);});}
-function syncToggles(i){['trendToggle','ltToggle','bylineToggle','topToggle'].forEach(id=>{const el=document.getElementById(id);if(el)el.querySelectorAll('.toggle-btn').forEach((b,j)=>b.classList.toggle('active',j===i));});}
+function syncToggles(i){['trendToggle','ltToggle','bylineToggle','topToggle','adToggle'].forEach(id=>{const el=document.getElementById(id);if(el)el.querySelectorAll('.toggle-btn').forEach((b,j)=>b.classList.toggle('active',j===i));});}
 function gsr(d){if(d==='All')return[...DATA.sends].reverse();const c=new Date();c.setDate(c.getDate()-d);const cs=c.toISOString().slice(0,10);return DATA.sends.filter(s=>s.date>=cs).reverse();}
 function la(url){const c=url.replace(/\/$/,'');if(AUTHORS){const e=AUTHORS[c]||AUTHORS[c+'/']||AUTHORS[url];if(e&&e.author&&e.author!=='Unknown')return{author:e.author,title:e.title||null};}if(!MENTIONS)return null;return(MENTIONS.bd_articles||[]).find(a=>a.url&&a.url.replace(/\/$/,'')===c)||null;}
 function dc(k){if(charts[k]){charts[k].destroy();delete charts[k];}}
@@ -355,6 +374,131 @@ function renderEdDetail(domain){
   </div>`;
   const sorted=[...pub.appearances].sort((a,b)=>a.date.localeCompare(b.date));
   dc('edDetail');charts.edDetail=new Chart(document.getElementById('chartEdDetail'),{type:'bar',data:{labels:sorted.map(a=>fmtD(a.date)),datasets:[{label:domain,data:sorted.map(a=>a.clicks),backgroundColor:'rgba(251,146,60,0.6)',borderColor:'#fb923c',borderWidth:1,borderRadius:3}]},options:co()});
+}
+
+// ========= ADVERTISING =========
+const AD_COLORS=['#4ade80','#60a5fa','#fb923c','#a78bfa','#f472b6','#facc15','#34d399','#f87171'];
+function getAdvertiserData(days){
+  const sends=gsr(days),byDomain={};
+  sends.forEach(s=>(s.ad_clicks||[]).forEach(a=>{
+    const d=a.domain||'unknown';
+    if(!byDomain[d])byDomain[d]={domain:d,clicks:0,unique:0,sends:0,urls:{},appearances:[],firstDate:s.date,lastDate:s.date,isBdPromo:d.includes('businessden')};
+    byDomain[d].clicks+=a.clicks;byDomain[d].unique+=(a.unique_clickers||0);byDomain[d].sends+=1;
+    byDomain[d].appearances.push({date:s.date,clicks:a.clicks,unique:a.unique_clickers||0});
+    if(s.date<byDomain[d].firstDate)byDomain[d].firstDate=s.date;
+    if(s.date>byDomain[d].lastDate)byDomain[d].lastDate=s.date;
+    // Track URLs for campaign detection
+    const url=a.url||'';const path=url.replace(/https?:\/\/[^/]+/,'').replace(/[?#].*/,'')||'/';
+    if(!byDomain[d].urls[path])byDomain[d].urls[path]={path,clicks:0,unique:0,sends:0,dates:[]};
+    byDomain[d].urls[path].clicks+=a.clicks;byDomain[d].urls[path].unique+=(a.unique_clickers||0);
+    byDomain[d].urls[path].sends+=1;byDomain[d].urls[path].dates.push(s.date);
+  }));
+  // Sort: BD promos first, then by clicks
+  const all=Object.values(byDomain);
+  const bdPromos=all.filter(a=>a.isBdPromo).sort((a,b)=>b.clicks-a.clicks);
+  const others=all.filter(a=>!a.isBdPromo).sort((a,b)=>b.clicks-a.clicks);
+  return[...bdPromos,...others];
+}
+
+function renderAdvertising(days){
+  const useU=clickMode===1;
+  const advertisers=getAdvertiserData(days);
+  const sends=gsr(days);
+  const totalAdClicks=advertisers.reduce((s,a)=>s+(useU?a.unique:a.clicks),0);
+  const totalAllClicks=sends.reduce((s,x)=>{
+    return s+(x.articles||[]).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0)
+      +(x.editorial_clicks||[]).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0)
+      +(x.ad_clicks||[]).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0);
+  },0);
+  const adRate=totalAllClicks>0?(totalAdClicks/totalAllClicks*100).toFixed(1):'0';
+  const sendsWithAds=sends.filter(s=>(s.ad_clicks||[]).length>0).length;
+  const avgPerSend=sendsWithAds>0?(totalAdClicks/sendsWithAds).toFixed(0):'0';
+
+  // Stat cards
+  document.getElementById('adStats').innerHTML=`<div class="stats-row">
+    <div class="stat-card"><div class="label">Active Advertisers</div><div class="value gold">${advertisers.length}</div></div>
+    <div class="stat-card"><div class="label">Total Ad Clicks</div><div class="value">${fmt(totalAdClicks)}</div></div>
+    <div class="stat-card"><div class="label">Ad Click Share</div><div class="value">${adRate}%</div><div class="sub">of all clicks</div></div>
+    <div class="stat-card"><div class="label">Avg Clicks/Send</div><div class="value">${avgPerSend}</div><div class="sub">${sendsWithAds} sends with ads</div></div>
+  </div>`;
+
+  // Determine active status (appeared in last 14 days)
+  const cutoff=new Date();cutoff.setDate(cutoff.getDate()-14);
+  const cutStr=cutoff.toISOString().slice(0,10);
+
+  // Leaderboard table
+  const rows=advertisers.map(a=>{
+    const status=a.lastDate>=cutStr?'<span style="color:#4ade80">Active</span>':'<span style="color:#5a5a6a">Inactive</span>';
+    const avgSend=(a.clicks/a.sends).toFixed(0);
+    const bdFlag=a.isBdPromo?'<span style="color:#d4aa4f;font-size:10px;margin-left:4px">BD PROMO</span>':'';
+    // Check if also has sponsored content
+    const spPaths=(DATA.sponsored_articles||[]).map(sp=>sp.url);
+    const hasSp=spPaths.some(u=>u&&u.includes(a.domain));
+    const spFlag=hasSp?'<span style="color:#a78bfa;font-size:10px;margin-left:4px">SPONSORED</span>':'';
+    return`<tr><td>${a.domain}${bdFlag}${spFlag}</td><td class="num mono">${fmt(useU?a.unique:a.clicks)}</td><td class="num mono">${a.sends}</td><td class="num mono">${avgSend}</td><td class="num mono" style="white-space:nowrap">${fmtD(a.firstDate)}</td><td class="num mono" style="white-space:nowrap">${fmtD(a.lastDate)}</td><td class="num mono">${status}</td></tr>`;
+  }).join('');
+  document.getElementById('adLeaderboard').innerHTML=`<div class="table-wrap"><table><thead><tr><th>Advertiser</th><th class="num">${useU?'Unique':'Clicks'}</th><th class="num">Sends</th><th class="num">Avg/Send</th><th class="num">First</th><th class="num">Last</th><th class="num">Status</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+
+  // Stacked bar chart: ad clicks over time, top 8 advertisers + Other
+  const labels=sends.map(s=>sl(s.date,sends.length));
+  const top8=advertisers.filter(a=>!a.isBdPromo).slice(0,8).map(a=>a.domain);
+  const datasets=top8.map((domain,i)=>({
+    label:domain.replace(/\.com$|\.us$|\.org$|\.net$/,''),
+    data:sends.map(s=>(s.ad_clicks||[]).filter(a=>a.domain===domain).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0)),
+    backgroundColor:AD_COLORS[i%AD_COLORS.length]+'99',borderRadius:1
+  }));
+  // "Other" = everything not in top 8 and not BD promo
+  const otherData=sends.map(s=>(s.ad_clicks||[]).filter(a=>!top8.includes(a.domain)&&!a.domain.includes('businessden')).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0));
+  if(otherData.some(v=>v>0))datasets.push({label:'Other',data:otherData,backgroundColor:'rgba(138,138,154,0.4)',borderRadius:1});
+  // BD Promos as separate bar
+  const bdData=sends.map(s=>(s.ad_clicks||[]).filter(a=>a.domain&&a.domain.includes('businessden')).reduce((t,a)=>t+(useU?(a.unique_clickers||0):a.clicks),0));
+  if(bdData.some(v=>v>0))datasets.unshift({label:'BD Promos',data:bdData,backgroundColor:'rgba(212,170,79,0.5)',borderRadius:1});
+
+  dc('adTime');charts.adTime=new Chart(document.getElementById('chartAdTime'),{type:'bar',data:{labels,datasets},options:co({scales:{x:{stacked:true},y:{stacked:true}}})});
+}
+
+function buildAdDetailSelector(){
+  const sel=document.getElementById('adDetailSelect');
+  const advertisers=getAdvertiserData('All');
+  advertisers.forEach(a=>{const o=document.createElement('option');o.value=a.domain;o.textContent=`${a.domain} (${a.clicks} clicks, ${a.sends} sends)`;sel.appendChild(o);});
+  sel.addEventListener('change',()=>renderAdDetail(sel.value));
+  if(advertisers.length)renderAdDetail(advertisers[0].domain);
+}
+
+function renderAdDetail(domain){
+  const advertisers=getAdvertiserData('All');
+  const adv=advertisers.find(a=>a.domain===domain);
+  if(!adv){document.getElementById('adDetail').innerHTML='<div class="empty">No data</div>';document.getElementById('adCampaigns').innerHTML='';return;}
+
+  const daySpan=Math.max(1,Math.round((new Date(adv.lastDate)-new Date(adv.firstDate))/(1000*60*60*24))+1);
+
+  document.getElementById('adDetail').innerHTML=`<div class="stats-row">
+    <div class="stat-card"><div class="label">Total Clicks</div><div class="value gold">${fmt(adv.clicks)}</div></div>
+    <div class="stat-card"><div class="label">Unique Clickers</div><div class="value">${fmt(adv.unique)}</div></div>
+    <div class="stat-card"><div class="label">Newsletter Appearances</div><div class="value">${adv.sends}</div></div>
+    <div class="stat-card"><div class="label">Avg Clicks/Send</div><div class="value">${(adv.clicks/adv.sends).toFixed(0)}</div></div>
+    <div class="stat-card"><div class="label">Active Period</div><div class="value">${daySpan}d</div><div class="sub">${fmtD(adv.firstDate)} – ${fmtD(adv.lastDate)}</div></div>
+    <div class="stat-card"><div class="label">Campaigns</div><div class="value">${Object.keys(adv.urls).length}</div><div class="sub">distinct landing pages</div></div>
+  </div>`;
+
+  // Per-send click chart
+  const sorted=[...adv.appearances].sort((a,b)=>a.date.localeCompare(b.date));
+  dc('adDetail');charts.adDetail=new Chart(document.getElementById('chartAdDetail'),{type:'bar',data:{
+    labels:sorted.map(a=>fmtD(a.date)),
+    datasets:[{label:domain,data:sorted.map(a=>a.clicks),backgroundColor:'rgba(74,222,128,0.6)',borderColor:'#4ade80',borderWidth:1,borderRadius:3}]
+  },options:co()});
+
+  // Campaign breakdown table (grouped by URL path)
+  const campaigns=Object.values(adv.urls).sort((a,b)=>b.clicks-a.clicks);
+  const campRows=campaigns.map(c=>{
+    const dates=[...c.dates].sort();
+    const start=dates[0]||'—';
+    const end=dates[dates.length-1]||start;
+    const dur=start!=='—'?Math.max(1,Math.round((new Date(end)-new Date(start))/(1000*60*60*24))+1):1;
+    const pathDisplay=c.path.length>60?c.path.slice(0,57)+'...':c.path;
+    return`<tr><td style="font-size:11px;word-break:break-all"><a href="https://${domain}${c.path}" target="_blank" style="color:#60a5fa">${pathDisplay||'/'}</a></td><td class="num mono">${fmt(c.clicks)}</td><td class="num mono">${fmt(c.unique)}</td><td class="num mono">${c.sends}</td><td class="num mono">${(c.clicks/c.sends).toFixed(0)}</td><td class="num mono" style="white-space:nowrap">${fmtD(start)}</td><td class="num mono" style="white-space:nowrap">${fmtD(end)}</td><td class="num mono">${dur}d</td></tr>`;
+  }).join('');
+  document.getElementById('adCampaigns').innerHTML=`<div class="table-wrap"><table><thead><tr><th>Landing Page</th><th class="num">Clicks</th><th class="num">Unique</th><th class="num">Sends</th><th class="num">Avg/Send</th><th class="num">Start</th><th class="num">End</th><th class="num">Duration</th></tr></thead><tbody>${campRows}</tbody></table></div>`;
 }
 
 // ========= SPONSORED CONTENT =========
