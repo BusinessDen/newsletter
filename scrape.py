@@ -366,6 +366,13 @@ def process_clicks(click_events, send_date_str="", send_timestamp=""):
                 continue
             dest_url = strip_utm(redir).rstrip("/")
             dest_domain = urlparse(dest_url).netloc.replace("www.", "")
+            # Skip non-advertiser CTA destinations
+            JUNK_AD_DOMAINS = {"hubspotusercontent", "hsctaimages.net", "vimeo.com",
+                "bit.ly", "direc.to", "calendar.google.com", "form.typeform.com",
+                "streaklinks.com", "facebook.com", "instagram.com", "linkedin.com",
+                "youtube.com", "eventbrite.com", "twitter.com", "x.com"}
+            if any(j in dest_domain for j in JUNK_AD_DOMAINS):
+                continue
             ad_data[dest_url]["clicks"] += 1
             ad_data[dest_url]["domain"] = dest_domain
             if rh:
