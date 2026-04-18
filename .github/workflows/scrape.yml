@@ -42,6 +42,7 @@ jobs:
           git fetch origin gh-pages --depth=1 || true
           git checkout origin/gh-pages -- newsletter-data.json 2>/dev/null || echo "No existing data file"
           git checkout origin/gh-pages -- author-lookup.json 2>/dev/null || echo "No author lookup file"
+          git checkout origin/gh-pages -- advertiser-names.json 2>/dev/null || echo "No advertiser names file"
           ls -la newsletter-data.json author-lookup.json 2>/dev/null || echo "Starting fresh"
 
       - name: Set up Python
@@ -71,6 +72,7 @@ jobs:
           cp index.html _site/
           cp newsletter-data.json _site/
           cp author-lookup.json _site/ 2>/dev/null || true
+          cp advertiser-names.json _site/ 2>/dev/null || true
 
       # Deploy-after: push updated data + dashboard to gh-pages
       - name: Deploy to GitHub Pages
