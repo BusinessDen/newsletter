@@ -48,29 +48,6 @@ BD_CAMPAIGN_NAME = "BD Newsfeed"
 BD_DOMAIN = "businessden.com"
 GA4_PROPERTY_ID = os.environ.get("GA4_PROPERTY_ID", "363209481")
 
-NEWS_DOMAINS = {
-    "cbsnews.com","cnbc.com","coloradosun.com","canyoncourier.com",
-    "summitdaily.com","vaildaily.com","westword.com","fastcompany.com",
-    "telegraph.co.uk","inc.com","denver7.com","nypost.com","seattletimes.com",
-    "apnews.com","reuters.com","wsj.com","nytimes.com","washingtonpost.com",
-    "denverpost.com","cpr.org","9news.com","kdvr.com","fox31.com",
-    "bloomberg.com","bbc.com","bbc.co.uk","cnn.com","npr.org",
-    "coloradopolitics.com","coloradoindependent.com","thedenverchannel.com",
-    "bizjournals.com","axios.com","politico.com","theguardian.com",
-    "usatoday.com","fortune.com","forbes.com","businessinsider.com",
-    "ft.com","economist.com","theatlantic.com","newyorker.com",
-    "chicagotribune.com","latimes.com","sfchronicle.com",
-    "dailycamera.com","reporterherald.com","coloradoan.com","gazette.com",
-    "denvergazette.com","steamboatpilot.com","craigdailypress.com",
-    "gjsentinel.com","durangoherald.com","aspentimes.com","aspendailynews.com",
-    "postindependent.com","greeleytribune.com","timescall.com",
-    "longmontleader.com","complete-colorado.com","sentinelcolorado.com",
-    "5280.com","sfstandard.com","sfgate.com","wired.com",
-    "therealdeal.com","ktnv.com","finance.yahoo.com","yahoo.com",
-    "powder.com","restaurantbusinessonline.com","si.com","abcnews.com",
-    "unofficialnetworks.com",
-}
-
 SPONSORED_SLUG_EXCEPTIONS = [
     "/2023/04/19/solving-5-equipment-maintenance-challenges-with-technology",
     "/2022/07/25/first-interstate-bank-arrives-in-colorado-after-successful-merger-with-great-western-bank",
@@ -129,15 +106,6 @@ def fetch_all_sponsored_paths():
         print(f"  WordPress API failed: {e}, using exceptions only")
     print(f"  Total sponsored content paths: {len(paths)}")
     return paths
-
-def is_news_domain(domain):
-    d = domain.lower().replace("www.", "")
-    if d in NEWS_DOMAINS:
-        return True
-    for nd in NEWS_DOMAINS:
-        if d.endswith("." + nd):
-            return True
-    return False
 
 def get(url, params=None, retries=2):
     for attempt in range(retries + 1):
@@ -309,39 +277,31 @@ def process_clicks(click_events, send_date_str="", send_timestamp=""):
             except (ValueError, TypeError, OSError):
                 pass
 
-        if is_bd_article_url(clean_url):
+        # CTA tracking URLs are ads — extract destination from redirectUrl
+        if "cta-service" in urlparse(clean_url).netloc and "hubspot" in urlparse(clean_url).netloc:
+            redir = parse_qs(urlparse(clean_url).query).get("redirectUrl", [None])[0]
+            if not redir:
+                continue
+            dest_url = strip_utm(redir).rstrip("/")
+            dest_domain = urlparse(dest_url).netloc.replace("www.", "")
+            ad_data[dest_url]["clicks"] += 1
+            ad_data[dest_url]["domain"] = dest_domain
+            if rh:
+                ad_data[dest_url]["recipients"].add(rh)
+        elif is_bd_article_url(clean_url):
             article_data[clean_url]["clicks"] += 1
             if rh:
                 article_data[clean_url]["recipients"].add(rh)
-        elif not is_bd_internal_url(clean_url):
+        elif is_bd_internal_url(clean_url):
+            pass  # BD non-article pages (events, subscribe, etc.)
+        else:
             domain = urlparse(clean_url).netloc.replace("www.", "")
-            # CTA tracking URLs: extract the actual destination from redirectUrl param
-            if "cta-service" in domain and "hubspot" in domain:
-                redir = parse_qs(urlparse(clean_url).query).get("redirectUrl", [None])[0]
-                if redir:
-                    clean_url = strip_utm(redir).rstrip("/")
-                    domain = urlparse(clean_url).netloc.replace("www.", "")
-                else:
-                    continue
-            elif any(skip in domain for skip in ("hsforms","hs-sites")):
+            if any(skip in domain for skip in ("hsforms","hs-sites")):
                 continue
-            # Now categorize by destination domain
-            if is_bd_article_url(clean_url):
-                article_data[clean_url]["clicks"] += 1
-                if rh:
-                    article_data[clean_url]["recipients"].add(rh)
-            elif is_bd_internal_url(clean_url):
-                pass  # BD non-article pages (events, subscribe, etc.)
-            elif is_news_domain(domain):
-                editorial_data[clean_url]["clicks"] += 1
-                editorial_data[clean_url]["domain"] = domain
-                if rh:
-                    editorial_data[clean_url]["recipients"].add(rh)
-            else:
-                ad_data[clean_url]["clicks"] += 1
-                ad_data[clean_url]["domain"] = domain
-                if rh:
-                    ad_data[clean_url]["recipients"].add(rh)
+            editorial_data[clean_url]["clicks"] += 1
+            editorial_data[clean_url]["domain"] = domain
+            if rh:
+                editorial_data[clean_url]["recipients"].add(rh)
 
         if loc:
             city, state = loc.get("city", ""), loc.get("state", "")
