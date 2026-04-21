@@ -24,9 +24,9 @@ jobs:
         run: |
           MT_HOUR=$(TZ=America/Denver date +%H)
           echo "mt_hour=$MT_HOUR" >> "$GITHUB_OUTPUT"
-          if [[ "$MT_HOUR" != "04" && "${{ github.event_name }}" == "schedule" ]]; then
+          if [[ "$MT_HOUR" != "04" && "$MT_HOUR" != "05" && "${{ github.event_name }}" == "schedule" ]]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "Skipping: MT hour is $MT_HOUR, not 04"
+            echo "Skipping: MT hour is $MT_HOUR, not 04-05"
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
