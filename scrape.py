@@ -220,21 +220,59 @@ def strip_utm(url):
         return parsed._replace(query=urlencode(params, doseq=True)).geturl()
     return parsed._replace(query="").geturl().rstrip("?")
 
+# First path segments on businessden.com that are NOT articles.
+# Site redesign (July 2026) moved articles from /YYYY/MM/DD/slug/ to /slug/,
+# so flat single-segment paths are articles UNLESS they're on this list.
+BD_INTERNAL_PATHS = {
+    # Membership / account
+    "subscribe", "subscriptions", "plans", "login", "logout", "register",
+    "account", "my-account", "membership", "thank-you",
+    # Site pages
+    "about", "about-us", "contact", "contact-us", "advertise", "advertising",
+    "tips", "send-a-news-tip", "events", "event", "news", "newsletter",
+    "newsletters", "jobs", "careers", "faq", "team", "staff",
+    "privacy-policy", "terms", "terms-of-service", "terms-of-use",
+    # WordPress structural
+    "category", "tag", "author", "page", "search", "feed", "comments",
+    "wp-content", "wp-admin", "wp-includes", "wp-json", "wp-login.php",
+}
+
 def is_bd_article_url(url):
+    """True for BD article URLs in either permalink format:
+    old (pre-redesign):  businessden.com/2026/07/16/slug/
+    new (post-redesign): businessden.com/slug/
+    """
     parsed = urlparse(url)
     if BD_DOMAIN not in parsed.netloc:
         return False
     parts = [p for p in parsed.path.rstrip("/").split("/") if p]
+    if not parts:
+        return False  # bare homepage
+    # Old date-based permalink: /YYYY/MM/DD/slug/
     if len(parts) >= 4:
         try:
             int(parts[0]); int(parts[1]); int(parts[2])
             return True
         except ValueError:
-            pass
+            return False  # multi-segment non-date path (e.g. /events/foo/)
+    # Date archive pages (/2026/, /2026/07/, /2026/07/16/) are not articles
+    if all(p.isdigit() for p in parts):
+        return False
+    # New flat permalink: single slug segment, not an internal page or a file
+    if len(parts) == 1:
+        slug = parts[0].lower()
+        if slug in BD_INTERNAL_PATHS:
+            return False
+        if "." in slug:  # sitemap_index.xml, robots.txt, wp-login.php, etc.
+            return False
+        return True
+    # Multi-segment non-date paths (/category/x/, /events/x/, /tag/x/) are internal
     return False
 
 def is_bd_internal_url(url):
-    return BD_DOMAIN in urlparse(url).netloc
+    """Any BD URL that isn't an article: homepage, /subscribe/, /events/,
+    category/tag/author archives, WP structural paths, etc."""
+    return BD_DOMAIN in urlparse(url).netloc and not is_bd_article_url(url)
 
 def is_sponsored_content(url):
     parsed = urlparse(url)
@@ -244,8 +282,9 @@ def is_sponsored_content(url):
     return any(path.endswith(exc.rstrip("/")) for exc in SPONSORED_SLUG_EXCEPTIONS)
 
 def url_to_title(url):
+    """Slug is the last path segment in both permalink formats."""
     parts = [p for p in urlparse(url).path.rstrip("/").split("/") if p]
-    return parts[3].replace("-", " ").title() if len(parts) >= 4 else urlparse(url).path
+    return parts[-1].replace("-", " ").title() if parts else urlparse(url).path
 
 def load_existing():
     if DATA_FILE.exists():
@@ -260,7 +299,8 @@ def save_data(data):
 
 def needs_upgrade(send):
     # v5: CTA-only ad classification (no NEWS_DOMAINS)
-    if send.get("_v", 0) < 5:
+    # v6: article detection handles flat permalinks (/slug/) post-redesign
+    if send.get("_v", 0) < 6:
         return True
     return ("unique_clickers" not in send or "ad_clicks" not in send
             or "geo" not in send or "clicks_by_age" not in send
@@ -490,7 +530,7 @@ def process_email(email):
         "article_clicks": sum(a["clicks"] for a in articles),
         "articles": articles, "ad_clicks": ad_clicks, "editorial_clicks": editorial_clicks,
         "geo": geo, "clicks_by_age": clicks_by_age, "clicks_by_hour": clicks_by_hour,
-        "_v": 5,
+        "_v": 6,
     }
 
 def fetch_ga4_sponsored(sponsored_paths):
