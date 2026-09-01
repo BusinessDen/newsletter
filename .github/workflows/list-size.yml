@@ -1,0 +1,65 @@
+name: Newsletter list size
+
+on:
+  schedule:
+    # 21:00 UTC daily. Both newsletters send in the morning, so this lands
+    # well after counters have settled. The job refreshes a rolling window,
+    # so the exact hour and daylight saving do not matter.
+    - cron: "0 21 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: What to pull
+        type: choice
+        required: true
+        default: daily
+        options: [daily, backfill]
+      days:
+        description: Days to refresh in daily mode
+        required: false
+        default: "7"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: newsletter-list-size
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run tracker
+        env:
+          HUBSPOT_TOKEN: ${{ secrets.HUBSPOT_TOKEN }}
+        run: |
+          if [ "${{ inputs.mode }}" = "backfill" ]; then
+            python3 listsize.py --backfill --out list-size-data.json | tee run.log
+          else
+            DAYS="${{ inputs.days }}"
+            python3 listsize.py --daily --days "${DAYS:-7}" --out list-size-data.json | tee run.log
+          fi
+
+      - name: Write summary
+        if: always()
+        run: |
+          echo "## Newsletter list size" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat run.log >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || echo "no output" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- list-size-data.json; then
+            echo "No change."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add list-size-data.json
+          git commit -m "List size: $(date -u +%Y-%m-%d)"
+          git push
