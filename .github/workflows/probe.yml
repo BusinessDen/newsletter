@@ -1,0 +1,258 @@
+name: HubSpot access probe
+
+on:
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: How far back to look for published sends
+        type: choice
+        required: true
+        default: "180"
+        options: ["90", "180", "365", "730"]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe HubSpot
+        env:
+          HUBSPOT_TOKEN: ${{ secrets.HUBSPOT_TOKEN }}
+          LOOKBACK_DAYS: ${{ inputs.lookback_days }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, sys, urllib.error, urllib.parse, urllib.request
+          from datetime import datetime, timedelta, timezone
+
+          BASE = "https://api.hubapi.com"
+          TOKEN = os.environ.get("HUBSPOT_TOKEN", "").strip()
+          DAYS = int(os.environ.get("LOOKBACK_DAYS", "180"))
+          SUMMARY = os.environ["GITHUB_STEP_SUMMARY"]
+          RICH = re.compile(r"rich|bizsense|rbs|rva", re.I)
+
+          out = []
+          def w(line=""):
+              out.append(line)
+
+          def call(method, path, params=None, body=None):
+              url = BASE + path
+              if params:
+                  url += "?" + urllib.parse.urlencode(params)
+              data = json.dumps(body).encode() if body is not None else None
+              req = urllib.request.Request(url, data=data, method=method)
+              req.add_header("Authorization", "Bearer " + TOKEN)
+              req.add_header("Content-Type", "application/json")
+              try:
+                  with urllib.request.urlopen(req, timeout=45) as r:
+                      return r.status, json.loads(r.read().decode() or "{}")
+              except urllib.error.HTTPError as e:
+                  try:
+                      return e.code, json.loads(e.read().decode() or "{}")
+                  except Exception:
+                      return e.code, {}
+              except Exception as e:
+                  return 0, {"message": str(e)}
+
+          def word(c):
+              return {200: "ok", 401: "bad token", 403: "missing scope",
+                      0: "no response"}.get(c, "http %d" % c)
+
+          result = {"lookback_days": DAYS,
+                    "ran": datetime.now(timezone.utc).isoformat()}
+
+          if not TOKEN:
+              w("## Probe could not run")
+              w()
+              w("The `HUBSPOT_TOKEN` secret is empty or not set on this repository.")
+              open(SUMMARY, "a").write("\n".join(out) + "\n")
+              sys.exit(1)
+
+          # 1. portal ---------------------------------------------------------
+          code, acct = call("GET", "/account-info/v3/details")
+          result["account"] = {"status": code, "portal_id": acct.get("portalId"),
+                               "account_type": acct.get("accountType"),
+                               "time_zone": acct.get("timeZone")}
+
+          w("## HubSpot access probe")
+          w()
+          w("Looked back %d days. Read-only — nothing in HubSpot was changed." % DAYS)
+          w()
+
+          if code != 200:
+              w("### Result")
+              w()
+              w("The token did not authenticate (%s). Nothing else could run."
+                % word(code))
+              if acct.get("message"):
+                  w()
+                  w("> " + str(acct["message"]))
+              open(SUMMARY, "a").write("\n".join(out) + "\n")
+              json.dump(result, open("hubspot-probe.json", "w"), indent=2)
+              sys.exit(1)
+
+          # 2. campaigns ------------------------------------------------------
+          since = datetime.now(timezone.utc) - timedelta(days=DAYS)
+          campaigns, after, pages, ccode = {}, None, 0, None
+          while pages < 120:
+              params = {"limit": 50, "sort": "-publishDate"}
+              if after:
+                  params["after"] = after
+              c, data = call("GET", "/marketing/v3/emails", params=params)
+              if ccode is None:
+                  ccode = c
+              if c != 200:
+                  break
+              stop = False
+              for em in data.get("results", []):
+                  if em.get("state") != "PUBLISHED":
+                      continue
+                  pub = em.get("publishDate") or ""
+                  when = ""
+                  if pub:
+                      try:
+                          dtv = datetime.fromisoformat(pub.replace("Z", "+00:00"))
+                          if dtv < since:
+                              stop = True
+                              break
+                          when = dtv.strftime("%Y-%m-%d")
+                      except ValueError:
+                          pass
+                  nm = em.get("campaignName") or "(no campaign name)"
+                  e = campaigns.setdefault(nm, {"name": nm, "sends": 0,
+                                                "latest": "", "id": None})
+                  e["sends"] += 1
+                  if when and when > e["latest"]:
+                      e["latest"], e["id"] = when, em.get("id")
+              pages += 1
+              if stop:
+                  break
+              after = (data.get("paging") or {}).get("next", {}).get("after")
+              if not after:
+                  break
+
+          items = sorted(campaigns.values(), key=lambda x: -x["sends"])
+          result["campaigns"] = {"status": ccode, "items": items}
+          hits = [c["name"] for c in items if RICH.search(c["name"])]
+
+          # 3. verdict --------------------------------------------------------
+          w("### Result")
+          w()
+          w("- Token reaches portal **%s**. Compare against Richmond's portal ID."
+            % acct.get("portalId"))
+          if ccode != 200:
+              w("- Marketing email access failed (%s). Recipient counts are out of "
+                "reach until that scope is added." % word(ccode))
+          else:
+              w("- Found **%d** campaign(s) with published sends in the window."
+                % len(items))
+              if hits:
+                  w("- A Richmond-looking campaign is in this portal: **%s**. Same "
+                    "token, same code path." % ", ".join(hits))
+              else:
+                  w("- No campaign name matches Richmond, BizSense, RBS or RVA. "
+                    "Read the full list below before concluding — the campaign may "
+                    "be named something else.")
+          w()
+
+          # 4. campaign table -------------------------------------------------
+          if items:
+              w("### Campaigns with published sends")
+              w()
+              w("| Campaign | Sends | Latest |")
+              w("| --- | ---: | --- |")
+              for c in items:
+                  nm = ("**%s**" % c["name"]) if RICH.search(c["name"]) else c["name"]
+                  w("| %s | %d | %s |" % (nm, c["sends"], c["latest"] or "—"))
+              w()
+
+          # 5. stats ----------------------------------------------------------
+          stats = []
+          for c in items:
+              if not c["id"]:
+                  continue
+              sc, d = call("GET", "/marketing/v3/emails/%s" % c["id"],
+                           params={"includeStats": "true"})
+              if sc != 200:
+                  stats.append({"campaign": c["name"], "date": c["latest"],
+                                "error": word(sc)})
+                  continue
+              k = (d.get("stats") or {}).get("counters", {})
+              stats.append({"campaign": c["name"], "date": c["latest"],
+                            "selected": k.get("selected", 0), "sent": k.get("sent", 0),
+                            "delivered": k.get("delivered", 0),
+                            "suppressed": k.get("suppressed", 0),
+                            "dropped": k.get("dropped", 0),
+                            "unsubscribed": k.get("unsubscribed", 0)})
+          result["stats"] = stats
+
+          if stats:
+              w("### Most recent send, by campaign")
+              w()
+              w("| Campaign | Date | Targeted | Sent | Delivered | Suppressed | Dropped |")
+              w("| --- | --- | ---: | ---: | ---: | ---: | ---: |")
+              for s in stats:
+                  if s.get("error"):
+                      w("| %s | %s | %s | | | | |" % (s["campaign"], s["date"], s["error"]))
+                      continue
+                  w("| %s | %s | %s | %s | %s | %s | %s |" % (
+                      s["campaign"], s["date"], f"{s['selected']:,}",
+                      f"{s['sent']:,}", f"{s['delivered']:,}",
+                      f"{s['suppressed']:,}", f"{s['dropped']:,}"))
+              w()
+
+          # 6. scope checks ---------------------------------------------------
+          lc, ld = call("POST", "/crm/v3/lists/search",
+                        body={"query": "", "count": 100, "offset": 0})
+          lists = []
+          if lc == 200:
+              for l in (ld.get("lists") or ld.get("results") or []):
+                  if l.get("objectTypeId") in (None, "0-1"):
+                      lists.append({"id": l.get("listId"), "name": l.get("name"),
+                                    "processing": l.get("processingType"),
+                                    "size": l.get("size")})
+          result["lists"] = {"status": lc, "items": lists}
+
+          sc2, sd = call("GET", "/communication-preferences/v3/definitions")
+          subs = [{"id": s.get("id"), "name": s.get("name"),
+                   "active": s.get("isActive")}
+                  for s in (sd.get("subscriptionDefinitions", []) if sc2 == 200 else [])]
+          result["subscriptions"] = {"status": sc2, "items": subs}
+
+          w("### Other endpoints")
+          w()
+          w("| Endpoint | Result |")
+          w("| --- | --- |")
+          w("| Contact lists | %s%s |" % (word(lc),
+                                          " — %d list(s)" % len(lists) if lc == 200 else ""))
+          w("| Subscription types | %s%s |" % (word(sc2),
+                                               " — %d type(s)" % len(subs) if sc2 == 200 else ""))
+          w()
+          if lc == 403 or sc2 == 403:
+              w("A missing scope here does not affect the recipient counts above. "
+                "It only rules out a list-size figure independent of any single send.")
+              w()
+
+          if lists:
+              w("### Contact lists")
+              w()
+              w("| List | Type | Size |")
+              w("| --- | --- | ---: |")
+              for l in lists:
+                  w("| %s | %s | %s |" % (l["name"], l["processing"] or "—",
+                                          f"{l['size']:,}" if l.get("size") else "—"))
+              w()
+
+          open(SUMMARY, "a").write("\n".join(out) + "\n")
+          json.dump(result, open("hubspot-probe.json", "w"), indent=2)
+          print("Probe complete. %d campaigns." % len(items))
+          PY
+
+      - name: Save full result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hubspot-probe
+          path: hubspot-probe.json
+          if-no-files-found: ignore
